@@ -159,153 +159,145 @@ export default function EmergencyCardPage() {
     setDownloading(false);
   }
 
-  return (
-    <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
-      <div className="mb-8 text-center">
-        <h1 className="text-3xl font-bold text-addisons-primary-dark sm:text-4xl">
-          Medical Emergency Card
+ return (
+  <div className="bg-[#eaebd0] py-20 px-6">
+    <div className="max-w-6xl mx-auto">
+
+      {/* HEADER */}
+      <div className="text-center mb-12">
+        <h1 className="text-4xl italic text-[#2d3c59]">
+          Emergency Card
         </h1>
-        <p className="mt-4 max-w-2xl mx-auto text-addisons-text-light">
-          Create a wallet-sized card with your critical medical information. In an
-          Addisonian crisis, ambulance crew and hospital staff need this information immediately.
+        <p className="mt-3 text-sm text-[#2d3c59]/60">
+          Fill your details and generate your medical emergency card.
         </p>
       </div>
 
-      <div className="grid gap-8 lg:grid-cols-2">
-        {/* Form - single column on mobile */}
-        <div className="rounded-2xl bg-addisons-surface p-6 shadow-sm ring-1 ring-addisons-primary/20 sm:p-8">
-          <h2 className="text-lg font-semibold text-addisons-primary-dark">
-            Your information
+      {/* MAIN BOX */}
+      <div className="grid lg:grid-cols-3 rounded-3xl overflow-hidden shadow-xl">
+
+        {/* 🔥 LEFT FORM */}
+        <div className="lg:col-span-2 bg-white p-8 sm:p-10">
+
+          <h2 className="text-lg font-semibold text-[#2d3c59] mb-6">
+            Enter Your Details
           </h2>
-          <form
-            onSubmit={(e) => e.preventDefault()}
-            className="mt-6 space-y-4"
-          >
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-addisons-primary-dark">
-                Full name *
-              </label>
+
+          <form className="space-y-5">
+
+            {/* ROW */}
+            <div className="grid sm:grid-cols-2 gap-4">
               <input
-                id="name"
-                type="text"
-                required
+                placeholder="Full Name *"
                 value={data.name}
-                onChange={(e) => setData((d) => ({ ...d, name: e.target.value }))}
-                placeholder="Your name"
-                className="mt-1 block w-full rounded-lg border border-addisons-primary/30 px-4 py-3 text-addisons-text focus:border-addisons-primary focus:outline-none focus:ring-1 focus:ring-addisons-primary"
+                onChange={(e) =>
+                  setData((d) => ({ ...d, name: e.target.value }))
+                }
+                className="w-full rounded-xl border border-[#2d3c59]/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#94a378]"
               />
-            </div>
-            <div>
-              <label htmlFor="emergencyContact" className="block text-sm font-medium text-addisons-primary-dark">
-                Emergency contact (name & phone) *
-              </label>
-              <textarea
-                id="emergencyContact"
-                required
-                rows={2}
-                value={data.emergencyContact}
-                onChange={(e) => setData((d) => ({ ...d, emergencyContact: e.target.value }))}
-                placeholder="e.g. 98765 43210"
-                className="mt-1 block w-full rounded-lg border border-addisons-primary/30 px-4 py-3 text-addisons-text focus:border-addisons-primary focus:outline-none focus:ring-1 focus:ring-addisons-primary"
-              />
-            </div>
-            <div>
-              <label htmlFor="medications" className="block text-sm font-medium text-addisons-primary-dark">
-                Medications (e.g. hydrocortisone dosage) *
-              </label>
-              <textarea
-                id="medications"
-                required
-                rows={2}
-                value={data.medications}
-                onChange={(e) => setData((d) => ({ ...d, medications: e.target.value }))}
-                placeholder="e.g. Hydrocortisone 10mg AM, 5mg PM"
-                className="mt-1 block w-full rounded-lg border border-addisons-primary/30 px-4 py-3 text-addisons-text focus:border-addisons-primary focus:outline-none focus:ring-1 focus:ring-addisons-primary"
-              />
-            </div>
-            <div>
-              <label htmlFor="doctorContact" className="block text-sm font-medium text-addisons-primary-dark">
-                Endocrinologist / doctor contact
-              </label>
+
               <input
-                id="doctorContact"
-                type="text"
+                placeholder="Doctor Contact"
                 value={data.doctorContact}
-                onChange={(e) => setData((d) => ({ ...d, doctorContact: e.target.value }))}
-                placeholder="Name and phone"
-                className="mt-1 block w-full rounded-lg border border-addisons-primary/30 px-4 py-3 text-addisons-text focus:border-addisons-primary focus:outline-none focus:ring-1 focus:ring-addisons-primary"
+                onChange={(e) =>
+                  setData((d) => ({ ...d, doctorContact: e.target.value }))
+                }
+                className="w-full rounded-xl border border-[#2d3c59]/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#94a378]"
               />
             </div>
-            <div>
-              <label htmlFor="allergies" className="block text-sm font-medium text-addisons-primary-dark">
-                Allergies
-              </label>
+
+            {/* ROW */}
+            <div className="grid sm:grid-cols-2 gap-4">
               <input
-                id="allergies"
-                type="text"
+                placeholder="Allergies"
                 value={data.allergies}
-                onChange={(e) => setData((d) => ({ ...d, allergies: e.target.value }))}
-                placeholder="None or list allergies"
-                className="mt-1 block w-full rounded-lg border border-addisons-primary/30 px-4 py-3 text-addisons-text focus:border-addisons-primary focus:outline-none focus:ring-1 focus:ring-addisons-primary"
+                onChange={(e) =>
+                  setData((d) => ({ ...d, allergies: e.target.value }))
+                }
+                className="w-full rounded-xl border border-[#2d3c59]/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#94a378]"
               />
-            </div>
-            <div>
-              <label htmlFor="additionalInfo" className="block text-sm font-medium text-addisons-primary-dark">
-                Additional info
-              </label>
+
               <textarea
-                id="additionalInfo"
                 rows={2}
-                value={data.additionalInfo}
-                onChange={(e) => setData((d) => ({ ...d, additionalInfo: e.target.value }))}
-                placeholder="Any other critical information"
-                className="mt-1 block w-full rounded-lg border border-addisons-primary/30 px-4 py-3 text-addisons-text focus:border-addisons-primary focus:outline-none focus:ring-1 focus:ring-addisons-primary"
+                placeholder="Emergency Contact *"
+                value={data.emergencyContact}
+                onChange={(e) =>
+                  setData((d) => ({ ...d, emergencyContact: e.target.value }))
+                }
+                className="w-full rounded-xl border border-[#2d3c59]/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#94a378]"
               />
             </div>
+
+            {/* TEXTAREAS */}
+            <textarea
+              rows={2}
+              placeholder="Medications *"
+              value={data.medications}
+              onChange={(e) =>
+                setData((d) => ({ ...d, medications: e.target.value }))
+              }
+              className="w-full rounded-xl border border-[#2d3c59]/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#94a378]"
+            />
+
+            <textarea
+              rows={2}
+              placeholder="Additional Info"
+              value={data.additionalInfo}
+              onChange={(e) =>
+                setData((d) => ({ ...d, additionalInfo: e.target.value }))
+              }
+              className="w-full rounded-xl border border-[#2d3c59]/20 px-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-[#94a378]"
+            />
+
+            {/* BUTTON */}
             <button
               type="button"
               onClick={handleDownloadPDF}
               disabled={!isValid || downloading}
-              className="w-full rounded-lg bg-addisons-primary py-4 font-semibold text-addisons-primary-dark transition hover:bg-addisons-primary/90 disabled:opacity-50"
+              className="mt-4 bg-[#2d3c59] text-white px-6 py-3 rounded-full text-sm hover:bg-[#1f2a40] transition"
             >
-              {downloading ? "Generating PDF..." : "Download PDF (wallet size)"}
+              {downloading ? "Generating..." : "Download Card"}
             </button>
-            {status === "authenticated" && (
-              <button
-                type="button"
-                onClick={handleSave}
-                disabled={!isValid || saving}
-                className="w-full rounded-lg border-2 border-addisons-accent py-3 font-medium text-addisons-primary-dark transition hover:bg-addisons-accent/20 disabled:opacity-50"
-              >
-                {saving ? "Saving..." : saved ? "Saved ✓" : "Save to account"}
-              </button>
-            )}
+
           </form>
-          <p className="mt-4 text-center text-sm text-addisons-text-light">
-            {status === "authenticated" ? (
-              "Your card is saved to your account. Update anytime."
-            ) : (
-              <>
-                No account needed.{" "}
-                <Link href="/register" className="font-medium text-addisons-primary hover:underline">
-                  Create account
-                </Link>{" "}
-                to save and update your card anytime.
-              </>
-            )}
-          </p>
         </div>
 
-        {/* Live preview */}
-        <div className="rounded-2xl bg-addisons-surface p-6 shadow-sm ring-1 ring-addisons-primary/20 sm:p-8">
-          <h2 className="text-lg font-semibold text-addisons-primary-dark">
-            Preview
-          </h2>
-          <div className="mt-6 flex justify-center">
-            <EmergencyCardPreview data={data} />
+        {/* 🔥 RIGHT PANEL */}
+        <div className="bg-[#2d3c59] text-white p-8 flex flex-col justify-between">
+
+          <div>
+            <h3 className="text-lg font-semibold mb-4">
+              Your Card Preview
+            </h3>
+
+            {/* PREVIEW */}
+            <div className="bg-white rounded-xl p-4 flex justify-center">
+              <EmergencyCardPreview data={data} />
+            </div>
           </div>
+
+          {/* ACTIONS */}
+          <div className="mt-8 space-y-4">
+
+            {status === "authenticated" && (
+              <button
+                onClick={handleSave}
+                disabled={!isValid || saving}
+                className="w-full bg-[#94a378] text-white py-3 rounded-xl text-sm hover:bg-[#7e8f5e] transition"
+              >
+                {saving ? "Saving..." : saved ? "Saved ✓" : "Save to Account"}
+              </button>
+            )}
+
+            <p className="text-xs text-white/60 text-center">
+              Keep this card accessible in emergencies.
+            </p>
+          </div>
+
         </div>
+
       </div>
     </div>
-  );
+  </div>
+);
 }
