@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* Addison's Disease - Soft color palette (awareness ribbon: light blue) */
+:root {
+  --addisons-primary: #8ecae6;
+  --addisons-primary-dark: #2c5282;
+  --addisons-accent: #57bb90;
+  --addisons-cream: #f8fafc;
+  --addisons-surface: #f0f9ff;
+  --addisons-muted: #94a3b8;
+  --addisons-text: #334155;
+  --addisons-text-light: #64748b;
+  --background: var(--addisons-cream);
+  --foreground: var(--addisons-text);
+}
+
+@theme inline {
+  --color-addisons-primary: #8ecae6;
+  --color-addisons-primary-dark: #2c5282;
+  --color-addisons-accent: #57bb90;
+  --color-addisons-cream: #f8fafc;
+  --color-addisons-surface: #f0f9ff;
+  --color-addisons-muted: #94a3b8;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  min-height: 100vh;
+}
+
+/* Touch-friendly min size for interactive elements */
+button,
+a[role="button"],
+input[type="submit"],
+input[type="button"] {
+  min-height: 44px;
+  min-width: 44px;
+}
+@keyframes fadeRight {
+  0% {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
