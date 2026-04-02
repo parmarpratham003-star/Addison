@@ -123,70 +123,88 @@ export function HeroSection() {
           </div>
         </div>
 
-        {/* RIGHT GRID (MATCH HEIGHT) */}
-        <div className="grid grid-cols-2 gap-5 h-full">
+       {/* RIGHT GRID */}
+<div className="grid grid-cols-2 gap-4 sm:gap-5 h-full">
 
-          {/* Image */}
-          <div className="rounded-2xl overflow-hidden h-[200px] hover:shadow-xl transition">
-            <img
-              src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80"
-              className="w-full h-full object-cover"
-              alt="Team"
-            />
-          </div>
+  {/* Image */}
+  <div
+    className={`rounded-2xl overflow-hidden h-[160px] sm:h-[200px] transition-all duration-700 delay-100 ${
+      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+    } animate-float`}
+  >
+    <img
+      src="https://images.unsplash.com/photo-1584515933487-779824d29309?auto=format&fit=crop&w=1200&q=80"
+      className="w-full h-full object-cover"
+      alt="Team"
+    />
+  </div>
 
-          {/* Stats Card */}
-          <div className="bg-[#2d3c59] text-white rounded-2xl p-6 flex flex-col justify-between h-[200px] hover:shadow-xl hover:-translate-y-1 transition">
-            <div>
-              <h3 className="text-3xl font-bold">
-                <Counter />
-              </h3>
-              <p className="text-sm opacity-80 mt-1">
-                Project Finish With Superbly
-              </p>
-            </div>
+  {/* Stats Card */}
+  <div
+    className={`bg-[#2d3c59] text-white rounded-2xl p-4 sm:p-6 flex flex-col justify-between h-[160px] sm:h-[200px] transition-all duration-700 delay-200 ${
+      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+    } hover:-translate-y-1 hover:shadow-2xl`}
+  >
+    <div>
+      <h3 className="text-2xl sm:text-3xl font-bold">
+        <Counter />
+      </h3>
+      <p className="text-xs sm:text-sm opacity-80 mt-1">
+        Project Finish With Superbly
+      </p>
+    </div>
 
-            <div className="w-full h-px bg-white/20 my-3"></div>
+    <div className="w-full h-px bg-white/20 my-2"></div>
 
-            <div className="flex justify-between text-sm">
-              <div>
-                <p className="opacity-70">Success</p>
-                <p className="font-semibold">98%</p>
-              </div>
-              <div>
-                <p className="opacity-70">Users</p>
-                <p className="font-semibold">1.2k+</p>
-              </div>
-            </div>
-          </div>
+    <div className="flex justify-between text-xs sm:text-sm">
+      <div>
+        <p className="opacity-70">Success</p>
+        <p className="font-semibold">98%</p>
+      </div>
+      <div>
+        <p className="opacity-70">Users</p>
+        <p className="font-semibold">1.2k+</p>
+      </div>
+    </div>
+  </div>
 
-          {/* Content Card */}
-          <div className="bg-[#2d3c59] text-white rounded-2xl p-5 flex flex-col justify-center h-[200px] hover:shadow-xl hover:-translate-y-1 transition">
-            <h3 className="text-lg font-semibold leading-snug">
-              Mastering <br />
-              The Art Of Digital <br />
-              <span className="text-[#eaebd0]">Marketing</span>
-            </h3>
-            <p className="text-xs opacity-70 mt-3">
-              Lorem ipsum dolor sit amet consectetur. Amet mattis tellus et quis.
-            </p>
-          </div>
+  {/* Content Card */}
+  <div
+    className={`bg-[#2d3c59] text-white rounded-2xl p-4 sm:p-5 flex flex-col justify-center h-[160px] sm:h-[200px] transition-all duration-700 delay-300 ${
+      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+    } hover:-translate-y-1 hover:shadow-xl`}
+  >
+    <h3 className="text-sm sm:text-lg font-semibold leading-snug">
+      Mastering <br />
+      The Art Of Digital <br />
+      <span className="text-[#eaebd0]">Marketing</span>
+    </h3>
+    <p className="text-[10px] sm:text-xs opacity-70 mt-2 sm:mt-3">
+      Lorem ipsum dolor sit amet consectetur.
+    </p>
+  </div>
 
-          {/* Image */}
-          <div className="relative rounded-2xl overflow-hidden h-[200px] hover:shadow-xl transition">
-            <img
-              src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=1200&auto=format&fit=crop"
-              className="w-full h-full object-cover"
-              alt="Work"
-            />
+  {/* Image */}
+  <div
+    className={`relative rounded-2xl overflow-hidden h-[160px] sm:h-[200px] transition-all duration-700 delay-500 ${
+      visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"
+    } animate-float delay-200`}
+  >
+    <img
+      src="https://images.unsplash.com/photo-1584982751601-97dcc096659c?q=80&w=1200&auto=format&fit=crop"
+      className="w-full h-full object-cover"
+      alt="Work"
+    />
 
-            <div className="absolute top-3 right-3 bg-[#eaebd0] text-[#2d3c59] w-8 h-8 flex items-center justify-center rounded-full shadow">
-              ↗
-            </div>
-          </div>
+    <div className="absolute top-2 right-2 sm:top-3 sm:right-3 bg-[#eaebd0] text-[#2d3c59] w-7 h-7 sm:w-8 sm:h-8 flex items-center justify-center rounded-full shadow">
+      ↗
+    </div>
+  </div>
+
+</div>
 
         </div>
-      </div>
+   
     </section>
   );
 }

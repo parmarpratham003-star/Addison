@@ -1,47 +1,68 @@
 "use client";
 
 import type { EmergencyCardData } from "@/app/emergency-card/page";
-
-export function EmergencyCardPreview({ data }: { data: EmergencyCardData }) {
+export function EmergencyCardPreview({ data }) {
   return (
-    <div
-      className="w-full max-w-[320px] rounded-xl border-2 border-addisons-primary-dark bg-addisons-surface p-5 shadow-lg"
-      style={{ aspectRatio: "1.586/1" }}
-    >
-      <p className="mb-3 text-center text-xs font-bold uppercase tracking-wider text-addisons-primary-dark">
-        Addison&apos;s Disease – Emergency Card
-      </p>
-      <div className="space-y-2 text-xs">
-        <div>
-          <p className="text-addisons-muted font-semibold">Patient name</p>
-          <p className="text-addisons-text">{data.name || "—"}</p>
-        </div>
-        <div>
-          <p className="text-addisons-muted font-semibold">Emergency contact</p>
-          <p className="text-addisons-text whitespace-pre-wrap">{data.emergencyContact || "—"}</p>
-        </div>
-        <div>
-          <p className="text-addisons-muted font-semibold">Medications</p>
-          <p className="text-addisons-text whitespace-pre-wrap">{data.medications || "—"}</p>
-        </div>
-        <div>
-          <p className="text-addisons-muted font-semibold">Doctor</p>
-          <p className="text-addisons-text">{data.doctorContact || "—"}</p>
-        </div>
-        <div>
-          <p className="text-addisons-muted font-semibold">Allergies</p>
-          <p className="text-addisons-text">{data.allergies || "None known"}</p>
-        </div>
-        {data.additionalInfo && (
-          <div>
-            <p className="text-addisons-muted font-semibold">Additional</p>
-            <p className="text-addisons-text whitespace-pre-wrap">{data.additionalInfo}</p>
-          </div>
-        )}
+    <div className="relative w-[260px] rounded-2xl bg-gradient-to-br from-[#f8fafc] to-[#e2e8f0] p-5 shadow-xl border border-[#2d3c59]/10">
+
+      {/* Header */}
+      <div className="text-center mb-4">
+        <h3 className="text-[11px] font-semibold tracking-wide text-[#2d3c59] uppercase">
+          Addison's Disease
+        </h3>
+        <p className="text-[10px] text-[#2d3c59]/60">
+          Emergency Card
+        </p>
       </div>
-      <p className="mt-3 text-center text-[10px] text-addisons-muted">
-        In crisis: Give hydrocortisone immediately. Call 112.
-      </p>
+
+      {/* Divider */}
+      <div className="h-[1px] bg-[#2d3c59]/10 mb-3"></div>
+
+      {/* Name */}
+      <div className="mb-3">
+        <p className="text-[9px] text-[#2d3c59]/50">Patient Name</p>
+        <p className="text-[12px] font-semibold text-[#2d3c59]">
+          {data.name || "—"}
+        </p>
+      </div>
+
+      {/* Emergency Contact */}
+      <div className="mb-3">
+        <p className="text-[9px] text-[#2d3c59]/50">Emergency Contact</p>
+        <p className="text-[11px] text-[#2d3c59]">
+          {data.emergencyContact || "—"}
+        </p>
+      </div>
+
+      {/* Medications */}
+      <div className="mb-3">
+        <p className="text-[9px] text-[#2d3c59]/50">Medications</p>
+        <p className="text-[11px] text-[#2d3c59]">
+          {data.medications || "—"}
+        </p>
+      </div>
+
+      {/* Doctor */}
+      <div className="mb-3">
+        <p className="text-[9px] text-[#2d3c59]/50">Doctor</p>
+        <p className="text-[11px] text-[#2d3c59]">
+          {data.doctorContact || "—"}
+        </p>
+      </div>
+
+      {/* Allergies */}
+      <div className="mb-4">
+        <p className="text-[9px] text-[#2d3c59]/50">Allergies</p>
+        <p className="text-[11px] text-[#2d3c59]">
+          {data.allergies || "None"}
+        </p>
+      </div>
+
+      {/* Emergency Note */}
+      <div className="bg-[#2d3c59] text-white text-[9px] rounded-lg px-3 py-2 text-center">
+        ⚠️ In crisis: Give hydrocortisone immediately. Call 112.
+      </div>
+
     </div>
   );
 }

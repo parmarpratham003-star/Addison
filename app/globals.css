@@ -71,3 +71,13 @@ input[type="button"] {
     transform: translateX(0);
   }
 }
+/* Smooth floating animation */
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
