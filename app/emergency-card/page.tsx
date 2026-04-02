@@ -229,7 +229,7 @@ export default function EmergencyCardPage() {
 
   return (
     <div
-      className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen px-4 sm:px-6 py-10 sm:py-20`}
+      className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen px-4 sm:px-6 py-10 sm:py-25`}
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       {/* Inject animation keyframes */}
