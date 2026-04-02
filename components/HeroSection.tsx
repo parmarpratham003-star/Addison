@@ -59,7 +59,7 @@ export function HeroSection() {
   return (
     <section
       ref={ref}
-      className={`${outfit.className} w-full bg-[#eaebd0] py-10 `}
+      className={`${outfit.className} w-full bg-[#eaebd0]/5 py-10 `}
     >
       <div className="max-w-7xl mx-auto px-6 grid lg:grid-cols-2 gap-12 items-stretch">
 

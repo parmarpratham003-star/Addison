@@ -103,11 +103,12 @@ const dropdownBtnClass = `
     relative
 
     transition-all duration-300
-    
+    border-b border-[rgba(45,60,89,0.12)]
+  
   `}
   style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
 >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-6 py-3.5 lg:px-8">
 
         {/* Logo */}
         <Link
