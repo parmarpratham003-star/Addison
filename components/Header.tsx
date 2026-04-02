@@ -97,14 +97,13 @@ const dropdownBtnClass = `
     <header
   className={`
     ${cormorant.variable} ${outfit.variable}
-    sticky top-0  z-50
-    bg-[#eaebd0]
-    
-    relative
+    sticky top-0 z-50
 
+    bg-[#f5f6e9]/90 backdrop-blur-md
+
+    relative
     transition-all duration-300
-    border-b border-[rgba(45,60,89,0.12)]
-  
+    border-b border-[rgba(45,60,89,0.08)]
   `}
   style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
 >

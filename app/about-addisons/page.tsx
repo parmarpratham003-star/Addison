@@ -105,9 +105,7 @@ export default function AboutAddisonsPage() {
         {/* ── 01 ADRENAL GLANDS ── */}
         <div className="grid grid-cols-[180px_1fr] gap-10 py-10 border-b border-[#2d3c59]/10 items-start">
           <div>
-            <p className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/35 font-light mb-3">
-              01
-            </p>
+           
             <h2
               className="text-[1.35rem] italic text-[#2d3c59] font-normal leading-[1.3]"
               style={{ fontFamily: "var(--font-playfair)" }}
@@ -127,9 +125,7 @@ export default function AboutAddisonsPage() {
         {/* ── 02 SYMPTOMS ── */}
         <div className="grid grid-cols-[180px_1fr] gap-10 py-10 border-b border-[#2d3c59]/10 items-start">
           <div>
-            <p className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/35 font-light mb-3">
-              02
-            </p>
+           
             <h2
               className="text-[1.35rem] italic text-[#2d3c59] font-normal leading-[1.3]"
               style={{ fontFamily: "var(--font-playfair)" }}
@@ -152,9 +148,7 @@ export default function AboutAddisonsPage() {
         {/* ── 03 DIAGNOSIS ── */}
         <div className="grid grid-cols-[180px_1fr] gap-10 py-10 border-b border-[#2d3c59]/10 items-start">
           <div>
-            <p className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/35 font-light mb-3">
-              03
-            </p>
+           
             <h2
               className="text-[1.35rem] italic text-[#2d3c59] font-normal leading-[1.3]"
               style={{ fontFamily: "var(--font-playfair)" }}
@@ -177,9 +171,7 @@ export default function AboutAddisonsPage() {
         <div className="max-w-4xl mx-auto px-6">
           <div className="grid grid-cols-[180px_1fr] gap-10 py-10 items-start">
             <div>
-              <p className="text-[0.58rem] tracking-[0.28em] uppercase text-[#eaebd0]/35 font-light mb-3">
-                04
-              </p>
+              
               <h2
                 className="text-[1.35rem] italic text-[#eaebd0] font-normal leading-[1.3]"
                 style={{ fontFamily: "var(--font-playfair)" }}
@@ -203,9 +195,7 @@ export default function AboutAddisonsPage() {
         {/* ── 05 LIFESTYLE ── */}
         <div className="grid grid-cols-[180px_1fr] gap-10 py-10 border-b border-[#2d3c59]/10 items-start">
           <div>
-            <p className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/35 font-light mb-3">
-              05
-            </p>
+            
             <h2
               className="text-[1.35rem] italic text-[#2d3c59] font-normal leading-[1.3]"
               style={{ fontFamily: "var(--font-playfair)" }}
@@ -228,74 +218,78 @@ export default function AboutAddisonsPage() {
           </ul>
         </div>
 
-        {/* ── CTA CARDS ── */}
-        <div className="py-10 pb-16">
-          <p className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/35 font-light mb-5">
-            Further reading
-          </p>
+        <div className="py-12 pb-16">
+  <p className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/35 font-light mb-6 text-center">
+    Further reading
+  </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+  <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
 
-            {/* Card 1 — dark navy */}
-            <Link
-              href="/emergency-card"
-              className="bg-[#2d3c59] rounded-[16px] p-[1.1rem_1.3rem] flex flex-col gap-[0.6rem] hover:opacity-90 transition-opacity"
-            >
-              <span className="text-[0.58rem] tracking-[0.26em] uppercase text-[#eaebd0]/38 font-light">
-                Free tool
-              </span>
-              <h3
-                className="text-[1.05rem] italic text-[#eaebd0] font-normal leading-[1.3]"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                Create your emergency card
-              </h3>
-              <span className="text-[0.72rem] text-[#eaebd0]/42 mt-1">
-                Get started →
-              </span>
-            </Link>
+    {/* Card 1 */}
+    <Link
+      href="/emergency-card"
+      className="group bg-[#2d3c59] rounded-[18px] p-6 flex flex-col justify-between text-center hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+    >
+      <span className="text-[0.58rem] tracking-[0.26em] uppercase text-[#eaebd0]/40">
+        Free tool
+      </span>
 
-            {/* Card 2 — sage green */}
-            <Link
-              href="/emergency"
-              className="bg-[#94a378] rounded-[16px] p-[1.1rem_1.3rem] flex flex-col gap-[0.6rem] hover:opacity-90 transition-opacity"
-            >
-              <span className="text-[0.58rem] tracking-[0.26em] uppercase text-white/42 font-light">
-                Emergency
-              </span>
-              <h3
-                className="text-[1.05rem] italic text-white font-normal leading-[1.3]"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                Addisonian crisis – what to do
-              </h3>
-              <span className="text-[0.72rem] text-white/48 mt-1">
-                Read guide →
-              </span>
-            </Link>
+      <h3
+        className="text-[1.1rem] italic text-[#eaebd0] mt-3 leading-[1.3]"
+        style={{ fontFamily: "var(--font-playfair)" }}
+      >
+        Emergency Card
+      </h3>
 
-            {/* Card 3 — soft cream */}
-            <Link
-              href="/information/children"
-              className="bg-[#e2e3c8] rounded-[16px] p-[1.1rem_1.3rem] flex flex-col gap-[0.6rem] hover:opacity-90 transition-opacity"
-            >
-              <span className="text-[0.58rem] tracking-[0.26em] uppercase text-[#2d3c59]/32 font-light">
-                Children
-              </span>
-              <h3
-                className="text-[1.05rem] italic text-[#2d3c59] font-normal leading-[1.3]"
-                style={{ fontFamily: "var(--font-playfair)" }}
-              >
-                Addison&apos;s in Children
-              </h3>
-              <span className="text-[0.72rem] text-[#2d3c59]/35 mt-1">
-                Learn more →
-              </span>
-            </Link>
+      <span className="text-[0.75rem] text-[#eaebd0]/50 mt-4 group-hover:translate-x-1 transition">
+        Get started →
+      </span>
+    </Link>
 
-          </div>
-        </div>
+    {/* Card 2 */}
+    <Link
+      href="/emergency"
+      className="group bg-[#94a378] rounded-[18px] p-6 flex flex-col justify-between text-center hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+    >
+      <span className="text-[0.58rem] tracking-[0.26em] uppercase text-white/50">
+        Emergency
+      </span>
 
+      <h3
+        className="text-[1.1rem] italic text-white mt-3 leading-[1.3]"
+        style={{ fontFamily: "var(--font-playfair)" }}
+      >
+        Crisis Guide
+      </h3>
+
+      <span className="text-[0.75rem] text-white/60 mt-4 group-hover:translate-x-1 transition">
+        Read →
+      </span>
+    </Link>
+
+    {/* Card 3 */}
+    <Link
+      href="/information/children"
+      className="group bg-[#e2e3c8] rounded-[18px] p-6 flex flex-col justify-between text-center border border-[#2d3c59]/10 hover:-translate-y-1 hover:shadow-xl transition-all duration-300"
+    >
+      <span className="text-[0.58rem] tracking-[0.26em] uppercase text-[#2d3c59]/40">
+        Children
+      </span>
+
+      <h3
+        className="text-[1.1rem] italic text-[#2d3c59] mt-3 leading-[1.3]"
+        style={{ fontFamily: "var(--font-playfair)" }}
+      >
+        Children Info
+      </h3>
+
+      <span className="text-[0.75rem] text-[#2d3c59]/50 mt-4 group-hover:translate-x-1 transition">
+        Learn →
+      </span>
+    </Link>
+
+  </div>
+</div>
       </div>
     </div>
   );
