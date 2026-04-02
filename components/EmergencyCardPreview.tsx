@@ -1,7 +1,7 @@
 "use client";
 
 import type { EmergencyCardData } from "@/app/emergency-card/page";
-export function EmergencyCardPreview({ data }) {
+export function EmergencyCardPreview({ data }: { data: EmergencyCardData }) {
   return (
     <div className="relative w-[260px] rounded-2xl bg-gradient-to-br from-[#f8fafc] to-[#e2e8f0] p-5 shadow-xl border border-[#2d3c59]/10">
 
