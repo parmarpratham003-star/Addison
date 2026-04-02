@@ -60,39 +60,53 @@ export function Header() {
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
-  const navLinkClass = `
-    relative text-[#2d3c59] text-[0.8125rem] font-normal tracking-[0.04em] uppercase
-    opacity-80 hover:opacity-100 transition-opacity duration-150
-    after:absolute after:bottom-[-2px] after:left-0
-    after:h-[1.5px] after:w-0 after:bg-[#2d3c59]
-    after:transition-[width] after:duration-200 after:ease-out
-    hover:after:w-full
-  `;
 
-  const dropdownBtnClass = `
-    relative flex items-center gap-1
-    text-[#2d3c59] text-[0.8125rem] font-normal tracking-[0.04em] uppercase
-    opacity-80 hover:opacity-100 transition-opacity duration-150
-    after:absolute after:bottom-[-2px] after:left-0
-    after:h-[1.5px] after:w-0 after:bg-[#2d3c59]
-    after:transition-[width] after:duration-200 after:ease-out
-    hover:after:w-full
-    bg-transparent border-none cursor-pointer p-0
-  `;
+
+  const navLinkClass = `
+  relative text-[#2d3c59] text-[0.8125rem] font-normal tracking-[0.04em] uppercase
+  opacity-80 hover:opacity-100 transition-opacity duration-150
+
+  after:absolute after:left-1/2 after:-translate-x-1/2
+  after:bottom-[-15px]
+  after:h-[1.5px] after:w-[55%]
+  after:bg-[#2d3c59]
+  after:opacity-0
+  after:transition-opacity after:duration-200
+
+  hover:after:opacity-100
+`;
+
+const dropdownBtnClass = `
+  relative flex items-center gap-1
+  text-[#2d3c59] text-[0.8125rem] font-normal tracking-[0.04em] uppercase
+  opacity-80 hover:opacity-100 transition-opacity duration-150
+
+  after:absolute after:left-1/2 after:-translate-x-1/2
+  after:bottom-[-4px]
+  after:h-[1.5px] after:w-[55%]
+  after:bg-[#2d3c59]
+  after:opacity-0
+  after:transition-opacity after:duration-200
+
+  hover:after:opacity-100
+
+  bg-transparent border-none cursor-pointer p-0
+`;
 
   return (
     <header
-      className={`
-        ${cormorant.variable} ${outfit.variable}
-        fixed top-0 left-0 right-0 z-50
-        transition-all duration-300 ease-in-out
-        ${scrolled
-          ? "bg-[rgba(234,235,208,0.97)] backdrop-blur-md border-b border-[rgba(45,60,89,0.12)] shadow-sm"
-          : "bg-transparent border-b border-transparent"
-        }
-      `}
-      style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
-    >
+  className={`
+    ${cormorant.variable} ${outfit.variable}
+    sticky top-0  z-50
+    bg-[#eaebd0]
+    
+    relative
+
+    transition-all duration-300
+    
+  `}
+  style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
+>
       <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3.5 sm:px-6 lg:px-8">
 
         {/* Logo */}
@@ -322,16 +336,16 @@ export function Header() {
           >
             Home
           </Link>
-
+<div className="mt-3">
           <Link
             href="/emergency-card"
             onClick={closeMobileMenu}
-            className="rounded-lg px-4 py-3 text-[#2d3c59] text-sm tracking-[0.04em] uppercase
+            className="rounded-lg px-4 py-1.5 text-[#2d3c59] text-sm tracking-[0.04em] uppercase
               hover:bg-[rgba(45,60,89,0.07)] transition-colors duration-150"
           >
             Emergency Card
           </Link>
-
+</div>
           {/* Information section */}
           <div className="mt-3">
             <p className="px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-widest text-[#2d3c59] opacity-35">
