@@ -1,175 +1,189 @@
 import Link from "next/link";
-import { Cormorant_Garamond, Outfit } from "next/font/google";
+import { Playfair_Display, DM_Sans } from "next/font/google";
 
-const cormorant = Cormorant_Garamond({
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
-  variable: "--font-cormorant",
+  weight: ["400", "500"],
+  style: ["normal", "italic"],
+  variable: "--font-playfair",
 });
 
-const outfit = Outfit({
+const dmSans = DM_Sans({
   subsets: ["latin"],
   weight: ["300", "400", "500"],
-  variable: "--font-outfit",
+  variable: "--font-dm",
 });
 
 export function ResourcesSection() {
   return (
     <section
-      className={`${cormorant.variable} ${outfit.variable} bg-[#f3f2ee] py-28 px-6`}
-      style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
+      className={`${playfair.variable} ${dmSans.variable} bg-[#f3f2ee] py-24 px-6`}
+      style={{ fontFamily: "var(--font-dm), DM Sans, sans-serif" }}
     >
-      <div className="max-w-6xl mx-auto">
+      <div className="max-w-5xl mx-auto">
 
         {/* Header */}
-        <div className="flex items-end justify-between mb-20">
+        <div className="flex items-end justify-between mb-10">
           <h2
-            className="text-[3.5rem] sm:text-[4.5rem] leading-[0.95] text-[#2d3c59]"
-            style={{ fontFamily: "var(--font-cormorant)" }}
+            className="text-[3.2rem] leading-[0.95] text-[#2d3c59] font-normal"
+            style={{ fontFamily: "var(--font-playfair)" }}
           >
             Resources
           </h2>
-
-          <span className="text-[0.7rem] tracking-[0.3em] uppercase text-[#2d3c59]/40">
+          <span className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/30 font-light">
             Addison&apos;s Disease
           </span>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[200px]">
+        {/* Masonry — 3 columns */}
+        <div className="columns-1 sm:columns-2 lg:columns-3 gap-4">
 
-          {/* 🔵 BIG CARD */}
+          {/* Emergency — tall dark card, col 1 */}
           <Link
             href="/emergency"
-            className="relative md:col-span-2 row-span-2 bg-[#2d3c59] text-[#eaebd0] p-10 flex flex-col justify-between overflow-hidden"
-            style={{ borderRadius: "36px" }}
+            className="group bg-[#2d3c59] rounded-[22px] overflow-hidden flex flex-col break-inside-avoid mb-4 block"
           >
-            <div className="absolute top-0 right-0 w-60 h-60 bg-white/10 rounded-full blur-2xl" />
-
-            <div>
-              <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#eaebd0]/60">
+            <div className="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1584820927498-cfe5211fd8bf?w=700&q=80"
+                alt="Emergency care"
+                className="w-full object-cover h-56 transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-5 pb-6 flex flex-col gap-3">
+              <span className="text-[0.58rem] tracking-[0.28em] uppercase text-[#eaebd0]/40 font-light">
                 Emergency
               </span>
-
               <h3
-                className="mt-4 text-4xl italic leading-snug"
-                style={{ fontFamily: "var(--font-cormorant)" }}
+                className="text-[1.75rem] italic leading-[1.25] text-[#eaebd0] font-normal"
+                style={{ fontFamily: "var(--font-playfair)" }}
               >
                 Addisonian Crisis Info
               </h3>
-
-              <p className="mt-5 text-sm text-[#eaebd0]/70 max-w-md leading-relaxed">
+              <p className="text-[0.81rem] leading-[1.75] text-[#eaebd0]/55 font-light">
                 Learn how to recognize symptoms, respond quickly, and manage
                 critical Addisonian emergencies with confidence.
               </p>
-
-              <p className="mt-3 text-xs text-[#eaebd0]/50">
-                Emergency signs • Treatment steps • Prevention
+              <p className="text-[0.7rem] text-[#eaebd0]/28 font-light">
+                Emergency signs · Treatment steps · Prevention
               </p>
+              <span className="text-[0.76rem] text-[#eaebd0]/38 mt-1">
+                Explore →
+              </span>
             </div>
-
-            <span className="text-sm text-[#eaebd0]/70">
-              Explore →
-            </span>
           </Link>
 
-          {/* ⚪ BLOG */}
+          {/* Quote card — col 1 bottom */}
+          <div className="bg-[#eaebd0] rounded-[22px] p-6 break-inside-avoid mb-4">
+            <p
+              className="text-[1.35rem] italic text-[#2d3c59]/50 leading-[1.55] font-normal"
+              style={{ fontFamily: "var(--font-playfair)" }}
+            >
+              Your health,<br />informed.
+            </p>
+          </div>
+
+          {/* Blog — col 2 top */}
           <Link
             href="/blog"
-            className="bg-[#e8e6e1] p-6 flex flex-col justify-between"
-            style={{ borderRadius: "28px" }}
+            className="group bg-white rounded-[22px] overflow-hidden flex flex-col break-inside-avoid mb-4 block"
           >
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#2d3c59]/30">
-              Articles
-            </span>
-
-            <div>
+            <div className="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1455390582262-044cdead277a?w=600&q=80"
+                alt="Blog articles"
+                className="w-full object-cover h-40 transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-5 pb-6 flex flex-col gap-2">
+              <span className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/30 font-light">
+                Articles
+              </span>
               <h3
-                className="text-2xl italic text-[#2d3c59]"
-                style={{ fontFamily: "var(--font-cormorant)" }}
+                className="text-[1.5rem] italic text-[#2d3c59] font-normal"
+                style={{ fontFamily: "var(--font-playfair)" }}
               >
                 Blog
               </h3>
-
-              <p className="mt-2 text-sm text-[#2d3c59]/50">
+              <p className="text-[0.8rem] leading-[1.7] text-[#2d3c59]/46 font-light">
                 Patient stories, expert insights, and guidance.
               </p>
+              <span className="text-[0.76rem] text-[#2d3c59]/30 mt-1">
+                Explore →
+              </span>
             </div>
-
-            <span className="text-sm text-[#2d3c59]/40">
-              Explore →
-            </span>
           </Link>
 
-          {/* 🟢 INFO HUB */}
-          <Link
-            href="/information"
-            className="relative bg-[#94a378] text-[#f3f2ee] p-6 flex flex-col justify-between overflow-hidden"
-            style={{ borderRadius: "28px" }}
-          >
-            <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full" />
-
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] text-white/70">
-              Guides
-            </span>
-
-            <div>
-              <h3
-                className="text-2xl italic"
-                style={{ fontFamily: "var(--font-cormorant)" }}
-              >
-                Information Hub
-              </h3>
-
-              <p className="mt-2 text-sm text-white/80">
-                Verified knowledge, symptoms, and care strategies.
-              </p>
-            </div>
-
-            <span className="text-sm text-white/80">
-              Explore →
-            </span>
-          </Link>
-
-          {/* ⚪ DIRECTORY */}
+          {/* Directory — col 2 bottom, taller image */}
           <Link
             href="/directory"
-            className="md:col-span-2 bg-[#e8e6e1] p-8 flex flex-col justify-between"
-            style={{ borderRadius: "36px" }}
+            className="group bg-white rounded-[22px] overflow-hidden flex flex-col break-inside-avoid mb-4 block"
           >
-            <span className="text-[0.65rem] uppercase tracking-[0.25em] text-[#2d3c59]/30">
-              Directory
-            </span>
-
-            <div>
+            <div className="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?w=600&q=80"
+                alt="Find professionals"
+                className="w-full object-cover h-60 transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-5 pb-6 flex flex-col gap-2">
+              <span className="text-[0.58rem] tracking-[0.28em] uppercase text-[#2d3c59]/30 font-light">
+                Directory
+              </span>
               <h3
-                className="text-3xl italic text-[#2d3c59]"
-                style={{ fontFamily: "var(--font-cormorant)" }}
+                className="text-[1.5rem] italic text-[#2d3c59] font-normal"
+                style={{ fontFamily: "var(--font-playfair)" }}
               >
                 Find Professionals
               </h3>
-
-              <p className="mt-3 text-sm text-[#2d3c59]/50 max-w-lg">
+              <p className="text-[0.8rem] leading-[1.7] text-[#2d3c59]/46 font-light">
                 Connect with trusted endocrinologists and specialists who
-                understand Addison’s disease and provide personalized care.
+                understand Addison&apos;s disease and provide personalized care.
               </p>
+              <span className="text-[0.76rem] text-[#2d3c59]/30 mt-1">
+                Explore →
+              </span>
             </div>
-
-            <span className="text-sm text-[#2d3c59]/40">
-              Explore →
-            </span>
           </Link>
 
-          {/* 🔵 QUOTE */}
-          <div
-            className="bg-[#2d3c59] text-[#eaebd0] p-6 flex items-center justify-center text-center"
-            style={{ borderRadius: "28px" }}
+          {/* Information Hub — col 3 top, tallest image */}
+          <Link
+            href="/information"
+            className="group bg-[#94a378] rounded-[22px] overflow-hidden flex flex-col break-inside-avoid mb-4 block"
           >
+            <div className="overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&q=80"
+                alt="Information hub"
+                className="w-full object-cover h-64 transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-5 pb-6 flex flex-col gap-2">
+              <span className="text-[0.58rem] tracking-[0.28em] uppercase text-white/40 font-light">
+                Guides
+              </span>
+              <h3
+                className="text-[1.5rem] italic text-white font-normal"
+                style={{ fontFamily: "var(--font-playfair)" }}
+              >
+                Information Hub
+              </h3>
+              <p className="text-[0.8rem] leading-[1.7] text-white/65 font-light">
+                Verified knowledge, symptoms, and care strategies.
+              </p>
+              <span className="text-[0.76rem] text-white/45 mt-1">
+                Explore →
+              </span>
+            </div>
+          </Link>
+
+          {/* Dark accent quote — col 3 bottom */}
+          <div className="bg-[#2d3c59] rounded-[22px] p-6 flex items-center justify-center text-center break-inside-avoid mb-4">
             <p
-              className="italic text-sm text-[#eaebd0]/70"
-              style={{ fontFamily: "var(--font-cormorant)" }}
+              className="text-[0.95rem] italic text-[#eaebd0]/60 leading-relaxed font-normal"
+              style={{ fontFamily: "var(--font-playfair)" }}
             >
-              Your health,<br /> informed.
+              Your health,<br />your confidence.
             </p>
           </div>
 

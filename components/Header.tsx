@@ -117,11 +117,11 @@ const dropdownBtnClass = `
           aria-label="Addison's Community India - Home"
         >
           <Image
-            src="/adsn.png"
+            src="/logo.png"
             alt="Addison's Disease India"
-            width={44}
-            height={44}
-            className="h-9 w-9 sm:h-11 sm:w-11 object-contain"
+            width={50}
+            height={50}
+            className="h-10 w-10 sm:h-11 sm:w-11 object-contain"
             priority
           />
           <span
