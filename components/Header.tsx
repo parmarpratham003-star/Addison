@@ -263,7 +263,7 @@ export function Header() {
 
             {/* Auth buttons */}
             <div className="ml-6 flex items-center gap-2.5">
-             <div className="h-5 w-[0.5px] bg-[#2d3c59] opacity-10 mr-1" />
+              <div className="h-5 w-[0.5px] bg-[#2d3c59] opacity-20 mr-1" />
               {status === "authenticated" ? (
                 <>
                   <Link
@@ -328,78 +328,108 @@ export function Header() {
         {/* Mobile menu */}
         <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out
-            border-t border-[rgba(45,60,89,0.12)] bg-[#eaebd0]
-            ${mobileMenuOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"}
+            border-t border-[rgba(45,60,89,0.10)] bg-[#f5f6e9]
+            ${mobileMenuOpen ? "max-h-[90vh] opacity-100" : "max-h-0 opacity-0"}
           `}
           style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
         >
-          <div className="flex flex-col gap-0.5 overflow-y-auto px-4 py-5">
+          <div className="flex flex-col overflow-y-auto px-5 py-4 gap-1">
+
+            {/* Home */}
             <Link
               href="/"
               onClick={closeMobileMenu}
-              className="rounded-lg px-4 py-3 text-[#2d3c59] text-sm tracking-[0.04em] uppercase
-                hover:bg-[rgba(45,60,89,0.07)] transition-colors duration-150"
+              className="flex items-center rounded-xl px-4 py-3
+                text-[#2d3c59] text-[0.8rem] font-medium tracking-[0.06em] uppercase
+                hover:bg-[rgba(45,60,89,0.06)] active:bg-[rgba(45,60,89,0.1)]
+                transition-colors duration-150"
             >
               Home
             </Link>
 
-            <div className="mt-3">
-              <p className="px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-widest text-[#2d3c59] opacity-35">
+            {/* Divider */}
+            <div className="h-px bg-[rgba(45,60,89,0.08)] my-1" />
+
+            {/* About Addison's */}
+            <div className="flex flex-col gap-0.5">
+              <p className="px-4 pt-2 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-[#2d3c59] opacity-40">
                 About Addison&apos;s
               </p>
               {aboutLinks.map((link) => (
                 <Link key={link.href} href={link.href} onClick={closeMobileMenu}
-                  className="block rounded-lg px-6 py-2.5 text-[#2d3c59] text-sm tracking-[0.02em]
-                    hover:bg-[rgba(45,60,89,0.07)] transition-colors duration-150"
+                  className="flex items-center gap-2 rounded-xl px-4 py-2.5
+                    text-[#2d3c59] text-[0.82rem] tracking-[0.02em] font-normal
+                    hover:bg-[rgba(45,60,89,0.06)] active:bg-[rgba(45,60,89,0.1)]
+                    transition-colors duration-150"
                 >
+                  <span className="w-1 h-1 rounded-full bg-[#2d3c59] opacity-30 flex-shrink-0" />
                   {link.label}
                 </Link>
               ))}
             </div>
 
-            <div className="mt-2">
-              <p className="px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-widest text-[#2d3c59] opacity-35">
+            {/* Divider */}
+            <div className="h-px bg-[rgba(45,60,89,0.08)] my-1" />
+
+            {/* Crisis */}
+            <div className="flex flex-col gap-0.5">
+              <p className="px-4 pt-2 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-[#2d3c59] opacity-40">
                 Crisis
               </p>
               {crisisLinks.map((link) => (
                 <Link key={link.href} href={link.href} onClick={closeMobileMenu}
-                  className="block rounded-lg px-6 py-2.5 text-[#2d3c59] text-sm tracking-[0.02em]
-                    hover:bg-[rgba(45,60,89,0.07)] transition-colors duration-150"
+                  className="flex items-center gap-2 rounded-xl px-4 py-2.5
+                    text-[#2d3c59] text-[0.82rem] tracking-[0.02em] font-normal
+                    hover:bg-[rgba(45,60,89,0.06)] active:bg-[rgba(45,60,89,0.1)]
+                    transition-colors duration-150"
                 >
+                  <span className="w-1 h-1 rounded-full bg-[#2d3c59] opacity-30 flex-shrink-0" />
                   {link.label}
                 </Link>
               ))}
             </div>
 
-            <div className="mt-2">
-              <p className="px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-widest text-[#2d3c59] opacity-35">
+            {/* Divider */}
+            <div className="h-px bg-[rgba(45,60,89,0.08)] my-1" />
+
+            {/* Community */}
+            <div className="flex flex-col gap-0.5">
+              <p className="px-4 pt-2 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-[#2d3c59] opacity-40">
                 Community
               </p>
               {communityLinks.map((link) => (
                 <Link key={link.href} href={link.href} onClick={closeMobileMenu}
-                  className="block rounded-lg px-6 py-2.5 text-[#2d3c59] text-sm tracking-[0.02em]
-                    hover:bg-[rgba(45,60,89,0.07)] transition-colors duration-150"
+                  className="flex items-center gap-2 rounded-xl px-4 py-2.5
+                    text-[#2d3c59] text-[0.82rem] tracking-[0.02em] font-normal
+                    hover:bg-[rgba(45,60,89,0.06)] active:bg-[rgba(45,60,89,0.1)]
+                    transition-colors duration-150"
                 >
+                  <span className="w-1 h-1 rounded-full bg-[#2d3c59] opacity-30 flex-shrink-0" />
                   {link.label}
                 </Link>
               ))}
             </div>
 
-            <div className="mt-5 pt-5 flex flex-col gap-2.5 border-t border-[rgba(45,60,89,0.12)]">
+            {/* Auth section */}
+            <div className="mt-3 pt-4 flex flex-col gap-2.5 border-t border-[rgba(45,60,89,0.10)]">
               {status === "authenticated" ? (
                 <>
                   <Link href="/dashboard" onClick={closeMobileMenu}
-                    className="rounded-lg px-4 py-3 text-center text-[0.8rem] font-medium tracking-[0.06em] uppercase
-                      bg-[#2d3c59] text-[#eaebd0] shadow-[0_2px_8px_rgba(45,60,89,0.2)]
+                    className="rounded-xl px-4 py-3 text-center
+                      text-[0.78rem] font-semibold tracking-[0.08em] uppercase
+                      bg-[#2d3c59] text-[#eaebd0]
+                      shadow-[0_2px_10px_rgba(45,60,89,0.2)]
                       hover:bg-[#3a4e72] transition-all duration-150"
                   >
                     Dashboard
                   </Link>
                   <button type="button"
                     onClick={() => { closeMobileMenu(); signOut({ callbackUrl: "/" }); }}
-                    className="rounded-lg px-4 py-3 text-center text-[0.8rem] font-medium tracking-[0.06em] uppercase
-                      bg-transparent text-[#2d3c59] border border-[rgba(45,60,89,0.35)]
-                      hover:bg-[rgba(45,60,89,0.07)] transition-all duration-150 cursor-pointer"
+                    className="rounded-xl px-4 py-3 text-center
+                      text-[0.78rem] font-semibold tracking-[0.08em] uppercase
+                      bg-transparent text-[#2d3c59]
+                      border border-[rgba(45,60,89,0.25)]
+                      hover:bg-[rgba(45,60,89,0.06)] transition-all duration-150 cursor-pointer"
                   >
                     Sign out
                   </button>
@@ -407,15 +437,19 @@ export function Header() {
               ) : (
                 <>
                   <Link href="/login" onClick={closeMobileMenu}
-                    className="rounded-lg px-4 py-3 text-center text-[0.8rem] font-medium tracking-[0.06em] uppercase
-                      bg-transparent text-[#2d3c59] border border-[rgba(45,60,89,0.35)]
-                      hover:bg-[rgba(45,60,89,0.07)] transition-all duration-150"
+                    className="rounded-xl px-4 py-3 text-center
+                      text-[0.78rem] font-semibold tracking-[0.08em] uppercase
+                      bg-transparent text-[#2d3c59]
+                      border border-[rgba(45,60,89,0.25)]
+                      hover:bg-[rgba(45,60,89,0.06)] transition-all duration-150"
                   >
                     Sign in
                   </Link>
                   <Link href="/register" onClick={closeMobileMenu}
-                    className="rounded-lg px-4 py-3 text-center text-[0.8rem] font-medium tracking-[0.06em] uppercase
-                      bg-[#2d3c59] text-[#eaebd0] shadow-[0_2px_8px_rgba(45,60,89,0.2)]
+                    className="rounded-xl px-4 py-3 text-center
+                      text-[0.78rem] font-semibold tracking-[0.08em] uppercase
+                      bg-[#2d3c59] text-[#eaebd0]
+                      shadow-[0_2px_10px_rgba(45,60,89,0.2)]
                       hover:bg-[#3a4e72] transition-all duration-150"
                   >
                     Register
@@ -423,6 +457,7 @@ export function Header() {
                 </>
               )}
             </div>
+
           </div>
         </div>
       </header>
