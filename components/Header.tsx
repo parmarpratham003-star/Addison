@@ -194,7 +194,11 @@ const dropdownBtnClass = `
             <Link href="/" className={navLinkClass}>Home</Link>
 
             {/* About Addison's dropdown */}
-            <div className="relative">
+            <div
+  className="relative"
+  onMouseEnter={() => setOpenDropdown("about")}
+  onMouseLeave={() => setOpenDropdown(null)}
+>
               <button
                 type="button"
                 onMouseEnter={() => setOpenDropdown("about")}
@@ -225,7 +229,11 @@ const dropdownBtnClass = `
             </div>
 
             {/* Crisis dropdown */}
-            <div className="relative">
+          <div
+  className="relative"
+  onMouseEnter={() => setOpenDropdown("about")}
+  onMouseLeave={() => setOpenDropdown(null)}
+>
               <button
                 type="button"
                 onMouseEnter={() => setOpenDropdown("crisis")}
@@ -256,7 +264,11 @@ const dropdownBtnClass = `
             </div>
 
             {/* Community dropdown */}
-            <div className="relative">
+           <div
+  className="relative"
+  onMouseEnter={() => setOpenDropdown("about")}
+  onMouseLeave={() => setOpenDropdown(null)}
+>
               <button
                 type="button"
                 onMouseEnter={() => setOpenDropdown("community")}
