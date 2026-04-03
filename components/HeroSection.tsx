@@ -116,7 +116,7 @@ export function HeroSection() {
           {/* Buttons */}
           <div className="flex gap-4 mt-8">
             <Link
-              href="/emergency"
+              href="/emergency-card"
               className="bg-[#eaebd0] text-#2d3c59 px-7 py-3 rounded-xl text-sm font-medium hover:bg-white transition"
             >
               Get Emergency Help 
@@ -124,7 +124,7 @@ export function HeroSection() {
 
             <Link
               href="/about-addisons"
-              className="px-6 py-3 rounded-xl text-sm font-medium border border-[#eaebd0]/40 text-[#eaebd0] hover:bg-[#eaebd0] hover:text-black transition"
+              className="px-6 py-3 rounded-xl text-sm font-medium border border-[#eaebd0]/40 text-[#eaebd0] hover:bg-[#eaebd0] hover:text-[#2d3c59] transition"
             >
               Learn More
             </Link>

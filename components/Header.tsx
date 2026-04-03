@@ -64,28 +64,44 @@ export function Header() {
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
-  const navLinkClass = `
-    relative text-[#2d3c59] text-[0.75rem] font-normal tracking-[0.04em] uppercase
-    opacity-80 hover:opacity-100 transition-opacity duration-150
-    after:absolute after:left-0 after:bottom-[-14px]
-    after:h-[1.5px] after:w-0
-    after:bg-[#2d3c59]
-    after:transition-[width] after:duration-300 after:ease-out
-    hover:after:w-full
-  `;
+const navLinkClass = `
+  inline-flex items-center
+  h-[36px]
 
-  const dropdownBtnClass = `
-    relative flex items-center gap-1
-    text-[#2d3c59] text-[0.75rem] font-normal tracking-[0.04em] uppercase
-    opacity-80 hover:opacity-100 transition-opacity duration-150
-    after:absolute after:left-0 after:bottom-[-4px]
-    after:h-[1.5px] after:w-0
-    after:bg-[#2d3c59]
-    after:transition-[width] after:duration-300 after:ease-out
-    hover:after:w-full
-    bg-transparent border-none cursor-pointer p-0
-  `;
+  text-[#2d3c59] text-[0.75rem] tracking-[0.04em] uppercase
+  opacity-80 hover:opacity-100 transition-all duration-200
 
+  relative
+
+  after:absolute after:left-0 after:bottom-[6px]
+  after:h-[1.5px] after:w-0
+  after:bg-[#2d3c59]
+  after:transition-all after:duration-300
+
+  hover:after:w-full
+
+  outline-none focus:outline-none
+`;
+
+const dropdownBtnClass = `
+  inline-flex items-center gap-1
+  h-[36px]
+
+  text-[#2d3c59] text-[0.75rem] tracking-[0.04em] uppercase
+  opacity-80 hover:opacity-100 transition-all duration-200
+
+  relative
+
+  after:absolute after:left-0 after:bottom-[6px]
+  after:h-[1.5px] after:w-0
+  after:bg-[#2d3c59]
+  after:transition-all after:duration-300
+
+  hover:after:w-full
+
+  bg-transparent border-none cursor-pointer
+  outline-none focus:outline-none
+`;
   type DropdownMenuProps = {
     id: string;
     labelId: string;
@@ -109,7 +125,7 @@ export function Header() {
           transition: "opacity 220ms cubic-bezier(0.16,1,0.3,1), transform 220ms cubic-bezier(0.16,1,0.3,1)",
         }}
         className="absolute left-0 top-full z-50 mt-3 min-w-[190px] rounded-xl py-2
-          bg-[#eaebd0] border border-[rgba(45,60,89,0.1)]
+          bg-[#f5f6e9]/90 border border-[rgba(45,60,89,0.1)]
           shadow-[0_8px_30px_rgba(45,60,89,0.12)]"
       >
         {links.map((link, i) => (
@@ -308,7 +324,7 @@ export function Header() {
                     transition-all duration-150"
                   style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
                 >
-                  Login
+                  Sign in
                 </Link>
               )}
             </div>
