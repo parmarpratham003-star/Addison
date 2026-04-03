@@ -96,21 +96,13 @@ export function UserTypeSection() {
         <div className="mb-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
           <div>
             {/* Animated label line */}
-            <div className="flex items-center gap-3 mb-3">
-              <div className="h-px w-8 bg-[#2d3c59]/30 animate-[grow_1s_ease_forwards]" />
-              <p
-                className="text-[0.7rem] uppercase tracking-[0.3em] text-[#2d3c59]/40 font-medium"
-                style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
-              >
-                Find your place
-              </p>
-            </div>
+            
             <h2
               className="text-[3rem] sm:text-[4.5rem] font-semibold leading-[0.95] text-[#2d3c59]"
               style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif" }}
             >
-              Who<br />
-              <span className="font-normal italic text-[#2d3c59]/70">are you?</span>
+              Who 
+              <span className="font-normal italic text-[#2d3c59]/70"> are you?</span>
             </h2>
           </div>
           <p

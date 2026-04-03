@@ -87,7 +87,7 @@ export default function RegisterPage() {
 
   return (
     <div
-      className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen flex items-center justify-center px-4 py-12 sm:py-25`}
+      className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen flex items-center justify-center px-4 py-12 sm:py-18`}
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       {/* 🔥 Smooth Animation */}
