@@ -82,7 +82,7 @@ function LoginForm() {
 
   return (
     <div
-      className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen flex items-center justify-center px-4 py-18`}
+      className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen flex items-center justify-center px-4 py-20`}
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
       <style>{animStyles}</style>
@@ -95,7 +95,7 @@ function LoginForm() {
             className="text-[clamp(2.4rem,6vw,3rem)]  leading-[0.95] text-[#2d3c59]"
             style={{ fontFamily: "var(--font-cormorant)" }}
           >
-            Login
+            Sign in
           </h1>
           <p className="text-[0.62rem] tracking-[0.26em] uppercase text-[#2d3c59]/40 mt-2">
             Addison&apos;s Disease
@@ -106,7 +106,7 @@ function LoginForm() {
         <div className="bg-white/42 border border-[#2d3c59]/10 rounded-[24px] p-7 sm:p-8 transition-all duration-300 hover:bg-white/55 hover:border-[#2d3c59]/16">
 
           <p className="text-sm text-[#2d3c59]/50 mb-7 lp-anim-2 leading-relaxed">
-            Login to access your dashboard and saved emergency card.
+            Sign in to access your dashboard and saved emergency card.
           </p>
 
           <form onSubmit={handleSubmit} className="space-y-4">
@@ -175,7 +175,7 @@ function LoginForm() {
                 disabled={loading}
                 className="w-full bg-[#2d3c59] text-[#eaebd0] py-2.5 rounded-full text-sm font-medium transition-all duration-200 hover:bg-[#3d5070] hover:-translate-y-px active:scale-[0.97] disabled:opacity-30 disabled:cursor-not-allowed disabled:translate-y-0"
               >
-                {loading ? "Signing in…" : "Login"}
+                {loading ? "Signing in…" : "Sign in"}
               </button>
             </div>
 
