@@ -263,7 +263,7 @@ export function Header() {
 
             {/* Auth buttons */}
             <div className="ml-6 flex items-center gap-2.5">
-              <div className="h-5 w-px bg-[#2d3c59] opacity-20 mr-1" />
+             <div className="h-5 w-[0.5px] bg-[#2d3c59] opacity-10 mr-1" />
               {status === "authenticated" ? (
                 <>
                   <Link
