@@ -77,7 +77,7 @@ export function HeroSection() {
   }`}
 >
           {/* 🔥 WORD ANIMATION */}
-          <h1 className={`text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] text-[#eaebd0] ${cormorant.className}`}>
+         <h1 className={`text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] text-[#f3f4da] ${cormorant.className}`}>
             {text.map((word, i) => (
               <span
                 key={i}
@@ -91,7 +91,7 @@ export function HeroSection() {
             ))}
           </h1>
 
-          <p className="mt-6 text-[#eaebd0]/80 text-base md:text-lg max-w-xl">
+          <p className="mt-6 text-[#f3f4da]/70 text-base md:text-lg max-w-xl">
             Information, support, and a free emergency card for patients and families.
             Connect with trusted doctors and a supportive community.
           </p>
@@ -100,14 +100,14 @@ export function HeroSection() {
           <div className="mt-6 space-y-3">
             <div className="flex gap-3">
               <div className="w-2 h-2 mt-2 rounded-full bg-[#eaebd0]" />
-              <p className="text-sm text-[#eaebd0]/80">
+              <p className="text-sm text-[#f3f4da]/70">
                 Free emergency card for quick medical identification
               </p>
             </div>
 
             <div className="flex gap-3">
               <div className="w-2 h-2 mt-2 rounded-full bg-[#eaebd0]" />
-              <p className="text-sm text-[#eaebd0]/80">
+              <p className="text-sm text-[#f3f4da]/70">
                 Connect with verified specialists & community
               </p>
             </div>

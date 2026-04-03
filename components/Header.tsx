@@ -39,15 +39,8 @@ type DropdownType = "about" | "crisis" | "community" | null;
 export function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [openDropdown, setOpenDropdown] = useState<DropdownType>(null);
-  const [scrolled, setScrolled] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const { status } = useSession();
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 10);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
@@ -64,44 +57,19 @@ export function Header() {
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
-const navLinkClass = `
-  inline-flex items-center
-  h-[36px]
+  // Underline span — wraps ONLY the text so w-full = text width, not container width
+  const U = ({ children }: { children: React.ReactNode }) => (
+    <span
+      className="relative
+        after:absolute after:left-0 after:bottom-[-2px]
+        after:h-[1.5px] after:w-0 after:bg-[#2d3c59]
+        after:transition-[width] after:duration-300 after:ease-out
+        group-hover:after:w-full"
+    >
+      {children}
+    </span>
+  );
 
-  text-[#2d3c59] text-[0.75rem] tracking-[0.04em] uppercase
-  opacity-80 hover:opacity-100 transition-all duration-200
-
-  relative
-
-  after:absolute after:left-0 after:bottom-[6px]
-  after:h-[1.5px] after:w-0
-  after:bg-[#2d3c59]
-  after:transition-all after:duration-300
-
-  hover:after:w-full
-
-  outline-none focus:outline-none
-`;
-
-const dropdownBtnClass = `
-  inline-flex items-center gap-1
-  h-[36px]
-
-  text-[#2d3c59] text-[0.75rem] tracking-[0.04em] uppercase
-  opacity-80 hover:opacity-100 transition-all duration-200
-
-  relative
-
-  after:absolute after:left-0 after:bottom-[6px]
-  after:h-[1.5px] after:w-0
-  after:bg-[#2d3c59]
-  after:transition-all after:duration-300
-
-  hover:after:w-full
-
-  bg-transparent border-none cursor-pointer
-  outline-none focus:outline-none
-`;
   type DropdownMenuProps = {
     id: string;
     labelId: string;
@@ -125,7 +93,7 @@ const dropdownBtnClass = `
           transition: "opacity 220ms cubic-bezier(0.16,1,0.3,1), transform 220ms cubic-bezier(0.16,1,0.3,1)",
         }}
         className="absolute left-0 top-full z-50 mt-3 min-w-[190px] rounded-xl py-2
-          bg-[#f5f6e9]/90 border border-[rgba(45,60,89,0.1)]
+          bg-[#f5f6e9]/95 border border-[rgba(45,60,89,0.1)]
           shadow-[0_8px_30px_rgba(45,60,89,0.12)]"
       >
         {links.map((link, i) => (
@@ -151,6 +119,13 @@ const dropdownBtnClass = `
       </div>
     );
   }
+
+  const navItemBase = `
+    group inline-flex items-center gap-1
+    text-[#2d3c59] text-[12px] tracking-[0.04em] uppercase
+    opacity-80 hover:opacity-100 transition-opacity duration-200
+    outline-none focus:outline-none
+  `;
 
   return (
     <>
@@ -191,115 +166,104 @@ const dropdownBtnClass = `
           {/* Desktop nav */}
           <div ref={dropdownRef} className="hidden md:flex items-center gap-7">
 
-            <Link href="/" className={navLinkClass}>Home</Link>
+            {/* Home */}
+            <Link href="/" className={navItemBase}>
+              <U>Home</U>
+            </Link>
 
             {/* About Addison's dropdown */}
             <div
-  className="relative"
-  onMouseEnter={() => setOpenDropdown("about")}
-  onMouseLeave={() => setOpenDropdown(null)}
->
+              className="relative"
+              onMouseEnter={() => setOpenDropdown("about")}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
               <button
                 type="button"
-                onMouseEnter={() => setOpenDropdown("about")}
                 onClick={() => setOpenDropdown((prev) => prev === "about" ? null : "about")}
-                className={`${dropdownBtnClass} ${openDropdown === "about" ? "!opacity-100" : ""}`}
+                className={`${navItemBase} bg-transparent border-none cursor-pointer ${openDropdown === "about" ? "!opacity-100" : ""}`}
                 aria-expanded={openDropdown === "about"}
                 aria-haspopup="true"
                 aria-controls="about-menu"
                 id="about-button"
               >
-                About Addison&apos;s
+                <U>About Addison&apos;s</U>
                 <svg
-                  className={`h-3.5 w-3.5 transition-transform duration-200 ${openDropdown === "about" ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  className={`h-3 w-3 flex-shrink-0 transition-transform duration-200 ${openDropdown === "about" ? "rotate-180" : ""}`}
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               <DropdownMenu
-                id="about-menu"
-                labelId="about-button"
-                isOpen={openDropdown === "about"}
-                links={aboutLinks}
+                id="about-menu" labelId="about-button"
+                isOpen={openDropdown === "about"} links={aboutLinks}
                 onClose={() => setOpenDropdown(null)}
               />
             </div>
 
             {/* Crisis dropdown */}
-          <div
-  className="relative"
-  onMouseEnter={() => setOpenDropdown("about")}
-  onMouseLeave={() => setOpenDropdown(null)}
->
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenDropdown("crisis")}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
               <button
                 type="button"
-                onMouseEnter={() => setOpenDropdown("crisis")}
                 onClick={() => setOpenDropdown((prev) => prev === "crisis" ? null : "crisis")}
-                className={`${dropdownBtnClass} ${openDropdown === "crisis" ? "!opacity-100" : ""}`}
+                className={`${navItemBase} bg-transparent border-none cursor-pointer ${openDropdown === "crisis" ? "!opacity-100" : ""}`}
                 aria-expanded={openDropdown === "crisis"}
                 aria-haspopup="true"
                 aria-controls="crisis-menu"
                 id="crisis-button"
               >
-                Crisis
+                <U>Crisis</U>
                 <svg
-                  className={`h-3.5 w-3.5 transition-transform duration-200 ${openDropdown === "crisis" ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  className={`h-3 w-3 flex-shrink-0 transition-transform duration-200 ${openDropdown === "crisis" ? "rotate-180" : ""}`}
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               <DropdownMenu
-                id="crisis-menu"
-                labelId="crisis-button"
-                isOpen={openDropdown === "crisis"}
-                links={crisisLinks}
+                id="crisis-menu" labelId="crisis-button"
+                isOpen={openDropdown === "crisis"} links={crisisLinks}
                 onClose={() => setOpenDropdown(null)}
               />
             </div>
 
             {/* Community dropdown */}
-           <div
-  className="relative"
-  onMouseEnter={() => setOpenDropdown("about")}
-  onMouseLeave={() => setOpenDropdown(null)}
->
+            <div
+              className="relative"
+              onMouseEnter={() => setOpenDropdown("community")}
+              onMouseLeave={() => setOpenDropdown(null)}
+            >
               <button
                 type="button"
-                onMouseEnter={() => setOpenDropdown("community")}
                 onClick={() => setOpenDropdown((prev) => prev === "community" ? null : "community")}
-                className={`${dropdownBtnClass} ${openDropdown === "community" ? "!opacity-100" : ""}`}
+                className={`${navItemBase} bg-transparent border-none cursor-pointer ${openDropdown === "community" ? "!opacity-100" : ""}`}
                 aria-expanded={openDropdown === "community"}
                 aria-haspopup="true"
                 aria-controls="community-menu"
                 id="community-button"
               >
-                Community
+                <U>Community</U>
                 <svg
-                  className={`h-3.5 w-3.5 transition-transform duration-200 ${openDropdown === "community" ? "rotate-180" : ""}`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
+                  className={`h-3 w-3 flex-shrink-0 transition-transform duration-200 ${openDropdown === "community" ? "rotate-180" : ""}`}
+                  fill="none" stroke="currentColor" viewBox="0 0 24 24"
                 >
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                 </svg>
               </button>
               <DropdownMenu
-                id="community-menu"
-                labelId="community-button"
-                isOpen={openDropdown === "community"}
-                links={communityLinks}
+                id="community-menu" labelId="community-button"
+                isOpen={openDropdown === "community"} links={communityLinks}
                 onClose={() => setOpenDropdown(null)}
               />
             </div>
 
             {/* Auth buttons */}
             <div className="ml-6 flex items-center gap-2.5">
+              <div className="h-5 w-px bg-[#2d3c59] opacity-20 mr-1" />
               {status === "authenticated" ? (
                 <>
                   <Link
@@ -379,16 +343,12 @@ const dropdownBtnClass = `
               Home
             </Link>
 
-            {/* About section */}
             <div className="mt-3">
               <p className="px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-widest text-[#2d3c59] opacity-35">
                 About Addison&apos;s
               </p>
               {aboutLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={closeMobileMenu}
+                <Link key={link.href} href={link.href} onClick={closeMobileMenu}
                   className="block rounded-lg px-6 py-2.5 text-[#2d3c59] text-sm tracking-[0.02em]
                     hover:bg-[rgba(45,60,89,0.07)] transition-colors duration-150"
                 >
@@ -397,16 +357,12 @@ const dropdownBtnClass = `
               ))}
             </div>
 
-            {/* Crisis section */}
             <div className="mt-2">
               <p className="px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-widest text-[#2d3c59] opacity-35">
                 Crisis
               </p>
               {crisisLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={closeMobileMenu}
+                <Link key={link.href} href={link.href} onClick={closeMobileMenu}
                   className="block rounded-lg px-6 py-2.5 text-[#2d3c59] text-sm tracking-[0.02em]
                     hover:bg-[rgba(45,60,89,0.07)] transition-colors duration-150"
                 >
@@ -415,16 +371,12 @@ const dropdownBtnClass = `
               ))}
             </div>
 
-            {/* Community section */}
             <div className="mt-2">
               <p className="px-4 py-1.5 text-[0.6rem] font-semibold uppercase tracking-widest text-[#2d3c59] opacity-35">
                 Community
               </p>
               {communityLinks.map((link) => (
-                <Link
-                  key={link.href}
-                  href={link.href}
-                  onClick={closeMobileMenu}
+                <Link key={link.href} href={link.href} onClick={closeMobileMenu}
                   className="block rounded-lg px-6 py-2.5 text-[#2d3c59] text-sm tracking-[0.02em]
                     hover:bg-[rgba(45,60,89,0.07)] transition-colors duration-150"
                 >
@@ -433,21 +385,17 @@ const dropdownBtnClass = `
               ))}
             </div>
 
-            {/* Auth section */}
             <div className="mt-5 pt-5 flex flex-col gap-2.5 border-t border-[rgba(45,60,89,0.12)]">
               {status === "authenticated" ? (
                 <>
-                  <Link
-                    href="/dashboard"
-                    onClick={closeMobileMenu}
+                  <Link href="/dashboard" onClick={closeMobileMenu}
                     className="rounded-lg px-4 py-3 text-center text-[0.8rem] font-medium tracking-[0.06em] uppercase
                       bg-[#2d3c59] text-[#eaebd0] shadow-[0_2px_8px_rgba(45,60,89,0.2)]
                       hover:bg-[#3a4e72] transition-all duration-150"
                   >
                     Dashboard
                   </Link>
-                  <button
-                    type="button"
+                  <button type="button"
                     onClick={() => { closeMobileMenu(); signOut({ callbackUrl: "/" }); }}
                     className="rounded-lg px-4 py-3 text-center text-[0.8rem] font-medium tracking-[0.06em] uppercase
                       bg-transparent text-[#2d3c59] border border-[rgba(45,60,89,0.35)]
@@ -458,18 +406,14 @@ const dropdownBtnClass = `
                 </>
               ) : (
                 <>
-                  <Link
-                    href="/login"
-                    onClick={closeMobileMenu}
+                  <Link href="/login" onClick={closeMobileMenu}
                     className="rounded-lg px-4 py-3 text-center text-[0.8rem] font-medium tracking-[0.06em] uppercase
                       bg-transparent text-[#2d3c59] border border-[rgba(45,60,89,0.35)]
                       hover:bg-[rgba(45,60,89,0.07)] transition-all duration-150"
                   >
                     Sign in
                   </Link>
-                  <Link
-                    href="/register"
-                    onClick={closeMobileMenu}
+                  <Link href="/register" onClick={closeMobileMenu}
                     className="rounded-lg px-4 py-3 text-center text-[0.8rem] font-medium tracking-[0.06em] uppercase
                       bg-[#2d3c59] text-[#eaebd0] shadow-[0_2px_8px_rgba(45,60,89,0.2)]
                       hover:bg-[#3a4e72] transition-all duration-150"
@@ -495,17 +439,8 @@ const dropdownBtnClass = `
           active:scale-100 active:shadow-[0_2px_10px_rgba(192,57,43,0.4)]
           transition-all duration-200"
       >
-        {/* Pulse ring */}
         <span className="absolute inset-0 rounded-full bg-[#c0392b] animate-ping opacity-20 pointer-events-none" />
-
-        {/* Cross icon */}
-        <svg
-          className="h-5 w-5 flex-shrink-0"
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
-          strokeWidth={2.5}
-        >
+        <svg className="h-5 w-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={2.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
         </svg>
       </Link>
