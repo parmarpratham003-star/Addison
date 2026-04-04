@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 
 const cormorant = Cormorant_Garamond({
@@ -70,40 +70,66 @@ const roles = [
   },
 ];
 
+function useScrollAnimation() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.15 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return { ref, visible };
+}
+
 export function UserTypeSection() {
   const [active, setActive] = useState<string>("patient");
+  const { ref: sectionRef, visible: sectionVisible } = useScrollAnimation();
 
   return (
     <section
-      className={`${cormorant.variable} ${outfit.variable} relative bg-white py-24 overflow-hidden`}
-      style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
+      ref={sectionRef}
+      className={`${cormorant.variable} ${outfit.variable} relative py-24 overflow-hidden`}
+      // Hero text colour (#f5f5f5) used as the section background
+      style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif", backgroundColor: "#f5f5f5" }}
     >
 
-      {/* Background blobs — same as before */}
+      {/* Background blobs */}
       <div
-        className="pointer-events-none absolute -top-32 -left-32 h-[500px] w-[500px] rounded-full bg-[#eaebd0] opacity-60 blur-[100px] animate-pulse"
+        className="pointer-events-none absolute -top-32 -left-32 h-[500px] w-[500px] rounded-full bg-[#eaebd0] opacity-50 blur-[100px] animate-pulse"
         style={{ animationDuration: "6s" }}
       />
       <div
-        className="pointer-events-none absolute -bottom-32 -right-32 h-[400px] w-[400px] rounded-full bg-[#2d3c59]/8 opacity-40 blur-[120px] animate-pulse"
+        className="pointer-events-none absolute -bottom-32 -right-32 h-[400px] w-[400px] rounded-full bg-[#2d3c59]/10 opacity-30 blur-[120px] animate-pulse"
         style={{ animationDuration: "8s", animationDelay: "2s" }}
       />
 
-      {/* ── Outer container matches hero: max-w-7xl + px-6 lg:px-12 ── */}
+      {/* Outer container */}
       <div className="relative mx-auto max-w-7xl px-6 lg:px-12">
 
-        {/* ── Inner left column matches hero left content: lg:pl-8 xl:pl-12 ── */}
+        {/* Inner left column aligns with hero */}
         <div className="lg:pl-8 xl:pl-12">
 
           {/* Header */}
-          <div className="mb-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+          <div
+            className={`mb-16 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6 transition-all duration-700 ${
+              sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
+            }`}
+          >
             <div>
+              {/* ✅ Italic removed */}
               <h2
                 className="text-[3rem] sm:text-[4.5rem] font-semibold leading-[0.95] text-[#2d3c59]"
                 style={{ fontFamily: "var(--font-cormorant), 'Cormorant Garamond', serif" }}
               >
                 Who{" "}
-                <span className="font-normal italic text-[#2d3c59]/70">are you?</span>
+                <span className="font-normal text-[#2d3c59]/70">are you?</span>
               </h2>
             </div>
             <p
@@ -123,10 +149,13 @@ export function UserTypeSection() {
                   key={role.id}
                   className={`
                     border-b border-[#2d3c59]/10
-                    transition-colors duration-500
-                    ${isOpen ? "bg-[#2d3c59]/[0.02]" : "bg-transparent hover:bg-[#2d3c59]/[0.015]"}
+                    transition-all duration-700
+                    ${isOpen ? "bg-[#2d3c59]/[0.04]" : "bg-transparent hover:bg-[#2d3c59]/[0.02]"}
+                    ${sectionVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}
                   `}
-                  style={{ animationDelay: `${index * 100}ms` }}
+                  style={{
+                    transitionDelay: sectionVisible ? `${index * 120}ms` : "0ms",
+                  }}
                 >
                   {/* Row header */}
                   <button

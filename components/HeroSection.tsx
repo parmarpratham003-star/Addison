@@ -115,20 +115,28 @@ export function HeroSection() {
 
           {/* Buttons */}
           <div className="flex gap-4 mt-8">
-            <Link
-              href="/emergency-card"
-              className="bg-[#eaebd0] text-#2d3c59 px-7 py-3 rounded-xl text-sm font-medium hover:bg-white transition"
-            >
-              Get Emergency Help 
-            </Link>
+  {/* Button 1 */}
+  <Link
+    href="/emergency-card"
+    className="group relative overflow-hidden bg-[#2d3c59] text-[#eaebd0] px-7 py-3 rounded-xl text-sm font-medium border border-[#2d3c59] transition-all duration-300 hover:bg-transparent hover:text-[#eaebd0] hover:border-[#eaebd0]/50 hover:shadow-lg"
+  >
+    <span className="relative z-10">Get Emergency Help</span>
 
-            <Link
-              href="/about-addisons"
-              className="px-6 py-3 rounded-xl text-sm font-medium border border-[#eaebd0]/40 text-[#eaebd0] hover:bg-[#eaebd0] hover:text-[#2d3c59] transition"
-            >
-              Learn More
-            </Link>
-          </div>
+    {/* Shine */}
+    <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+  </Link>
+
+  {/* Button 2 */}
+  <Link
+    href="/about-addisons"
+    className="group relative overflow-hidden px-6 py-3 rounded-xl text-sm font-medium border border-[#eaebd0]/50 text-[#eaebd0] transition-all duration-300 hover:bg-[#2d3c59] hover:border-[#2d3c59] hover:shadow-lg"
+  >
+    <span className="relative z-10">Learn More</span>
+
+    {/* Shine */}
+    <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
+  </Link>
+</div>
         </div>
 
         {/* RIGHT EMPTY */}
