@@ -96,44 +96,40 @@ export function HeroSection() {
             Connect with trusted doctors and a supportive community.
           </p>
 
-          {/* bullets */}
-          <div className="mt-6 space-y-3">
-            <div className="flex gap-3">
-              <div className="w-2 h-2 mt-2 rounded-full bg-[#f5f5f5]" />
-              <p className="text-sm text-[#f5f5f5]/70">
-                Free emergency card for quick medical identification
-              </p>
-            </div>
+         <div className="mt-6 space-y-3">
+  <div className="flex gap-3">
+    <div className="w-2 h-2 mt-2 rounded-full bg-[#f5f5f5]" />
+    <p className="text-sm text-[#f5f5f5]/70">
+      Free emergency card for quick medical identification
+    </p>
+  </div>
 
-            <div className="flex gap-3">
-              <div className="w-2 h-2 mt-2 rounded-full bg-[#eaebd0]" />
-            <p className="text-sm text-[#f5f5f5]/70">
-                Connect with verified specialists & community
-              </p>
-            </div>
-          </div>
+  <div className="flex gap-3">
+    <div className="w-2 h-2 mt-2 rounded-full bg-[#f5f5f5]" />
+    <p className="text-sm text-[#f5f5f5]/70">
+      Connect with verified specialists & community
+    </p>
+  </div>
+</div>
 
-          {/* Buttons */}
           <div className="flex gap-4 mt-8">
   {/* Button 1 */}
   <Link
     href="/emergency-card"
-    className="group relative overflow-hidden bg-[#2d3c59] text-[#eaebd0] px-7 py-3 rounded-xl text-sm font-medium border border-[#2d3c59] transition-all duration-300 hover:bg-transparent hover:text-[#eaebd0] hover:border-[#eaebd0]/50 hover:shadow-lg"
+    className="group relative overflow-hidden bg-[#f5f5f5] text-[#2d3c59] px-7 py-3 rounded-xl text-sm font-medium border border-[#f5f5f5] transition-all duration-300 hover:bg-transparent hover:text-[#f5f5f5] hover:border-[#f5f5f5]/50 hover:shadow-lg"
   >
     <span className="relative z-10">Get Emergency Help</span>
 
-    {/* Shine */}
     <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
   </Link>
 
   {/* Button 2 */}
   <Link
     href="/about-addisons"
-    className="group relative overflow-hidden px-6 py-3 rounded-xl text-sm font-medium border border-[#eaebd0]/50 text-[#eaebd0] transition-all duration-300 hover:bg-[#2d3c59] hover:border-[#2d3c59] hover:shadow-lg"
+    className="group relative overflow-hidden px-6 py-3 rounded-xl text-sm font-medium border border-[#f5f5f5]/50 text-[#f5f5f5] transition-all duration-300 hover:bg-[#f5f5f5] hover:text-[#2d3c59] hover:border-[#f5f5f5] hover:shadow-lg"
   >
     <span className="relative z-10">Learn More</span>
 
-    {/* Shine */}
     <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out"></span>
   </Link>
 </div>

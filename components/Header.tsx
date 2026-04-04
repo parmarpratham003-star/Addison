@@ -468,9 +468,9 @@ export function Header() {
         aria-label="Emergency Card"
         className="fixed bottom-6 right-6 z-[100] flex items-center justify-center
           w-14 h-14 rounded-full
-          bg-[#c0392b] text-white
+          bg-red-500 text-white
           shadow-[0_4px_20px_rgba(192,57,43,0.5)]
-          hover:bg-[#a93226] hover:shadow-[0_6px_28px_rgba(192,57,43,0.65)] hover:scale-110
+          hover:bg-red-600 hover:shadow-[0_6px_28px_rgba(192,57,43,0.65)] hover:scale-110
           active:scale-100 active:shadow-[0_2px_10px_rgba(192,57,43,0.4)]
           transition-all duration-200"
       >
