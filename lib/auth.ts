@@ -1,14 +1,12 @@
 import NextAuth from "next-auth";
-import { PrismaAdapter } from "@auth/prisma-adapter";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "./prisma";
 import bcrypt from "bcryptjs";
 import { Role } from "@prisma/client";
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  // ✅ NO adapter here
 
-  // ✅ ADD THIS (VERY IMPORTANT)
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
@@ -45,12 +43,11 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
 
           if (!valid) return null;
 
+          // ✅ RETURN ONLY SAFE FIELDS
           return {
             id: user.id,
             email: user.email,
-            name: user.name,
-            image: user.image,
-            role: user.role,
+            name: user.name ?? "",
           };
         } catch (error) {
           console.error("AUTH ERROR:", error);
@@ -64,7 +61,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = (user as { role?: Role }).role;
+
+        // get role from DB (safe way)
+        const dbUser = await prisma.user.findUnique({
+          where: { email: token.email! },
+        });
+
+        token.role = dbUser?.role;
       }
       return token;
     },
