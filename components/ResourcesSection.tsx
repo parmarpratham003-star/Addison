@@ -60,16 +60,70 @@ const items = [
   },
 ];
 
-export function ResourcesSection() {
+function ResourceCard({
+  item,
+  colIndex,
+  isLastInRow,
+}: {
+  item: (typeof items)[0];
+  colIndex: number;
+  isLastInRow: boolean;
+}) {
+  const Icon = item.icon;
   return (
-    <section className={`${outfit.className} py-20 bg-[#f5f5f5]`}>
+    <div className="relative">
+      {/* Vertical divider — right side, not on last col */}
+      {!isLastInRow && (
+        <span className="hidden lg:block absolute right-0 top-0 h-full w-px bg-[#2d3c59]/10" />
+      )}
+      <Link
+        href={item.href}
+        className={`group flex items-start gap-4 sm:gap-5 py-3 ${
+          colIndex === 0 ? "lg:pr-8" : "lg:px-8"
+        }`}
+      >
+        <div className="perspective flex-shrink-0">
+          <div className="flip-inner w-12 h-12 sm:w-14 sm:h-14 relative">
+            <div className="face face-front">
+              <Icon size={18} strokeWidth={1.8} className="sm:hidden" />
+              <Icon size={20} strokeWidth={1.8} className="hidden sm:block" />
+            </div>
+            <div className="face face-back">
+              <Icon size={18} strokeWidth={1.8} className="sm:hidden" />
+              <Icon size={20} strokeWidth={1.8} className="hidden sm:block" />
+            </div>
+          </div>
+        </div>
+        <div className="min-w-0">
+          <h3
+            className={`${cormorant.className} text-[1.2rem] sm:text-[1.35rem] font-semibold text-[#2d3c59] leading-[1.2]`}
+          >
+            {item.title}
+          </h3>
+          <p className="text-[13px] sm:text-[14px] text-[#2d3c59]/60 mt-1.5 sm:mt-2 leading-[1.8] sm:leading-[1.9]">
+            {item.desc}
+          </p>
+          <span className="text-[11px] sm:text-[12px] text-[#2d3c59] mt-2 sm:mt-3 inline-block transition group-hover:translate-x-1">
+            Learn more →
+          </span>
+        </div>
+      </Link>
+    </div>
+  );
+}
 
-      <div className="max-w-6xl mx-auto px-6">
+export function ResourcesSection() {
+  const row1 = items.slice(0, 3);
+  const row2 = items.slice(3, 6);
+
+  return (
+    <section className={`${outfit.className} py-14 sm:py-20 bg-[#f5f5f5]`}>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* HEADER */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4 mb-20">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 sm:gap-4 mb-10 sm:mb-16 lg:mb-20">
           <h2
-            className={`${cormorant.className} text-[2.4rem] sm:text-[clamp(2.8rem,5vw,4rem)] font-semibold leading-[0.9] text-[#2d3c59] tracking-tight`}
+            className={`${cormorant.className} text-[2rem] sm:text-[2.4rem] lg:text-[clamp(2.8rem,5vw,4rem)] font-semibold leading-[0.9] text-[#2d3c59] tracking-tight`}
           >
             Resources{" "}
             <span className="font-normal text-[#2d3c59]/65">& Guides</span>
@@ -81,81 +135,75 @@ export function ResourcesSection() {
           </p>
         </div>
 
-        {/* ROW 1 */}
+        {/* DESKTOP: ROW 1 */}
         <div className="hidden lg:grid lg:grid-cols-3 mb-12">
-          {items.slice(0, 3).map((item, i) => {
-            const Icon = item.icon;
-            return (
-              <div key={i} className="relative">
-                {/* Vertical divider — right side, not on last col */}
-                {i < 2 && (
-                  <span className="absolute right-0 top-0 h-full w-px bg-[#2d3c59]/10" />
-                )}
-                <Link
-                  href={item.href}
-                  className={`group flex items-start gap-5 py-3 ${i === 0 ? "pr-8" : "px-8"}`}
-                >
-                  <div className="perspective flex-shrink-0">
-                    <div className="flip-inner w-14 h-14 relative">
-                      <div className="face face-front">
-                        <Icon size={20} strokeWidth={1.8} />
-                      </div>
-                      <div className="face face-back">
-                        <Icon size={20} strokeWidth={1.8} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="max-w-[260px]">
-                    <h3 className={`${cormorant.className} text-[1.35rem] font-semibold text-[#2d3c59] leading-[1.2]`}>
-                      {item.title}
-                    </h3>
-                    <p className="text-[14px] text-[#2d3c59]/60 mt-2 leading-[1.9]">
-                      {item.desc}
-                    </p>
-                    <span className="text-[12px] text-[#2d3c59] mt-3 inline-block transition group-hover:translate-x-1">
-                      Learn more →
-                    </span>
-                  </div>
-                </Link>
-              </div>
-            );
-          })}
+          {row1.map((item, i) => (
+            <ResourceCard
+              key={i}
+              item={item}
+              colIndex={i}
+              isLastInRow={i === row1.length - 1}
+            />
+          ))}
         </div>
 
-       
+        {/* DESKTOP: Horizontal Divider between rows */}
+        <div className="hidden lg:block h-px bg-[#2d3c59]/10 my-0" />
 
-        {/* ROW 2 */}
+        {/* DESKTOP: ROW 2 */}
         <div className="hidden lg:grid lg:grid-cols-3 mt-12">
-          {items.slice(3, 6).map((item, i) => {
+          {row2.map((item, i) => (
+            <ResourceCard
+              key={i}
+              item={item}
+              colIndex={i}
+              isLastInRow={i === row2.length - 1}
+            />
+          ))}
+        </div>
+
+        {/* TABLET (sm–lg): 2-column grid with dividers */}
+        <div className="hidden sm:grid sm:grid-cols-2 lg:hidden gap-x-0 gap-y-0">
+          {items.map((item, i) => {
             const Icon = item.icon;
+            const isRightCol = i % 2 === 1;
+            const isLastRow = i >= items.length - 2;
             return (
               <div key={i} className="relative">
-                {/* Vertical divider — right side, not on last col */}
-                {i < 2 && (
+                {/* Right divider for left column */}
+                {!isRightCol && (
                   <span className="absolute right-0 top-0 h-full w-px bg-[#2d3c59]/10" />
+                )}
+                {/* Bottom divider, skip last row */}
+                {!isLastRow && (
+                  <span className="absolute bottom-0 left-0 w-full h-px bg-[#2d3c59]/10" />
                 )}
                 <Link
                   href={item.href}
-                  className={`group flex items-start gap-5 py-3 ${i === 0 ? "pr-8" : "px-8"}`}
+                  className={`group flex items-start gap-4 py-6 ${
+                    isRightCol ? "pl-8 pr-0" : "pr-8 pl-0"
+                  }`}
                 >
                   <div className="perspective flex-shrink-0">
-                    <div className="flip-inner w-14 h-14 relative">
+                    <div className="flip-inner w-12 h-12 relative">
                       <div className="face face-front">
-                        <Icon size={20} strokeWidth={1.8} />
+                        <Icon size={18} strokeWidth={1.8} />
                       </div>
                       <div className="face face-back">
-                        <Icon size={20} strokeWidth={1.8} />
+                        <Icon size={18} strokeWidth={1.8} />
                       </div>
                     </div>
                   </div>
-                  <div className="max-w-[260px]">
-                    <h3 className={`${cormorant.className} text-[1.35rem] font-semibold text-[#2d3c59] leading-[1.2]`}>
+                  <div className="min-w-0">
+                    <h3
+                      className={`${cormorant.className} text-[1.2rem] font-semibold text-[#2d3c59] leading-[1.2]`}
+                    >
                       {item.title}
                     </h3>
-                    <p className="text-[14px] text-[#2d3c59]/60 mt-2 leading-[1.9]">
+                    <p className="text-[13px] text-[#2d3c59]/60 mt-1.5 leading-[1.8]">
                       {item.desc}
                     </p>
-                    <span className="text-[12px] text-[#2d3c59] mt-3 inline-block transition group-hover:translate-x-1">
+                    <span className="text-[11px] text-[#2d3c59] mt-2 inline-block transition group-hover:translate-x-1">
                       Learn more →
                     </span>
                   </div>
@@ -165,24 +213,36 @@ export function ResourcesSection() {
           })}
         </div>
 
-        {/* MOBILE FALLBACK */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-x-12 gap-y-12 lg:hidden">
+        {/* MOBILE (<sm): Single column stacked list */}
+        <div className="flex flex-col sm:hidden divide-y divide-[#2d3c59]/10">
           {items.map((item, i) => {
             const Icon = item.icon;
             return (
-              <Link key={i} href={item.href} className="group flex items-start gap-5 py-3">
+              <Link
+                key={i}
+                href={item.href}
+                className="group flex items-start gap-4 py-5"
+              >
                 <div className="perspective flex-shrink-0">
-                  <div className="flip-inner w-14 h-14 relative">
-                    <div className="face face-front"><Icon size={20} strokeWidth={1.8} /></div>
-                    <div className="face face-back"><Icon size={20} strokeWidth={1.8} /></div>
+                  <div className="flip-inner w-11 h-11 relative">
+                    <div className="face face-front">
+                      <Icon size={17} strokeWidth={1.8} />
+                    </div>
+                    <div className="face face-back">
+                      <Icon size={17} strokeWidth={1.8} />
+                    </div>
                   </div>
                 </div>
-                <div className="max-w-[260px]">
-                  <h3 className={`${cormorant.className} text-[1.35rem] font-semibold text-[#2d3c59] leading-[1.2]`}>
+                <div className="min-w-0">
+                  <h3
+                    className={`${cormorant.className} text-[1.15rem] font-semibold text-[#2d3c59] leading-[1.2]`}
+                  >
                     {item.title}
                   </h3>
-                  <p className="text-[14px] text-[#2d3c59]/60 mt-2 leading-[1.9]">{item.desc}</p>
-                  <span className="text-[12px] text-[#2d3c59] mt-3 inline-block transition group-hover:translate-x-1">
+                  <p className="text-[13px] text-[#2d3c59]/60 mt-1 leading-[1.75]">
+                    {item.desc}
+                  </p>
+                  <span className="text-[11px] text-[#2d3c59] mt-1.5 inline-block transition group-hover:translate-x-1">
                     Learn more →
                   </span>
                 </div>
@@ -216,7 +276,6 @@ export function ResourcesSection() {
         .face-front { background: #eaebd0; color: #2d3c59; }
         .face-back { background: #2d3c59; color: #eaebd0; transform: rotateY(180deg); }
       `}</style>
-
     </section>
   );
 }
