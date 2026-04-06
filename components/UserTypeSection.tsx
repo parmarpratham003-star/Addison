@@ -110,7 +110,7 @@ export function UserTypeSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-12 w-full">
         <div className="lg:pl-8 xl:pl-12">
 
-          {/* Header — stacks on mobile, row on sm+ */}
+          {/* Header */}
           <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4 mb-7 sm:mb-9">
             <h2
               className={`${cormorant.className} text-[2.4rem] sm:text-[clamp(2.8rem,5vw,4rem)] font-semibold leading-[0.9] text-[#2d3c59] tracking-tight`}
@@ -147,7 +147,7 @@ export function UserTypeSection() {
                     <button
                       type="button"
                       onClick={() => setActive(isOpen ? "" : role.id)}
-                      className="flex flex-row items-center gap-4 sm:gap-5 w-full text-left px-1 py-5 sm:py-6 bg-transparent border-none cursor-pointer focus:outline-none"
+                      className="flex flex-row items-center gap-4 sm:gap-6 w-full text-left px-5 sm:px-7 py-5 sm:py-6 bg-transparent border-none cursor-pointer focus:outline-none"
                     >
                       {/* Square icon with 3px border radius */}
                       <div
@@ -165,7 +165,7 @@ export function UserTypeSection() {
                       </div>
 
                       {/* Title + subtitle badge */}
-                      <div className="flex items-baseline flex-wrap flex-1 min-w-0">
+                      <div className="flex items-baseline flex-wrap flex-1 min-w-0 pr-6 sm:pr-10">
                         <span
                           className={`
                             ${cormorant.className}
@@ -191,7 +191,7 @@ export function UserTypeSection() {
 
                     {/* Accordion panel */}
                     <AccordionPanel isOpen={isOpen}>
-                      <div className="pb-6 sm:pb-8 pl-[56px] sm:pl-16 pr-1">
+                      <div className="pb-6 sm:pb-8 pl-[72px] sm:pl-[88px] pr-5 sm:pr-7">
                         <p
                           className={`${outfit.className} text-[13px] sm:text-[13.5px] font-light leading-[1.85] text-[#2d3c59]/52 max-w-lg`}
                         >
@@ -202,8 +202,9 @@ export function UserTypeSection() {
                           {role.tags.map((tag, i) => (
                             <span
                               key={tag}
-                              className={`${outfit.className} rounded-full border border-[#2d3c59]/12 px-3 sm:px-3.5 py-1 text-[10px] sm:text-[10.5px] uppercase tracking-[0.12em] text-[#2d3c59]/42 font-medium bg-[#2d3c59]/[0.025]`}
+                              className={`${outfit.className} border border-[#2d3c59]/12 px-3 sm:px-3.5 py-1 text-[10px] sm:text-[10.5px] uppercase tracking-[0.12em] text-[#2d3c59]/42 font-medium bg-[#2d3c59]/[0.025]`}
                               style={{
+                                borderRadius: "3px",
                                 opacity: isOpen ? 1 : 0,
                                 transform: isOpen ? "translateY(0)" : "translateY(4px)",
                                 transition: "opacity 350ms ease, transform 350ms ease",
@@ -218,10 +219,11 @@ export function UserTypeSection() {
                         {/* CTA button inside panel on mobile only */}
                         <Link
                           href={role.href}
+                          style={{ borderRadius: "3px" }}
                           className={`
                             ${outfit.className} sm:hidden
                             mt-5 inline-flex items-center justify-center gap-2
-                            rounded-full px-5 py-[10px]
+                            px-5 py-[10px]
                             text-[10px] font-medium tracking-[0.08em] uppercase whitespace-nowrap
                             text-[#eaebd0] bg-[#2d3c59]
                             shadow-[0_2px_10px_rgba(45,60,89,0.18)]
@@ -239,14 +241,15 @@ export function UserTypeSection() {
                     </AccordionPanel>
                   </div>
 
-                  {/* Right: CTA column — desktop only (hidden on mobile, shown inside panel instead) */}
-                  <div className="hidden sm:flex flex-shrink-0 w-[260px] items-center justify-end py-4 pl-6 pr-1">
+                  {/* Right: CTA column — desktop only */}
+                  <div className="hidden sm:flex flex-shrink-0 w-[300px] items-center justify-end py-4 pl-6 pr-5 sm:pr-7">
                     <Link
                       href={role.href}
+                      style={{ borderRadius: "3px" }}
                       className={`
                         ${outfit.className}
                         inline-flex items-center justify-center gap-2
-                        w-full rounded-full px-6 py-[11px]
+                        w-full min-w-[230px] px-6 py-[11px]
                         text-[11px] font-medium tracking-[0.08em] uppercase whitespace-nowrap
                         text-[#eaebd0] bg-[#2d3c59]
                         shadow-[0_2px_10px_rgba(45,60,89,0.18)]

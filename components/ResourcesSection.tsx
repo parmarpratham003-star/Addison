@@ -53,7 +53,6 @@ export function ResourcesSection() {
             <span className="text-[#2d3c59]/50">& Guides</span>
           </h2>
 
-          {/* Subtitle (2 lines) */}
           <p
             className="text-sm text-[#2d3c59]/50 leading-relaxed"
             style={{
@@ -68,7 +67,7 @@ export function ResourcesSection() {
           </p>
         </div>
 
-        {/* 2x2 Grid */}
+        {/* Grid */}
         <div className="grid grid-cols-2 gap-6">
 
           {cards.map((card, i) => (
@@ -76,14 +75,14 @@ export function ResourcesSection() {
               key={i}
               href={card.href}
               className="
-                relative
-                h-[230px] p-6
+                relative h-[230px] p-6
                 flex flex-col justify-between
                 bg-white text-[#2d3c59]
                 border border-[#2d3c59]/10
               "
               style={{
                 borderRadius: "6px",
+                clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)",
               }}
             >
 
@@ -117,7 +116,7 @@ export function ResourcesSection() {
                 <span>→</span>
               </div>
 
-              {/* 🔥 Line Hover Effect */}
+              {/* Line Hover */}
               <div className="hover-line" />
 
             </Link>
