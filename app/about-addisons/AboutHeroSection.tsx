@@ -56,7 +56,7 @@ export function AboutHeroSection() {
 
         {/* IMAGE */}
         <img
-          src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1600&q=85"
+         src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&q=85"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />

@@ -101,7 +101,7 @@ export function UserTypeSection() {
 
   return (
     <section
-      className={`${outfit.className} relative min-h-[90vh] flex items-center py-14 sm:py-20 overflow-hidden bg-[#f5f5f5]`}
+      className={`${outfit.className} relative flex items-center py-8 sm:py-20 overflow-hidden bg-[#f5f5f5]`}
     >
       {/* Background blobs */}
       <div className="pointer-events-none absolute -top-20 -left-20 h-[400px] w-[400px] rounded-full bg-[#eaebd0] opacity-45 blur-[80px]" />
@@ -111,15 +111,15 @@ export function UserTypeSection() {
         <div className="lg:pl-8 xl:pl-12">
 
           {/* Header */}
-          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-3 sm:gap-4 mb-7 sm:mb-9">
+          <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-1.5 sm:gap-4 mb-5 sm:mb-9">
             <h2
-              className={`${cormorant.className} text-[2.4rem] sm:text-[clamp(2.8rem,5vw,4rem)] font-semibold leading-[0.9] text-[#2d3c59] tracking-tight`}
+              className={`${cormorant.className} text-[2rem] sm:text-[clamp(2.8rem,5vw,4rem)] font-semibold leading-[0.9] text-[#2d3c59] tracking-tight`}
             >
               Who{" "}
               <span className="font-normal text-[#2d3c59]/65">are you?</span>
             </h2>
             <p
-              className={`${outfit.className} sm:max-w-[220px] text-[12px] sm:text-[13px] font-light leading-[1.65] text-[#2d3c59]/48 sm:pb-0.5`}
+              className={`${outfit.className} sm:max-w-[220px] text-[11.5px] sm:text-[13px] font-light leading-[1.65] text-[#2d3c59]/48 sm:pb-0.5`}
             >
               Select your role below to find out how this community can help you.
             </p>
@@ -147,12 +147,12 @@ export function UserTypeSection() {
                     <button
                       type="button"
                       onClick={() => setActive(isOpen ? "" : role.id)}
-                      className="flex flex-row items-center gap-4 sm:gap-6 w-full text-left px-5 sm:px-7 py-5 sm:py-6 bg-transparent border-none cursor-pointer focus:outline-none"
+                      className="flex flex-row items-center gap-3 sm:gap-6 w-full text-left px-3 sm:px-7 py-4 sm:py-6 bg-transparent border-none cursor-pointer focus:outline-none"
                     >
-                      {/* Square icon with 3px border radius */}
+                      {/* Icon */}
                       <div
                         className={`
-                          flex-shrink-0 w-10 h-10 sm:w-11 sm:h-11 flex items-center justify-center
+                          flex-shrink-0 w-9 h-9 sm:w-11 sm:h-11 flex items-center justify-center
                           border transition-all duration-500
                           ${isOpen
                             ? "bg-[#2d3c59] border-[#2d3c59] text-[#eaebd0] scale-[1.06] shadow-[0_4px_18px_rgba(45,60,89,0.22)]"
@@ -165,11 +165,11 @@ export function UserTypeSection() {
                       </div>
 
                       {/* Title + subtitle badge */}
-                      <div className="flex items-baseline flex-wrap flex-1 min-w-0 pr-6 sm:pr-10">
+                      <div className="flex items-baseline flex-wrap flex-1 min-w-0 pr-4 sm:pr-10">
                         <span
                           className={`
                             ${cormorant.className}
-                            text-[1.5rem] sm:text-[clamp(1.5rem,2.5vw,2.1rem)] font-semibold leading-tight
+                            text-[1.3rem] sm:text-[clamp(1.5rem,2.5vw,2.1rem)] font-semibold leading-tight
                             transition-colors duration-300
                             ${isOpen ? "text-[#2d3c59]" : "text-[#2d3c59]/58"}
                           `}
@@ -191,18 +191,19 @@ export function UserTypeSection() {
 
                     {/* Accordion panel */}
                     <AccordionPanel isOpen={isOpen}>
-                      <div className="pb-6 sm:pb-8 pl-[72px] sm:pl-[88px] pr-5 sm:pr-7">
+                      {/* Indent aligns with title text: icon(36px) + gap(12px) = 48px on mobile */}
+                      <div className="pb-4 sm:pb-8 pl-[48px] sm:pl-[88px] pr-3 sm:pr-7">
                         <p
-                          className={`${outfit.className} text-[13px] sm:text-[13.5px] font-light leading-[1.85] text-[#2d3c59]/52 max-w-lg`}
+                          className={`${outfit.className} text-[12.5px] sm:text-[13.5px] font-light leading-[1.8] sm:leading-[1.85] text-[#2d3c59]/52 max-w-lg`}
                         >
                           {role.description}
                         </p>
 
-                        <div className="mt-3 sm:mt-4 flex flex-wrap gap-2">
+                        <div className="mt-2.5 sm:mt-4 flex flex-wrap gap-1.5 sm:gap-2">
                           {role.tags.map((tag, i) => (
                             <span
                               key={tag}
-                              className={`${outfit.className} border border-[#2d3c59]/12 px-3 sm:px-3.5 py-1 text-[10px] sm:text-[10.5px] uppercase tracking-[0.12em] text-[#2d3c59]/42 font-medium bg-[#2d3c59]/[0.025]`}
+                              className={`${outfit.className} border border-[#2d3c59]/12 px-2.5 sm:px-3.5 py-0.5 sm:py-1 text-[9.5px] sm:text-[10.5px] uppercase tracking-[0.12em] text-[#2d3c59]/42 font-medium bg-[#2d3c59]/[0.025]`}
                               style={{
                                 borderRadius: "3px",
                                 opacity: isOpen ? 1 : 0,
@@ -216,14 +217,14 @@ export function UserTypeSection() {
                           ))}
                         </div>
 
-                        {/* CTA button inside panel on mobile only */}
+                        {/* CTA — mobile only */}
                         <Link
                           href={role.href}
                           style={{ borderRadius: "3px" }}
                           className={`
                             ${outfit.className} sm:hidden
-                            mt-5 inline-flex items-center justify-center gap-2
-                            px-5 py-[10px]
+                            mt-4 inline-flex items-center justify-center gap-2
+                            px-4 py-[9px]
                             text-[10px] font-medium tracking-[0.08em] uppercase whitespace-nowrap
                             text-[#eaebd0] bg-[#2d3c59]
                             shadow-[0_2px_10px_rgba(45,60,89,0.18)]

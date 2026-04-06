@@ -117,13 +117,13 @@ export function ResourcesSection() {
   const row2 = items.slice(3, 6);
 
   return (
-    <section className={`${outfit.className} py-14 sm:py-20 bg-[#f5f5f5]`}>
+    <section className={`${outfit.className} py-8 sm:py-20 bg-[#f5f5f5]`}>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
 
         {/* HEADER */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-2 sm:gap-4 mb-10 sm:mb-16 lg:mb-20">
+        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-1.5 sm:gap-4 mb-6 sm:mb-16 lg:mb-20">
           <h2
-            className={`${cormorant.className} text-[2rem] sm:text-[2.4rem] lg:text-[clamp(2.8rem,5vw,4rem)] font-semibold leading-[0.9] text-[#2d3c59] tracking-tight`}
+            className={`${cormorant.className} text-[1.85rem] sm:text-[2.4rem] lg:text-[clamp(2.8rem,5vw,4rem)] font-semibold leading-[0.9] text-[#2d3c59] tracking-tight`}
           >
             Resources{" "}
             <span className="font-normal text-[#2d3c59]/65">& Guides</span>
@@ -221,28 +221,28 @@ export function ResourcesSection() {
               <Link
                 key={i}
                 href={item.href}
-                className="group flex items-start gap-4 py-5"
+                className="group flex items-start gap-3 py-4"
               >
                 <div className="perspective flex-shrink-0">
-                  <div className="flip-inner w-11 h-11 relative">
+                  <div className="flip-inner w-10 h-10 relative">
                     <div className="face face-front">
-                      <Icon size={17} strokeWidth={1.8} />
+                      <Icon size={16} strokeWidth={1.8} />
                     </div>
                     <div className="face face-back">
-                      <Icon size={17} strokeWidth={1.8} />
+                      <Icon size={16} strokeWidth={1.8} />
                     </div>
                   </div>
                 </div>
                 <div className="min-w-0">
                   <h3
-                    className={`${cormorant.className} text-[1.15rem] font-semibold text-[#2d3c59] leading-[1.2]`}
+                    className={`${cormorant.className} text-[1.1rem] font-semibold text-[#2d3c59] leading-[1.2]`}
                   >
                     {item.title}
                   </h3>
-                  <p className="text-[13px] text-[#2d3c59]/60 mt-1 leading-[1.75]">
+                  <p className="text-[12.5px] text-[#2d3c59]/60 mt-0.5 leading-[1.7]">
                     {item.desc}
                   </p>
-                  <span className="text-[11px] text-[#2d3c59] mt-1.5 inline-block transition group-hover:translate-x-1">
+                  <span className="text-[10.5px] text-[#2d3c59] mt-1 inline-block transition group-hover:translate-x-1">
                     Learn more →
                   </span>
                 </div>
