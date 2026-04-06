@@ -27,19 +27,21 @@ export default function MapPage() {
     fetch("/api/stats/map")
       .then((r) => r.json())
       .then(setStats)
-      .catch(() => setStats({
-        patientsByState: {},
-        professionalsByState: {},
-        totalPatients: 0,
-        totalProfessionals: 0,
-      }))
+      .catch(() =>
+        setStats({
+          patientsByState: {},
+          professionalsByState: {},
+          totalPatients: 0,
+          totalProfessionals: 0,
+        })
+      )
       .finally(() => setLoading(false));
   }, []);
 
   if (loading) {
     return (
-      <div className="mx-auto max-w-4xl px-4 py-12 text-center">
-        <p className="text-addisons-text-light">Loading map...</p>
+      <div className="mx-auto max-w-4xl px-4 py-16 text-center">
+        <p className="text-[#2d3c59]/50">Loading map...</p>
       </div>
     );
   }
@@ -50,70 +52,122 @@ export default function MapPage() {
       : toRegionData(stats?.professionalsByState ?? {});
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8 sm:px-6 lg:px-8">
-      <h1 className="text-3xl font-bold text-addisons-primary-dark">
-        Community Map
-      </h1>
-      <p className="mt-2 text-addisons-text-light">
-        Addison&apos;s patients and professionals across India
-      </p>
+    <section className="relative bg-[#f5f5f5] py-24">
 
-      <div className="mt-8 grid gap-6 sm:grid-cols-2">
-        <div className="rounded-2xl bg-addisons-surface p-6 ring-1 ring-addisons-primary/20">
-          <h3 className="text-sm font-medium text-addisons-muted">
-            Total Patients
-          </h3>
-          <p className="mt-2 text-3xl font-bold text-addisons-primary-dark">
-            {stats?.totalPatients ?? 0}
+      {/* Background blobs */}
+      <div className="pointer-events-none absolute -top-32 -left-32 h-[400px] w-[400px] rounded-full bg-[#eaebd0] opacity-40 blur-[100px]" />
+      <div className="pointer-events-none absolute -bottom-32 -right-32 h-[350px] w-[350px] rounded-full bg-[#2d3c59]/10 opacity-30 blur-[120px]" />
+
+      <div className="relative mx-auto max-w-6xl px-6">
+
+        {/* Header */}
+        <div className="flex flex-col sm:flex-row justify-between items-end gap-6 mb-14">
+          <h1 className="text-[2.8rem] sm:text-[3.6rem] font-medium text-[#2d3c59] leading-[0.95]">
+            Community <br />
+            <span className="text-[#2d3c59]/50">Map</span>
+          </h1>
+
+          <p className="text-sm text-[#2d3c59]/50 max-w-[240px] leading-relaxed">
+            Addison’s patients and professionals across India
           </p>
         </div>
-        <div className="rounded-2xl bg-addisons-surface p-6 ring-1 ring-addisons-primary/20">
-          <h3 className="text-sm font-medium text-addisons-muted">
-            Total Professionals
-          </h3>
-          <p className="mt-2 text-3xl font-bold text-addisons-primary-dark">
-            {stats?.totalProfessionals ?? 0}
-          </p>
-        </div>
-      </div>
 
-      <div className="mt-8 flex gap-4">
-        <button
-          type="button"
-          onClick={() => setActiveTab("patients")}
-          className={`rounded-lg px-4 py-2 font-medium transition ${
-            activeTab === "patients"
-              ? "bg-addisons-primary text-addisons-primary-dark"
-              : "border border-addisons-primary/40 text-addisons-primary-dark hover:bg-addisons-primary/20"
-          }`}
-        >
-          Patients by State
-        </button>
-        <button
-          type="button"
-          onClick={() => setActiveTab("professionals")}
-          className={`rounded-lg px-4 py-2 font-medium transition ${
-            activeTab === "professionals"
-              ? "bg-addisons-primary text-addisons-primary-dark"
-              : "border border-addisons-primary/40 text-addisons-primary-dark hover:bg-addisons-primary/20"
-          }`}
-        >
-          Professionals by State
-        </button>
-      </div>
+        {/* 🔥 UPDATED STATS (NEW STYLE) */}
+        <div className="grid grid-cols-2 gap-6 mb-12">
 
-      <div className="mt-8 -mx-4 sm:-mx-6 lg:-mx-8">
-        <div className="overflow-hidden px-4 sm:px-6 lg:px-8">
-          <div className="min-h-[55vh] overflow-hidden rounded-2xl bg-white ring-1 ring-addisons-primary/20 sm:min-h-[65vh]">
-            <div className="flex h-[55vh] min-h-[1000px] flex-col p-3 sm:h-[65vh]">
-              <IndiaMap
-                regionData={regionData}
-                title={activeTab === "patients" ? "Patients by State" : "Professionals by State"}
-              />
+          {/* Patients */}
+          <div
+            className="bg-white px-6 py-5 flex flex-col justify-between border border-[#2d3c59]/10"
+            style={{ borderRadius: "3px" }}
+          >
+            <span className="text-[11px] uppercase tracking-[0.14em] text-[#2d3c59]/50">
+              Patients
+            </span>
+
+            <div className="flex items-end justify-between mt-4">
+              <span className="text-3xl font-medium text-[#2d3c59]">
+                {stats?.totalPatients ?? 0}
+              </span>
+
+              <span className="text-[11px] text-[#2d3c59]/40 uppercase">
+                Total
+              </span>
             </div>
           </div>
+
+          {/* Professionals */}
+          <div
+            className="bg-white px-6 py-5 flex flex-col justify-between border border-[#2d3c59]/10"
+            style={{ borderRadius: "3px" }}
+          >
+            <span className="text-[11px] uppercase tracking-[0.14em] text-[#2d3c59]/50">
+              Professionals
+            </span>
+
+            <div className="flex items-end justify-between mt-4">
+              <span className="text-3xl font-medium text-[#2d3c59]">
+                {stats?.totalProfessionals ?? 0}
+              </span>
+
+              <span className="text-[11px] text-[#2d3c59]/40 uppercase">
+                Total
+              </span>
+            </div>
+          </div>
+
         </div>
+
+        {/* Tabs */}
+        <div className="flex gap-3 mb-10">
+
+          <button
+            onClick={() => setActiveTab("patients")}
+            className={`
+              px-5 py-2 text-[12px] font-medium uppercase tracking-[0.08em]
+              transition-all duration-200
+              ${activeTab === "patients"
+                ? "bg-[#2d3c59] text-[#eaebd0]"
+                : "text-[#2d3c59] border border-[#2d3c59]/20 hover:bg-[#2d3c59]/5"}
+            `}
+            style={{ borderRadius: "3px" }}
+          >
+            Patients
+          </button>
+
+          <button
+            onClick={() => setActiveTab("professionals")}
+            className={`
+              px-5 py-2 text-[12px] font-medium uppercase tracking-[0.08em]
+              transition-all duration-200
+              ${activeTab === "professionals"
+                ? "bg-[#2d3c59] text-[#eaebd0]"
+                : "text-[#2d3c59] border border-[#2d3c59]/20 hover:bg-[#2d3c59]/5"}
+            `}
+            style={{ borderRadius: "3px" }}
+          >
+            Professionals
+          </button>
+
+        </div>
+
+        {/* Divider */}
+        <div className="h-px w-full bg-[#2d3c59]/10 mb-10" />
+
+        {/* ✅ MAP (FULL VISIBLE FIXED) */}
+        <div className="w-full">
+
+          <IndiaMap
+            regionData={regionData}
+            title={
+              activeTab === "patients"
+                ? "Patients by State"
+                : "Professionals by State"
+            }
+          />
+
+        </div>
+
       </div>
-    </div>
+    </section>
   );
 }

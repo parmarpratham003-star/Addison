@@ -2,144 +2,183 @@
 
 import Link from "next/link";
 import { Outfit } from "next/font/google";
+import {
+  AlertTriangle,
+  BookOpen,
+  Stethoscope,
+  FileText,
+  Pill,
+  Plane,
+} from "lucide-react";
 
 const outfit = Outfit({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600"],
 });
 
-const cards = [
+const items = [
   {
-    title: "Addisonian Crisis Info",
-    desc: "Recognize symptoms, respond quickly, and manage critical emergencies with confidence.",
-    tag: "Emergency",
+    title: "Addisonian Crisis",
+    desc: "Recognize symptoms, respond quickly, and manage emergencies effectively.",
     href: "/emergency",
+    icon: AlertTriangle,
   },
   {
-    title: "Blog",
-    desc: "Patient stories, expert insights, and practical guidance for daily life.",
-    tag: "Articles",
+    title: "Clinical Blog",
+    desc: "Patient experiences and expert-backed insights for daily management.",
     href: "/blog",
+    icon: BookOpen,
   },
   {
-    title: "Find Professionals",
-    desc: "Connect with trusted endocrinologists who specialise in Addison's disease.",
-    tag: "Directory",
+    title: "Find Specialists",
+    desc: "Connect with endocrinologists and healthcare professionals across India.",
     href: "/directory",
+    icon: Stethoscope,
   },
   {
     title: "Information Hub",
-    desc: "Verified knowledge, symptoms, and care strategies for everyday management.",
-    tag: "Guides",
+    desc: "Evidence-based knowledge, symptoms, and long-term care strategies.",
     href: "/information",
+    icon: FileText,
+  },
+  {
+    title: "Medication Guide",
+    desc: "Understand steroid therapy, dosage, and long-term treatment planning.",
+    href: "/information",
+    icon: Pill,
+  },
+  {
+    title: "Lifestyle & Travel",
+    desc: "Daily routines, diet tips, and travel safety practices for Addison's.",
+    href: "/information",
+    icon: Plane,
   },
 ];
 
 export function ResourcesSection() {
   return (
-    <section className={`${outfit.className} relative py-24 bg-[#f5f5f5] overflow-hidden`}>
+    <section className={`${outfit.className} py-20 bg-[#f5f5f5]`}>
 
-      {/* Background */}
-      <div className="pointer-events-none absolute -top-28 -left-28 h-[380px] w-[380px] rounded-full bg-[#eaebd0] opacity-40 blur-[100px]" />
-      <div className="pointer-events-none absolute -bottom-28 -right-28 h-[320px] w-[320px] rounded-full bg-[#2d3c59]/10 opacity-30 blur-[110px]" />
+      <div className="max-w-6xl mx-auto px-6">
 
-      <div className="relative max-w-6xl mx-auto px-6">
+        {/* HEADER */}
+        <div className="flex flex-col sm:flex-row justify-between items-start gap-6 mb-20">
 
-        {/* Header */}
-        <div className="flex flex-col sm:flex-row justify-between items-end mb-14 gap-6">
-
-          <h2 className="text-[2.8rem] sm:text-[3.6rem] font-medium text-[#2d3c59] leading-[0.95]">
+          {/* LEFT */}
+          <h2 className="text-[3rem] sm:text-[3.6rem] font-medium text-[#2d3c59] leading-[1]">
             Resources <br />
             <span className="text-[#2d3c59]/50">& Guides</span>
           </h2>
 
-          <p
-            className="text-sm text-[#2d3c59]/50 leading-relaxed"
-            style={{
-              maxWidth: "220px",
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
-          >
+          {/* RIGHT DESCRIPTION */}
+          <p className="text-sm text-[#2d3c59]/50 max-w-[260px] leading-relaxed">
             Curated information, professional directories, and emergency support
           </p>
-        </div>
-
-        {/* Grid */}
-        <div className="grid grid-cols-2 gap-6">
-
-          {cards.map((card, i) => (
-            <Link
-              key={i}
-              href={card.href}
-              className="
-                relative h-[230px] p-6
-                flex flex-col justify-between
-                bg-white text-[#2d3c59]
-                border border-[#2d3c59]/10
-              "
-              style={{
-                borderRadius: "6px",
-                clipPath: "polygon(0 0, calc(100% - 20px) 0, 100% 20px, 100% 100%, 0 100%)",
-              }}
-            >
-
-              {/* Tag */}
-              <span className="text-[10px] tracking-[0.18em] uppercase text-[#2d3c59]/50">
-                {card.tag}
-              </span>
-
-              {/* Content */}
-              <div>
-                <h3 className="text-[20px] font-medium mb-2">
-                  {card.title}
-                </h3>
-
-                <p
-                  className="text-[13px] text-[#2d3c59]/60 leading-[1.7]"
-                  style={{
-                    display: "-webkit-box",
-                    WebkitLineClamp: 2,
-                    WebkitBoxOrient: "vertical",
-                    overflow: "hidden",
-                  }}
-                >
-                  {card.desc}
-                </p>
-              </div>
-
-              {/* CTA */}
-              <div className="flex items-center justify-between text-[11px] uppercase tracking-[0.12em]">
-                <span>Explore</span>
-                <span>→</span>
-              </div>
-
-              {/* Line Hover */}
-              <div className="hover-line" />
-
-            </Link>
-          ))}
 
         </div>
+
+        {/* GRID */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-16">
+
+          {items.map((item, i) => {
+            const Icon = item.icon;
+
+            return (
+              <Link
+                key={i}
+                href={item.href}
+                className="group flex items-start gap-5 py-3"
+              >
+
+                {/* ICON FLIP */}
+                <div className="perspective flex-shrink-0">
+                  <div className="flip-inner w-14 h-14 relative">
+
+                    {/* FRONT — light bg, dark icon */}
+                    <div className="face face-front">
+                      <Icon size={20} strokeWidth={1.8} />
+                    </div>
+
+                    {/* BACK — dark bg, light icon (same icon, inverted) */}
+                    <div className="face face-back">
+                      <Icon size={20} strokeWidth={1.8} />
+                    </div>
+
+                  </div>
+                </div>
+
+                {/* CONTENT */}
+                <div className="max-w-[260px]">
+
+                  <h3 className="text-[17px] font-medium text-[#2d3c59] leading-[1.4]">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-[14px] text-[#2d3c59]/60 mt-2 leading-[1.9]">
+                    {item.desc}
+                  </p>
+
+                  <span className="text-[12px] text-[#2d3c59] mt-3 inline-block transition group-hover:translate-x-1">
+                    Learn more →
+                  </span>
+
+                </div>
+
+              </Link>
+            );
+          })}
+
+        </div>
+
       </div>
 
-      {/* Line Hover Style */}
       <style>{`
-        .hover-line {
-          position: absolute;
-          bottom: 0;
-          left: 50%;
-          height: 2px;
-          width: 0%;
-          background: #2d3c59;
-          transition: all 0.35s ease;
-          transform: translateX(-50%);
+        /* Flip container */
+        .perspective {
+          perspective: 1000px;
         }
 
-        a:hover .hover-line {
-          width: 85%;
+        /* The card that flips */
+        .flip-inner {
+          transform-style: preserve-3d;
+          transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+          border-radius: 3px;
+        }
+
+        /* Trigger flip on group hover */
+        .group:hover .flip-inner {
+          transform: rotateY(180deg);
+        }
+
+        /* Shared face styles */
+        .face {
+          position: absolute;
+          inset: 0;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          backface-visibility: hidden;
+          border-radius: 3px;
+          border: 1.5px solid transparent;
+          transition: border-color 0.5s ease;
+        }
+
+        /* Border color appears on hover for both faces */
+        .group:hover .face {
+          border-color: #94a378;
+        }
+
+        /* Front: light background, dark icon */
+        .face-front {
+          background: #eaebd0;
+          color: #2d3c59;
+        }
+
+        /* Back: dark background, light icon — rotated to start hidden */
+        .face-back {
+          background: #2d3c59;
+          color: #eaebd0;
+          transform: rotateY(180deg);
         }
       `}</style>
 

@@ -11,11 +11,10 @@ import {
 const INDIA_GEO_URL =
   "https://gist.githubusercontent.com/jbrobst/56c13bbbf9d97d187fea01ca62ea5112/raw/e388c4cae20aa53cb5090210a42ebb9b765c0a36/india_states.geojson";
 
-// Map GeoJSON state names to our regionData keys (INDIAN_STATES format)
 const STATE_NAME_MAP: Record<string, string> = {
   "Andaman and Nicobar Islands": "Andaman & Nicobar Island",
   "Dadra and Nagar Haveli": "Dadara & Nagar Haveli",
-  "Dadra and Nagar Haveli and Daman and Diu": "Dadara & Nagar Haveli", // fallback - new UT
+  "Dadra and Nagar Haveli and Daman and Diu": "Dadara & Nagar Haveli",
   "Daman and Diu": "Daman & Diu",
   "Jammu and Kashmir": "Jammu & Kashmir",
   "NCT of Delhi": "Delhi",
@@ -23,28 +22,6 @@ const STATE_NAME_MAP: Record<string, string> = {
   "Puducherry": "Puducherry",
   "Orissa": "Odisha",
 };
-
-function interpolateColor(
-  color1: string,
-  color2: string,
-  t: number
-): string {
-  const hex2rgb = (hex: string) => {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
-    return [r, g, b];
-  };
-  const rgb2hex = (r: number, g: number, b: number) =>
-    `#${[r, g, b].map((x) => Math.round(x).toString(16).padStart(2, "0")).join("")}`;
-
-  const [r1, g1, b1] = hex2rgb(color1);
-  const [r2, g2, b2] = hex2rgb(color2);
-  const r = r1 + (r2 - r1) * t;
-  const g = g1 + (g2 - g1) * t;
-  const b = b1 + (b2 - b1) * t;
-  return rgb2hex(r, g, b);
-}
 
 function getStateKey(geoProps: Record<string, unknown>): string | null {
   const raw =
@@ -60,15 +37,12 @@ interface IndiaMapProps {
   title: string;
 }
 
-const DEFAULT_WIDTH = 800;
-const DEFAULT_HEIGHT = 500;
-
 export function IndiaMap({ regionData, title }: IndiaMapProps) {
   const [hoveredState, setHoveredState] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState({
-    width: DEFAULT_WIDTH,
-    height: DEFAULT_HEIGHT,
+    width: 800,
+    height: 500,
   });
 
   useEffect(() => {
@@ -85,72 +59,97 @@ export function IndiaMap({ regionData, title }: IndiaMapProps) {
     return () => ro.disconnect();
   }, []);
 
-  const { maxCount, getFill } = useMemo(() => {
-    const values = Object.values(regionData).map((d) => d.value);
-    const maxCount = Math.max(...values, 1);
-    return {
-      maxCount,
-      getFill: (count: number) => {
-        const t = count / maxCount;
-        return interpolateColor("#8ecae6", "#2c5282", t);
-      },
-    };
-  }, [regionData]);
+  const maxCount = Math.max(
+    ...Object.values(regionData).map((d) => d.value),
+    1
+  );
 
   const getCount = (stateKey: string): number =>
     regionData[stateKey]?.value ?? 0;
 
+  const getFill = (count: number) => {
+    const t = count / maxCount;
+    return `rgba(45,60,89,${0.2 + t * 0.6})`;
+  };
+
   return (
-    <div className="relative flex h-full w-full min-h-[400px] flex-col">
-      <h3 className="mb-2 shrink-0 text-sm font-medium text-addisons-muted">{title}</h3>
-      <div ref={containerRef} className="min-h-0 flex-1 w-full overflow-hidden">
+    <div className="relative flex h-full w-full min-h-[420px] flex-col">
+
+      {/* Title */}
+      <h3 className="mb-3 text-sm font-medium text-[#2d3c59]/70">
+        {title}
+      </h3>
+
+      {/* Map (NO BOX / NO BORDER) */}
+      <div
+        ref={containerRef}
+        className="flex-1 w-full overflow-hidden"
+      >
         <ComposableMap
           width={dimensions.width}
           height={dimensions.height}
           projection="geoMercator"
-        projectionConfig={{
-          scale: 1400,
-          center: [78.9629, 22.5937],
-        }}
-      >
-        <ZoomableGroup center={[78.9629, 22.5937]} zoom={1}>
-          <Geographies geography={INDIA_GEO_URL}>
-            {({ geographies }) =>
-              geographies.map((geo) => {
-                const stateKey = getStateKey(geo.properties);
-                const count = stateKey ? getCount(stateKey) : 0;
-                const fill =
-                  count > 0 ? getFill(count) : "#e2e8f0";
-                const isHovered = hoveredState === stateKey;
+          projectionConfig={{
+            scale: 1400,
+            center: [78.9629, 22.5937],
+          }}
+        >
+          <ZoomableGroup center={[78.9629, 22.5937]} zoom={1}>
+            <Geographies geography={INDIA_GEO_URL}>
+              {({ geographies }) =>
+                geographies.map((geo) => {
+                  const stateKey = getStateKey(geo.properties);
+                  const count = stateKey ? getCount(stateKey) : 0;
+                  const isHovered = hoveredState === stateKey;
 
-                return (
-                  <Geography
-                    key={geo.rsmKey}
-                    geography={geo}
-                    fill={isHovered ? "#57bb90" : fill}
-                    stroke="#64748b"
-                    strokeWidth={1.2}
-                    onMouseEnter={() => setHoveredState(stateKey)}
-                    onMouseLeave={() => setHoveredState(null)}
-                    style={{
-                      default: { outline: "none" },
-                      hover: { outline: "none", cursor: "pointer" },
-                      pressed: { outline: "none" },
-                    }}
-                  />
-                );
-              })
-            }
-          </Geographies>
-        </ZoomableGroup>
-      </ComposableMap>
+                  return (
+                    <Geography
+                      key={geo.rsmKey}
+                      geography={geo}
+                      fill={
+                        isHovered
+                          ? "#2d3c59"
+                          : count > 0
+                          ? getFill(count)
+                          : "#e5e7eb"
+                      }
+                      stroke="#ffffff"
+                      strokeWidth={0.8}
+                      onMouseEnter={() => setHoveredState(stateKey)}
+                      onMouseLeave={() => setHoveredState(null)}
+                      style={{
+                        default: {
+                          outline: "none",
+                          transition: "all 0.25s ease",
+                        },
+                        hover: {
+                          outline: "none",
+                          cursor: "pointer",
+                        },
+                        pressed: { outline: "none" },
+                      }}
+                    />
+                  );
+                })
+              }
+            </Geographies>
+          </ZoomableGroup>
+        </ComposableMap>
       </div>
+
+      {/* Tooltip */}
       {hoveredState && (
         <div
-          className="pointer-events-none absolute bottom-4 left-1/2 z-10 -translate-x-1/2 rounded-lg bg-addisons-primary-dark px-3 py-2 text-sm font-medium text-white shadow-lg"
-          role="tooltip"
+          className="
+            pointer-events-none absolute bottom-5 left-1/2
+            -translate-x-1/2
+            bg-[#2d3c59] text-[#eaebd0]
+            px-3 py-1.5 text-xs font-medium
+            shadow-[0_4px_16px_rgba(45,60,89,0.25)]
+          "
+          style={{ borderRadius: "3px" }}
         >
-          {hoveredState}: {getCount(hoveredState)}
+          {hoveredState} — {getCount(hoveredState)}
         </div>
       )}
     </div>
