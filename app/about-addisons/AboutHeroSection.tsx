@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import { ShieldAlert, Stethoscope, Heart } from "lucide-react";
 
@@ -45,30 +46,38 @@ const heroBoxes = [
 ];
 
 export function AboutHeroSection() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setVisible(true);
+      },
+      { threshold: 0.15 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section
+      ref={sectionRef}
       className={`${cormorant.variable} ${outfit.variable}`}
       style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
     >
-
       {/* HERO */}
       <div className="relative w-full" style={{ minHeight: "480px" }}>
 
         {/* IMAGE */}
         <img
-         src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&q=85"
+          src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&q=85"
           alt=""
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* OVERLAY */}
-        <div
-          className="absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to right, rgba(18,26,40,0.93) 0%, rgba(18,26,40,0.78) 55%, rgba(18,26,40,0.60) 100%)",
-          }}
-        />
+        {/* OVERLAY — HeroSection gradient style */}
+        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
 
         {/* CONTENT */}
         <div
@@ -76,11 +85,17 @@ export function AboutHeroSection() {
           style={{ minHeight: "480px" }}
         >
 
-          {/* TEXT */}
-          <div className="pt-20 pb-10 max-w-xl">
-
+          {/* TEXT — fade + slide up on scroll */}
+          <div
+            className="pt-20 pb-10 max-w-xl"
+            style={{
+              opacity: visible ? 1 : 0,
+              transform: visible ? "translateY(0)" : "translateY(32px)",
+              transition: "opacity 0.7s ease 0.1s, transform 0.7s ease 0.1s",
+            }}
+          >
             <p className="text-[0.58rem] tracking-[0.26em] uppercase text-[#f5f5f5]/45 mb-6">
-              About Addison's Disease
+              About Addison&apos;s Disease
             </p>
 
             <h1
@@ -102,40 +117,31 @@ export function AboutHeroSection() {
               essential for life.
             </p>
 
-            {/* 🔥 SAME BUTTON STYLE */}
+            {/* BUTTONS — HeroSection style with shine sweep */}
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/emergency-card"
-                className="
-                  bg-[#94a378] text-[#2d3c59]
-                  px-7 py-2.5 rounded-full
-                  text-[0.7rem] uppercase tracking-[0.1em]
-                  transition-all duration-200
-                  hover:bg-[#a3b388]
-                "
+                className="group relative overflow-hidden bg-[#2d3c59] text-[#f5f5f5]/70 px-7 py-3 rounded-xl text-sm font-medium border border-[#2d3c59] transition-all duration-300 hover:bg-transparent hover:text-[#eaebd0] hover:border-[#eaebd0]/50 hover:shadow-lg"
               >
-                Emergency card
+                <span className="relative z-10">Emergency card</span>
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
               </Link>
 
               <Link
                 href="/emergency"
-                className="
-                  border border-[#f5f5f5]/30 text-[#f5f5f5]/80
-                  px-7 py-2.5 rounded-full
-                  text-[0.7rem] uppercase tracking-[0.1em]
-                  transition-all duration-200
-                  hover:border-[#f5f5f5]/60 hover:text-[#f5f5f5]
-                "
+                className="group relative overflow-hidden px-6 py-3 rounded-xl text-sm font-medium border border-[#eaebd0]/50 text-[#f5f5f5]/70 transition-all duration-300 hover:bg-[#2d3c59] hover:border-[#2d3c59] hover:shadow-lg"
               >
-                Crisis guide
+                <span className="relative z-10">Crisis guide</span>
+                <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
               </Link>
             </div>
-
           </div>
 
-          {/* 🔥 CARDS */}
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 pb-0" style={{ marginBottom: "-110px" }}>
-
+          {/* CARDS — staggered fade + slide up */}
+          <div
+            className="grid grid-cols-1 sm:grid-cols-3 gap-5"
+            style={{ marginBottom: "-110px" }}
+          >
             {heroBoxes.map((box, i) => {
               const Icon = box.icon;
 
@@ -143,63 +149,78 @@ export function AboutHeroSection() {
                 <Link
                   key={i}
                   href={box.href}
-                  className="
-                    group flex flex-col items-center text-center gap-2.5
-                    px-5 py-5 bg-[#2d3c59] rounded-[14px]
-                    transition-all duration-300
-                    hover:-translate-y-2 hover:shadow-[0_16px_40px_rgba(0,0,0,0.35)]
-                  "
+                  className="group relative flex flex-col items-center text-center gap-2.5 px-5 py-5 rounded-[14px] overflow-hidden"
+                  style={{
+                    /* ✅ Inverted: bg = #f5f5f5 (was text colour), all text = blue tones */
+                    backgroundColor: "#f5f5f5",
+                    opacity: visible ? 1 : 0,
+                    transform: visible ? "translateY(0)" : "translateY(48px)",
+                    transition: `
+                      opacity 0.65s ease ${0.3 + i * 0.15}s,
+                      transform 0.65s ease ${0.3 + i * 0.15}s,
+                      box-shadow 0.3s ease,
+                      translate 0.3s ease
+                    `,
+                  }}
                 >
+                  {/* Hover lift handled via wrapper */}
+                  <div className="absolute inset-0 transition-transform duration-300 group-hover:-translate-y-2 pointer-events-none" />
+
+                  {/* HOVER SHINE */}
+                  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out z-10" />
+
+                  {/* FEATURE TOP LINE */}
+                  {box.featured && (
+                    <span className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2.5px] bg-[#1e3a5f]" />
+                  )}
 
                   {/* ICON */}
                   <div
-                    className={`
-                      w-[52px] h-[52px] rounded-full flex items-center justify-center border
-                      ${box.featured
-                        ? "border-[#94a378] text-[#94a378]"
-                        : "border-[#f5f5f5]/25 text-[#f5f5f5]/70"}
-                    `}
+                    className="w-[52px] h-[52px] rounded-full flex items-center justify-center border transition-all duration-300 group-hover:scale-110"
+                    style={{
+                      borderColor: box.featured ? "#1e3a5f" : "#1e3a5f50",
+                      color: "#1e3a5f",
+                    }}
                   >
                     <Icon size={20} strokeWidth={1.4} />
                   </div>
 
                   {/* TITLE */}
-                  <h3 className="text-[0.7rem] tracking-[0.2em] uppercase text-[#f5f5f5]">
+                  <h3
+                    className="text-[0.7rem] tracking-[0.2em] uppercase font-semibold"
+                    style={{ color: "#1e3a5f" }}
+                  >
                     {box.title}
                   </h3>
 
                   {/* DIVIDER */}
                   <span
-                    className={`w-7 h-[1.5px] ${
-                      box.featured ? "bg-[#94a378]" : "bg-[#f5f5f5]/20"
-                    }`}
+                    className="w-7 h-[1.5px]"
+                    style={{
+                      backgroundColor: box.featured ? "#1e3a5f" : "#1e3a5f35",
+                    }}
                   />
 
                   {/* DESC */}
-                  <p className="text-[0.75rem] leading-[1.7] text-[#f5f5f5]/55 max-w-[170px]">
+                  <p
+                    className="text-[0.75rem] leading-[1.7] max-w-[170px]"
+                    style={{ color: "#2d5080bb" }}
+                  >
                     {box.desc}
                   </p>
 
                   {/* LINK */}
                   <span
-                    className={`text-[0.66rem] uppercase ${
-                      box.featured
-                        ? "text-[#94a378]"
-                        : "text-[#f5f5f5]/30"
-                    }`}
+                    className="text-[0.66rem] uppercase transition-colors duration-200"
+                    style={{
+                      color: box.featured ? "#1e3a5f" : "#1e3a5f70",
+                    }}
                   >
                     Learn more →
                   </span>
-
-                  {/* FEATURE LINE */}
-                  {box.featured && (
-                    <span className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2px] bg-[#94a378]" />
-                  )}
-
                 </Link>
               );
             })}
-
           </div>
 
         </div>

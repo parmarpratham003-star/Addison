@@ -2,6 +2,7 @@ import { createPageMetadata } from "@/lib/seo";
 import { AboutHeroSection } from "./AboutHeroSection";
 import { AboutContent } from "./AboutContent";
 
+
 export const metadata = createPageMetadata({
   title: "About Addison's Disease",
   description:
@@ -14,6 +15,7 @@ export default function AboutAddisonsPage() {
     <>
       <AboutHeroSection />
       <AboutContent />
+     
     </>
   );
 }

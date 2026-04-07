@@ -72,10 +72,10 @@ export function HeroSection() {
       <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-12 grid lg:grid-cols-2 gap-10 items-center">
         {/* LEFT CONTENT */}
         <div
-  className={`lg:pl-8 xl:pl-12 transition-all duration-700 ${
-    visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
-  }`}
->
+          className={`lg:pl-8 xl:pl-12 transition-all duration-700 ${
+          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"
+          }`}
+        >
           {/* 🔥 WORD ANIMATION */}
         <h1 className={`text-4xl md:text-5xl lg:text-6xl font-semibold leading-[1.1] text-[#f5f5f5] ${cormorant.className}`}>
             {text.map((word, i) => (
@@ -97,20 +97,20 @@ export function HeroSection() {
           </p>
 
          <div className="mt-6 space-y-3">
-  <div className="flex gap-3">
-    <div className="w-2 h-2 mt-2 rounded-full bg-[#f5f5f5]" />
-    <p className="text-sm text-[#f5f5f5]/70">
-      Free emergency card for quick medical identification
-    </p>
-  </div>
+          <div className="flex gap-3">
+            <div className="w-2 h-2 mt-2 rounded-full bg-[#f5f5f5]" />
+            <p className="text-sm text-[#f5f5f5]/70">
+              Free emergency card for quick medical identification
+            </p>
+          </div>
 
-  <div className="flex gap-3">
-    <div className="w-2 h-2 mt-2 rounded-full bg-[#f5f5f5]" />
-    <p className="text-sm text-[#f5f5f5]/70">
-      Connect with verified specialists & community
-    </p>
-  </div>
-</div>
+          <div className="flex gap-3">
+            <div className="w-2 h-2 mt-2 rounded-full bg-[#f5f5f5]" />
+            <p className="text-sm text-[#f5f5f5]/70">
+              Connect with verified specialists & community
+            </p>
+          </div>
+        </div>
 
           {/* Buttons */}
           <div className="flex gap-4 mt-8">
