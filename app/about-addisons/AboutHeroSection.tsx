@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import { ShieldAlert, Stethoscope, Heart } from "lucide-react";
 
+// Font configurations
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
@@ -18,30 +19,25 @@ const outfit = Outfit({
   variable: "--font-outfit",
 });
 
+// Card content - Descriptions adjusted to naturally fill ~4 lines
 const heroBoxes = [
   {
     icon: ShieldAlert,
-    label: "Emergency Ready",
     title: "Crisis Guide",
-    desc: "Know exactly what to do during an Addisonian crisis — fast action saves lives.",
+    desc: "Immediate steps to manage an Addisonian crisis effectively. Learn how to administer emergency injections and when to seek urgent medical intervention for stabilization.",
     href: "/emergency",
-    featured: false,
   },
   {
     icon: Stethoscope,
-    label: "Find Doctors",
     title: "Specialist Care",
-    desc: "Find experienced endocrinologists and adrenal specialists across India.",
+    desc: "Connect with leading endocrinologists across India who specialize in adrenal insufficiency and long-term hormone replacement therapy management for patients.",
     href: "/directory",
-    featured: true,
   },
   {
     icon: Heart,
-    label: "Day to Day",
     title: "Daily Wellbeing",
-    desc: "Practical routines, diet guidance, and travel tips for life with Addison's.",
+    desc: "Master your daily routine with guidance on steroid dosing, salt intake, and managing physical stress to maintain a high quality of life with Addison's disease.",
     href: "/information",
-    featured: false,
   },
 ];
 
@@ -49,6 +45,7 @@ export function AboutHeroSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
 
+  // Scroll reveal animation logic
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -63,29 +60,29 @@ export function AboutHeroSection() {
   return (
     <section
       ref={sectionRef}
-      className={`${cormorant.variable} ${outfit.variable}`}
+      className={`${cormorant.variable} ${outfit.variable} mb-28`}
       style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
     >
-      {/* HERO */}
+      {/* --- HERO IMAGE & OVERLAY --- */}
       <div className="relative w-full" style={{ minHeight: "480px" }}>
-
-        {/* IMAGE */}
+        
+        {/* Background Image */}
         <img
           src="https://images.unsplash.com/photo-1579154204601-01588f351e67?w=1600&q=85"
-          alt=""
+          alt="Medical Research"
           className="absolute inset-0 w-full h-full object-cover"
         />
 
-        {/* OVERLAY — HeroSection gradient style */}
+        {/* Gradient Overlay */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/50 to-transparent" />
 
-        {/* CONTENT */}
+        {/* --- HERO CONTENT WRAPPER --- */}
         <div
-          className="relative z-10 max-w-7xl mx-auto px-8 lg:px-16 flex flex-col justify-between"
+          className="relative z-10 max-w-7xl mx-auto px-8 lg:px-20 flex flex-col justify-between"
           style={{ minHeight: "480px" }}
         >
 
-          {/* TEXT — fade + slide up on scroll */}
+          {/* Top Text Content */}
           <div
             className="pt-20 pb-10 max-w-xl"
             style={{
@@ -117,11 +114,11 @@ export function AboutHeroSection() {
               essential for life.
             </p>
 
-            {/* BUTTONS — HeroSection style with shine sweep */}
+            {/* ACTION BUTTONS */}
             <div className="flex flex-wrap gap-3">
               <Link
                 href="/emergency-card"
-                className="group relative overflow-hidden bg-[#2d3c59] text-[#f5f5f5]/70 px-7 py-3 rounded-xl text-sm font-medium border border-[#2d3c59] transition-all duration-300 hover:bg-transparent hover:text-[#eaebd0] hover:border-[#eaebd0]/50 hover:shadow-lg"
+                className="group relative overflow-hidden bg-[#2d3c59] text-[#f5f5f5]/70 px-7 py-3 rounded-[3px] text-sm font-medium border border-[#2d3c59] transition-all duration-300 hover:bg-transparent hover:text-[#eaebd0] hover:border-[#eaebd0]/50 hover:shadow-lg"
               >
                 <span className="relative z-10">Emergency card</span>
                 <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
@@ -129,7 +126,7 @@ export function AboutHeroSection() {
 
               <Link
                 href="/emergency"
-                className="group relative overflow-hidden px-6 py-3 rounded-xl text-sm font-medium border border-[#eaebd0]/50 text-[#f5f5f5]/70 transition-all duration-300 hover:bg-[#2d3c59] hover:border-[#2d3c59] hover:shadow-lg"
+                className="group relative overflow-hidden px-6 py-3 rounded-[3px] text-sm font-medium border border-[#eaebd0]/50 text-[#f5f5f5]/70 transition-all duration-300 hover:bg-[#2d3c59] hover:border-[#2d3c59] hover:shadow-lg"
               >
                 <span className="relative z-10">Crisis guide</span>
                 <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out" />
@@ -137,10 +134,10 @@ export function AboutHeroSection() {
             </div>
           </div>
 
-          CARDS — staggered fade + slide up
+          {/* --- BOTTOM CARDS GRID --- */}
           <div
-            className="grid grid-cols-1 sm:grid-cols-3 gap-5"
-            style={{ marginBottom: "-110px" }}
+            className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-6xl"
+            style={{ marginBottom: "-90px" }}
           >
             {heroBoxes.map((box, i) => {
               const Icon = box.icon;
@@ -149,76 +146,55 @@ export function AboutHeroSection() {
                 <Link
                   key={i}
                   href={box.href}
-                  className="group relative flex flex-col items-center text-center gap-2.5 px-5 py-5 rounded-[14px] overflow-hidden"
+                  className="group relative flex flex-col items-start text-left gap-3 px-8 py-8 rounded-[14px] bg-[#f5f5f5] overflow-hidden"
                   style={{
-                    /* ✅ Inverted: bg = #f5f5f5 (was text colour), all text = blue tones */
-                   backgroundColor: "#f5f5f5",
-                    boxShadow: "0 8px 30px rgba(45,60,89,0.12)",
+                    boxShadow: "0 10px 30px rgba(0,0,0,0.08)",
                     opacity: visible ? 1 : 0,
                     transform: visible ? "translateY(0)" : "translateY(48px)",
                     transition: `
                       opacity 0.65s ease ${0.3 + i * 0.15}s,
                       transform 0.65s ease ${0.3 + i * 0.15}s,
                       box-shadow 0.3s ease,
-                      translate 0.3s ease
+                      background-color 0.3s ease
                     `,
                   }}
                 >
-                  {/* Hover lift handled via wrapper */}
-                  <div className="absolute inset-0 transition-transform duration-300 group-hover:-translate-y-2 pointer-events-none" />
-
-                  {/* HOVER SHINE */}
-                  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/60 to-transparent group-hover:translate-x-full transition-transform duration-700 ease-in-out z-10" />
-
-                  {/* FEATURE TOP LINE */}
-                  {box.featured && (
-                    <span className="absolute top-0 left-1/2 -translate-x-1/2 w-10 h-[2.5px] bg-[#1e3a5f]" />
-                  )}
-
-                  {/* ICON */}
+                  {/* ICON - Rotating Animation and Color Fill */}
                   <div
-                    className="w-[52px] h-[52px] rounded-full flex items-center justify-center border transition-all duration-300 group-hover:scale-110"
-                    style={{
-                      borderColor: box.featured ? "#1e3a5f" : "#1e3a5f50",
-                      color: "#1e3a5f",
-                    }}
+                    className="w-12 h-12 rounded-full flex items-center justify-center border border-[#1e3a5f]/20 text-[#1e3a5f] bg-white transition-all duration-700 group-hover:rotate-[360deg] group-hover:bg-[#1e3a5f] group-hover:text-white group-hover:border-[#1e3a5f]"
                   >
-                    <Icon size={20} strokeWidth={1.4} />
+                    <Icon size={20} strokeWidth={1.5} />
                   </div>
 
                   {/* TITLE */}
-                  <h3
-                    className="text-[0.7rem] tracking-[0.2em] uppercase font-semibold"
-                    style={{ color: "#1e3a5f" }}
-                  >
+                  <h3 className="text-[0.7rem] tracking-[0.2em] uppercase font-bold text-[#1e3a5f]">
                     {box.title}
                   </h3>
 
                   {/* DIVIDER */}
-                  <span
-                    className="w-7 h-[1.5px]"
-                    style={{
-                      backgroundColor: box.featured ? "#1e3a5f" : "#1e3a5f35",
-                    }}
-                  />
+                  <span className="w-8 h-[1.5px] bg-[#1e3a5f]/30 group-hover:w-16 group-hover:bg-[#1e3a5f] transition-all duration-500" />
 
-                  {/* DESC */}
+                  {/* DESCRIPTION - Fixed Height for 4 Lines */}
                   <p
-                    className="text-[0.75rem] leading-[1.7] max-w-[170px]"
-                    style={{ color: "#2d5080bb" }}
+                    className="text-[0.78rem] leading-[1.6] text-[#2d5080bb]"
+                    style={{
+                      height: "5.2rem", 
+                      display: "-webkit-box",
+                      WebkitLineClamp: "4",
+                      WebkitBoxOrient: "vertical",
+                      overflow: "hidden"
+                    }}
                   >
                     {box.desc}
                   </p>
 
-                  {/* LINK */}
-                  <span
-                    className="text-[0.66rem] uppercase transition-colors duration-200"
-                    style={{
-                      color: box.featured ? "#1e3a5f" : "#1e3a5f70",
-                    }}
-                  >
-                    Learn more →
+                  {/* LEARN MORE LINK */}
+                  <span className="text-[0.66rem] font-bold uppercase tracking-widest text-[#1e3a5f]/80 flex items-center gap-1 group-hover:gap-3 transition-all duration-300">
+                    Learn more <span className="text-lg leading-none">→</span>
                   </span>
+
+                  {/* HOVER SHINE EFFECT */}
+                  <span className="absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent group-hover:translate-x-full transition-transform duration-1000 ease-in-out z-10" />
                 </Link>
               );
             })}
@@ -226,9 +202,6 @@ export function AboutHeroSection() {
 
         </div>
       </div>
-
-    
-
     </section>
   );
 }

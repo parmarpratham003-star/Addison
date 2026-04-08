@@ -248,7 +248,7 @@ export default function EmergencyCardPage() {
       <style>{animStyles}</style>
 
       {/* ── OUTER WRAPPER — matches hero max-w-7xl ── */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-12 pt-20 pb-6">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-20 pb-6">
 
         {/* ── INNER WRAPPER — matches hero lg:pl-8 xl:pl-12 ── */}
         <div className="lg:pl-8 xl:pl-12">
@@ -268,7 +268,7 @@ export default function EmergencyCardPage() {
                 <span style={{ color: "rgba(45,60,89,0.45)", fontWeight: 400 }}>Card</span>
               </h1>
               <p
-                className="text-sm font-light leading-relaxed sm:pb-2 max-w-[220px]"
+                className="text-sm font-light leading-relaxed sm:pb-2 max-w-[250px]"
                 style={{ color: "rgba(45,60,89,0.45)", fontFamily: "var(--font-outfit)" }}
               >
                 Fill in your details and download a personalised card to carry at all times.

@@ -20,7 +20,7 @@ const outfit = Outfit({
 export function AboutContent() {
   return (
     <div
-      className={`${cormorant.variable} ${outfit.variable} pt-12 sm:pt-16 lg:py-25 bg-[#f5f5f5]`}
+      className={`${cormorant.variable} ${outfit.variable} `}
       style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
     >
       <AdrenalGlandsSection />
