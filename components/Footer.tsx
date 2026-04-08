@@ -38,7 +38,7 @@ export function Footer() {
       className={`${cormorant.variable} ${outfit.variable} bg-[#2d3c59] text-[#eaebd0]`}
       style={{ fontFamily: "var(--font-outfit)" }}
     >
-      <div className="max-w-6xl mx-auto px-6 py-16">
+      <div className="max-w-6xl mx-auto px-6 pt-16 pb-6">
 
         {/* TOP */}
         <div className="grid lg:grid-cols-2 gap-16">
@@ -59,7 +59,7 @@ export function Footer() {
 
             <Link
               href="/register"
-              className="inline-block mt-8 bg-[#94a378] text-white px-6 py-3 rounded-full text-sm hover:bg-[#7e8f5e] transition"
+              className="inline-block mt-8 bg-[#94a378] text-white px-6 py-3 borderRadius-3px text-sm hover:bg-[#7e8f5e] transition"
             >
               Join Community →
             </Link>
@@ -116,7 +116,7 @@ export function Footer() {
           </div>
         </div>
 
-        {/* 🔥 BOTTOM (CENTERED + LESS SPACE) */}
+        {/* BOTTOM */}
         <div className="mt-10 pt-4 border-t border-[#eaebd0]/10 text-center">
           <p className="text-xs text-[#eaebd0]/50">
             © {new Date().getFullYear()} Addison&apos;s Disease Community India

@@ -21,14 +21,23 @@ export default function TreatmentSection() {
       className={`${cormorant.variable} ${outfit.variable} w-full py-20 px-6 sm:px-10 lg:px-20 relative overflow-hidden`}
       style={{ fontFamily: "var(--font-outfit)" }}
     >
-      {/* 🌿 BACKGROUND */}
-      <div className="absolute inset-0 bg-[#eaebd0]" />
+      {/* 🌿 BACKGROUND IMAGE */}
+      <div className="absolute inset-0">
+        <img
+          src="https://images.unsplash.com/photo-1588776814546-ec7e5cfdc3b4?q=80&w=1600&auto=format&fit=crop"
+          alt="medical background"
+          className="w-full h-full object-cover"
+        />
+      </div>
 
-      {/* Gradient layer */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#eaebd0] via-[#e4e6c9] to-[#dcdcbc] opacity-80" />
+      {/* 🔥 WHITE OVERLAY */}
+      <div className="absolute inset-0 bg-white/90" />
 
-      {/* Texture dots */}
-      <div className="absolute inset-0 opacity-[0.05] bg-[radial-gradient(circle_at_20%_30%,#2d3c59_1px,transparent_1px)] bg-[length:40px_40px]" />
+      {/* 🌫️ SOFT GRADIENT */}
+      <div className="absolute inset-0 bg-gradient-to-br from-white/80 via-[#f5f7fa]/70 to-[#eef1f5]/80" />
+
+      {/* ✨ TEXTURE */}
+      <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(circle_at_20%_30%,#2d3c59_1px,transparent_1px)] bg-[length:40px_40px]" />
 
       {/* CONTENT */}
       <div className="relative z-10">
@@ -39,17 +48,16 @@ export default function TreatmentSection() {
             Health Overview
           </span>
 
-         <h2
-  className="text-[2.8rem] sm:text-[3.5rem] lg:text-[4rem] text-[#2d3c59] leading-[1.1]"
-  style={{ fontFamily: "var(--font-cormorant)" }}
->
-  Clinical Overview
-</h2>
+          <h2
+            className="text-[2.8rem] sm:text-[3.5rem] lg:text-[4rem] text-[#2d3c59] leading-[1.1]"
+            style={{ fontFamily: "var(--font-cormorant)" }}
+          >
+            Clinical Overview
+          </h2>
         </div>
 
         {/* MAIN GRID */}
         <div className="max-w-5xl mx-auto relative">
-
           <div className="grid grid-cols-1 md:grid-cols-2 gap-10 md:gap-16 relative">
 
             {/* CENTER DIVIDER */}

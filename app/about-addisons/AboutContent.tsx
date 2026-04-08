@@ -1,7 +1,6 @@
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 import { AdrenalGlandsSection } from "./AdrenalGlandSection";
 import { SymptomsSection } from "./SymptomsSection";
-import { DiagnosisSection } from "./DiagnosisSection";
 import { LifestyleSection } from "./LifestyleSection";
 import TreatmentSection from "./TreatmentSection";
 
@@ -21,7 +20,7 @@ const outfit = Outfit({
 export function AboutContent() {
   return (
     <div
-      className={`${cormorant.variable} ${outfit.variable} pt-12 sm:pt-16 lg:py-25 bg-[#eaebd0]`}
+      className={`${cormorant.variable} ${outfit.variable} pt-12 sm:pt-16 lg:py-25 bg-[#f5f5f5]`}
       style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
     >
       <AdrenalGlandsSection />

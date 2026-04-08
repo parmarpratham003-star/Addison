@@ -137,7 +137,7 @@ export function AboutHeroSection() {
             </div>
           </div>
 
-          {/* CARDS — staggered fade + slide up */}
+          CARDS — staggered fade + slide up
           <div
             className="grid grid-cols-1 sm:grid-cols-3 gap-5"
             style={{ marginBottom: "-110px" }}
@@ -152,7 +152,8 @@ export function AboutHeroSection() {
                   className="group relative flex flex-col items-center text-center gap-2.5 px-5 py-5 rounded-[14px] overflow-hidden"
                   style={{
                     /* ✅ Inverted: bg = #f5f5f5 (was text colour), all text = blue tones */
-                    backgroundColor: "#f5f5f5",
+                   backgroundColor: "#f5f5f5",
+                    boxShadow: "0 8px 30px rgba(45,60,89,0.12)",
                     opacity: visible ? 1 : 0,
                     transform: visible ? "translateY(0)" : "translateY(48px)",
                     transition: `
@@ -226,8 +227,7 @@ export function AboutHeroSection() {
         </div>
       </div>
 
-      {/* SPACER */}
-      <div className="bg-[#eaebd0]" style={{ paddingTop: "80px" }} />
+    
 
     </section>
   );
