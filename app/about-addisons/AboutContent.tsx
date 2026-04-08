@@ -26,7 +26,7 @@ export function AboutContent() {
     >
       <AdrenalGlandsSection />
       <SymptomsSection />
-      <DiagnosisSection />
+     
       <TreatmentSection />
       <LifestyleSection />
     </div>

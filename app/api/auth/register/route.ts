@@ -1,74 +1,87 @@
-import { NextResponse } from "next/server";
-import bcrypt from "bcryptjs";
+import NextAuth from "next-auth";
+import CredentialsProvider from "next-auth/providers/credentials";
+import { PrismaAdapter } from "@auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
-import { Role } from "@prisma/client";
-import { INDIAN_STATES } from "@/lib/indian-states";
+import bcrypt from "bcryptjs";
 
-const VALID_STATES = new Set(INDIAN_STATES);
+const handler = NextAuth({
+  adapter: PrismaAdapter(prisma),
 
-export async function POST(request: Request) {
-  try {
-    const body = await request.json();
-    const { name, email, password, role, state } = body;
-
-    if (!email || !password) {
-      return NextResponse.json(
-        { error: "Email and password are required" },
-        { status: 400 }
-      );
-    }
-
-    const existing = await prisma.user.findUnique({
-      where: { email },
-    });
-    if (existing) {
-      return NextResponse.json(
-        { error: "An account with this email already exists" },
-        { status: 400 }
-      );
-    }
-
-    const hashedPassword = await bcrypt.hash(password, 12);
-    const validRole = ["PATIENT", "ENDOCRINOLOGIST", "PSYCHIATRIST"].includes(role)
-      ? (role as Role)
-      : Role.PATIENT;
-
-    const validState =
-      state && typeof state === "string" && VALID_STATES.has(state as (typeof INDIAN_STATES)[number])
-        ? state
-        : null;
-
-    const user = await prisma.user.create({
-      data: {
-        name: name || null,
-        email,
-        password: hashedPassword,
-        role: validRole,
+  providers: [
+    CredentialsProvider({
+      name: "Credentials",
+      credentials: {
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
-    });
 
-    if (validRole === Role.PATIENT) {
-      await prisma.profile.create({
-        data: { userId: user.id, name: name || null, state: validState },
-      });
-    }
+      async authorize(credentials) {
+        try {
+          if (!credentials?.email || !credentials?.password) {
+            throw new Error("Missing email or password");
+          }
 
-    if (validRole === Role.ENDOCRINOLOGIST || validRole === Role.PSYCHIATRIST) {
-      await prisma.professional.create({
-        data: {
-          userId: user.id,
-          verified: false,
-          state: validState,
+          const user = await prisma.user.findUnique({
+            where: { email: credentials.email },
+          });
+
+          if (!user || !user.password) {
+            throw new Error("User not found");
+          }
+
+          const isValid = await bcrypt.compare(
+            credentials.password,
+            user.password
+          );
+
+          if (!isValid) {
+            throw new Error("Invalid password");
+          }
+
+          return {
+            id: user.id,
+            email: user.email,
+            name: user.name,
+            role: user.role,
+          };
+        } catch (error) {
+          console.error("Auth Error:", error);
+          return null;
+        }
+      },
+    }),
+  ],
+
+  session: {
+    strategy: "jwt",
+  },
+
+  pages: {
+    signIn: "/login", // optional (your login page)
+  },
+
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+        token.role = user.role;
+      }
+      return token;
+    },
+
+    async session({ session, token }) {
+      return {
+        ...session,
+        user: {
+          ...session.user,
+          id: token.id,
+          role: token.role,
         },
-      });
-    }
+      };
+    },
+  },
 
-    return NextResponse.json({ success: true });
-  } catch (err) {
-    console.error("Registration error:", err);
-    return NextResponse.json(
-      { error: "Registration failed. Please try again." },
-      { status: 500 }
-    );
-  }
-}
+  secret: process.env.NEXTAUTH_SECRET,
+});
+
+export { handler as GET, handler as POST };
