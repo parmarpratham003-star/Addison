@@ -36,10 +36,10 @@ export function LifestyleSection() {
 
           {/* LEFT IMAGE */}
           <div className="relative w-full h-[320px] sm:h-[420px] bg-[#eaebd0] overflow-hidden">
-            <img
+            <Image 
               src="https://images.unsplash.com/photo-1521334884684-d80222895322"
               alt="Lifestyle"
-              fill="true"
+              fill
               className="object-cover"
             />
           
