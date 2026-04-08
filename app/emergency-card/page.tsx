@@ -451,43 +451,7 @@ export default function EmergencyCardPage() {
               </div>
             </div>
 
-            {/* Tips */}
-            <div
-              className="ec-anim-6 rounded-[20px] p-5"
-              style={{
-                background: "#ffffff",
-                border: "1px solid rgba(45,60,89,0.08)",
-              }}
-            >
-              <p
-                className="text-[0.6rem] uppercase tracking-[0.22em] mb-4"
-                style={{ color: "#2d3c59", fontFamily: "var(--font-outfit)" }}
-              >
-                Tips
-              </p>
-              {[
-                "Keep medications always updated",
-                "Emergency contact is required",
-                "Print and carry at all times",
-              ].map((tip) => (
-                <div
-                  key={tip}
-                  className="flex items-center gap-3 py-2 border-b last:border-0"
-                  style={{ borderColor: "rgba(45,60,89,0.07)" }}
-                >
-                  <span
-                    className="w-1.5 h-1.5 rounded-full flex-shrink-0"
-                    style={{ background: "rgba(45,60,89,0.2)" }}
-                  />
-                  <span
-                    className="text-xs font-light"
-                    style={{ color: "rgba(45,60,89,0.5)", fontFamily: "var(--font-outfit)" }}
-                  >
-                    {tip}
-                  </span>
-                </div>
-              ))}
-            </div>
+          
 
           </div>
         </div>

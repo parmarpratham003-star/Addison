@@ -293,12 +293,12 @@ export function Header() {
               ) : (
                 <Link
                   href="/login"
-                  className="rounded-lg px-4 py-1.5 text-[0.72rem] font-medium tracking-[0.05em] uppercase
+                  className="px-4 py-1.5 text-[0.72rem] font-medium tracking-[0.05em] uppercase
                     bg-transparent text-[#2d3c59]
                     border border-[rgba(45,60,89,0.35)]
                     hover:bg-[rgba(45,60,89,0.07)] hover:border-[rgba(45,60,89,0.6)]
                     transition-all duration-150"
-                  style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
+                  style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif", borderRadius: "3px" }}
                 >
                   Sign in
                 </Link>

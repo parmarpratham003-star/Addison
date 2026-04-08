@@ -117,7 +117,7 @@ export function HeroSection() {
   {/* Button 1 */}
   <Link
     href="/emergency-card"
-    className="group relative overflow-hidden bg-[#2d3c59] text-[#f5f5f5]/70 px-7 py-3 rounded-xl text-sm font-medium border border-[#2d3c59] transition-all duration-300 hover:bg-transparent hover:text-[#eaebd0] hover:border-[#eaebd0]/50 hover:shadow-lg"
+    className="group relative overflow-hidden bg-[#2d3c59] text-[#f5f5f5]/70 px-7 py-3 borderRadius-3px text-sm font-medium border border-[#2d3c59] transition-all duration-300 hover:bg-transparent hover:text-[#eaebd0] hover:border-[#eaebd0]/50 hover:shadow-lg"
   >
     <span className="relative z-10">Get Emergency Help</span>
 
@@ -128,7 +128,7 @@ export function HeroSection() {
   {/* Button 2 */}
   <Link
     href="/about-addisons"
-    className="group relative overflow-hidden px-6 py-3 rounded-xl text-sm font-medium border border-[#eaebd0]/50 text-[#f5f5f5]/70 transition-all duration-300 hover:bg-[#2d3c59] hover:border-[#2d3c59] hover:shadow-lg"
+    className="group relative overflow-hidden px-6 py-3 borderRadius-3px text-sm font-medium border border-[#eaebd0]/50 text-[#f5f5f5]/70 transition-all duration-300 hover:bg-[#2d3c59] hover:border-[#2d3c59] hover:shadow-lg"
   >
     <span className="relative z-10">Learn More</span>
 

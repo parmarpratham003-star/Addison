@@ -85,12 +85,12 @@ function ResourceCard({
         <div className="perspective flex-shrink-0">
           <div className="flip-inner w-12 h-12 sm:w-14 sm:h-14 relative">
             <div className="face face-front">
-              <Icon size={18} strokeWidth={1.8} className="sm:hidden" />
-              <Icon size={20} strokeWidth={1.8} className="hidden sm:block" />
+             <Icon size={24} strokeWidth={1.8} className="sm:hidden" />
+            <Icon size={28} strokeWidth={1.8} className="hidden sm:block" />
             </div>
             <div className="face face-back">
-              <Icon size={18} strokeWidth={1.8} className="sm:hidden" />
-              <Icon size={20} strokeWidth={1.8} className="hidden sm:block" />
+              <Icon size={24} strokeWidth={1.8} className="sm:hidden" />
+              <Icon size={28} strokeWidth={1.8} className="hidden sm:block" />
             </div>
           </div>
         </div>
@@ -100,7 +100,7 @@ function ResourceCard({
           >
             {item.title}
           </h3>
-          <p className="text-[13px] sm:text-[14px] text-[#2d3c59]/60 mt-1.5 sm:mt-2 leading-[1.8] sm:leading-[1.9]">
+          <p className="text-[13px] sm:text-[14px] text-[#2d3c59]/60 mt-1.5 sm:mt-2 leading-[1.8] sm:leading-[1.9] line-clamp-2">
             {item.desc}
           </p>
           <span className="text-[11px] sm:text-[12px] text-[#2d3c59] mt-2 sm:mt-3 inline-block transition group-hover:translate-x-1">
@@ -170,11 +170,9 @@ export function ResourcesSection() {
             const isLastRow = i >= items.length - 2;
             return (
               <div key={i} className="relative">
-                {/* Right divider for left column */}
                 {!isRightCol && (
                   <span className="absolute right-0 top-0 h-full w-px bg-[#2d3c59]/10" />
                 )}
-                {/* Bottom divider, skip last row */}
                 {!isLastRow && (
                   <span className="absolute bottom-0 left-0 w-full h-px bg-[#2d3c59]/10" />
                 )}
@@ -200,7 +198,7 @@ export function ResourcesSection() {
                     >
                       {item.title}
                     </h3>
-                    <p className="text-[13px] text-[#2d3c59]/60 mt-1.5 leading-[1.8]">
+                    <p className="text-[13px] text-[#2d3c59]/60 mt-1.5 leading-[1.8] line-clamp-2">
                       {item.desc}
                     </p>
                     <span className="text-[11px] text-[#2d3c59] mt-2 inline-block transition group-hover:translate-x-1">
@@ -239,7 +237,7 @@ export function ResourcesSection() {
                   >
                     {item.title}
                   </h3>
-                  <p className="text-[12.5px] text-[#2d3c59]/60 mt-0.5 leading-[1.7]">
+                  <p className="text-[12.5px] text-[#2d3c59]/60 mt-0.5 leading-[1.7] line-clamp-2">
                     {item.desc}
                   </p>
                   <span className="text-[10.5px] text-[#2d3c59] mt-1 inline-block transition group-hover:translate-x-1">

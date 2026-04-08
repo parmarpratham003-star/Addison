@@ -36,9 +36,11 @@ export async function POST(request: Request) {
       : Role.PATIENT;
 
     const validState =
-      state && typeof state === "string" && VALID_STATES.has(state)
-        ? state
-        : null;
+  state &&
+  typeof state === "string" &&
+  VALID_STATES.has(state as (typeof INDIAN_STATES)[number])
+    ? (state as (typeof INDIAN_STATES)[number])
+    : null;
 
     const user = await prisma.user.create({
       data: {
