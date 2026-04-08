@@ -1,57 +1,46 @@
 import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
-import { prisma } from "@/lib/prisma"; // ✅ FIXED
+import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
 import { Role } from "@prisma/client";
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, auth, signIn, signOut } = NextAuth({
   secret: process.env.NEXTAUTH_SECRET,
 
   session: {
     strategy: "jwt",
-    maxAge: 30 * 24 * 60 * 60,
-  },
-
-  pages: {
-    signIn: "/login",
   },
 
   providers: [
     Credentials({
       name: "credentials",
       credentials: {
-        email: { label: "Email", type: "email" },
-        password: { label: "Password", type: "password" },
+        email: {},
+        password: {},
       },
 
       async authorize(credentials) {
-        try {
-          if (!credentials?.email || !credentials?.password) return null;
+        if (!credentials?.email || !credentials?.password) return null;
 
-          const user = await prisma.user.findUnique({
-            where: { email: credentials.email as string },
-          });
+        const user = await prisma.user.findUnique({
+          where: { email: credentials.email as string },
+        });
 
-          if (!user || !user.password) return null;
+        if (!user || !user.password) return null;
 
-          const valid = await bcrypt.compare(
-            credentials.password as string,
-            user.password
-          );
+        const valid = await bcrypt.compare(
+          credentials.password as string,
+          user.password
+        );
 
-          if (!valid) return null;
+        if (!valid) return null;
 
-          // ✅ RETURN ROLE ALSO (IMPORTANT)
-          return {
-            id: user.id,
-            email: user.email,
-            name: user.name ?? "",
-            role: user.role,
-          };
-        } catch (error) {
-          console.error("AUTH ERROR:", error);
-          return null;
-        }
+        return {
+          id: user.id,
+          email: user.email,
+          name: user.name ?? "",
+          role: user.role,
+        };
       },
     }),
   ],
@@ -60,15 +49,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     async jwt({ token, user }) {
       if (user) {
         token.id = user.id;
-        token.role = user.role; // ✅ no DB call
+        token.role = user.role;
       }
       return token;
     },
 
     async session({ session, token }) {
       if (session.user) {
-        (session.user as { id?: string }).id = token.id as string;
-        (session.user as { role?: Role }).role = token.role as Role;
+        (session.user as any).id = token.id;
+        (session.user as any).role = token.role as Role;
       }
       return session;
     },
