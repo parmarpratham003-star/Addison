@@ -92,7 +92,7 @@ export function Header() {
           transform: isOpen ? "translateY(0) scale(1)" : "translateY(-8px) scale(0.97)",
           transition: "opacity 220ms cubic-bezier(0.16,1,0.3,1), transform 220ms cubic-bezier(0.16,1,0.3,1)",
         }}
-        className="absolute left-0 top-full z-50 mt-3 min-w-[190px] rounded-xl py-2
+        className="absolute left-0 top-full z-50 min-w-[190px] rounded-xl pt-5 pb-2
           bg-[#f5f6e9]/95 border border-[rgba(45,60,89,0.1)]
           shadow-[0_8px_30px_rgba(45,60,89,0.12)]"
       >

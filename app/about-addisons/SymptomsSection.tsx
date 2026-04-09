@@ -31,7 +31,7 @@ const symptoms = [
   { 
     text: "Darkening of the skin (hyperpigmentation)", 
     size: "medium", 
-    img: "https://images.unsplash.com/photo-1596462502278-27bfdc4033c8?q=80&w=800&auto=format&fit=crop" 
+    img: "https://images.unsplash.com/photo-1614289371518-722f2615943d?q=80&w=800&auto=format&fit=crop"  // ✅ changed
   },
   { 
     text: "Low blood pressure, dizziness", 
@@ -51,7 +51,7 @@ const symptoms = [
   { 
     text: "Muscle or joint pains", 
     size: "small", 
-    img: "https://images.unsplash.com/photo-1552639614-9712ee239167?q=80&w=800&auto=format&fit=crop" 
+    img: "https://images.unsplash.com/photo-1552693673-1bf958298935?q=80&w=800&auto=format&fit=crop"  // ✅ changed
   },
   { 
     text: "Irritability or depression", 
@@ -72,7 +72,7 @@ export function SymptomsSection() {
         <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-16 gap-8">
           <div className="max-w-2xl">
             <div className="flex items-center gap-3 mb-4">
-              <span className="w-8 h-[1px] bg-[#eaebd0]/40"></span>
+             
               <span className="text-[10px] uppercase tracking-[0.4em] text-[#eaebd0]/50 font-medium">
                 Clinical Presentation
               </span>
@@ -82,15 +82,15 @@ export function SymptomsSection() {
               className="text-[3.5rem] sm:text-[5rem] leading-[0.95] text-[#eaebd0]"
               style={{ fontFamily: "var(--font-cormorant)" }}
             >
-              Symp<span className="italic text-[#eaebd0]/40 font-light">toms</span>
+              Symp<span className=" text-[#eaebd0]/40 font-light">toms</span>
             </h2>
           </div>
 
-          <div className="lg:max-w-xs text-left lg:text-right">
-            <p className="text-[13px] leading-relaxed text-[#eaebd0]/50 italic border-l lg:border-l-0 lg:border-r border-[#eaebd0]/20 pl-4 lg:pl-0 lg:pr-4">
-              "Early-stage Addison&apos;s is frequently misattributed to stress. A simple blood test can confirm adrenal insufficiency."
-            </p>
-          </div>
+        <div className="lg:max-w-sm text-left lg:text-right">
+  <p className="text-[13px] leading-relaxed text-[#eaebd0]/50">
+    "Early-stage Addison's is frequently misattributed to stress. A simple blood test can confirm adrenal insufficiency."
+  </p>
+</div>
         </div>
 
         {/* ASYMMETRICAL BENTO GRID WITH IMAGES */}
@@ -113,23 +113,21 @@ export function SymptomsSection() {
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                 className="object-cover transition-transform duration-700 group-hover:scale-110"
-                priority={i < 2} // Priority loading for first two items
+                
               />
 
-              {/* DARK OVERLAY - Ensures readability by blending image with background color */}
-              <div className="absolute inset-0 bg-gradient-to-t from-[#2d3c59] via-[#2d3c59]/80 to-[#2d3c59]/40 transition-opacity duration-500 group-hover:opacity-60" />
+              {/* REDUCED OVERLAY — from via-80%/to-40% down to via-50%/to-10% */}
+              <div className="absolute inset-0 bg-gradient-to-t from-[#2d3c59]/90 via-[#2d3c59]/40 to-[#2d3c59]/10 transition-opacity duration-500 group-hover:opacity-50" />
 
               {/* CONTENT LAYER */}
               <div className="relative z-10">
                 {/* DECORATIVE NUMBER */}
-                <span className="absolute -top-16 -left-0 text-[10px] font-bold text-[#eaebd0]/40 tracking-tighter">
-                  {(i + 1).toString().padStart(2, '0')}
-                </span>
+               
 
                 {/* ICON FOR LARGE CARD */}
                 {item.size === "large" && (
                   <div className="absolute -top-16 right-0 text-[#eaebd0]/40">
-                    <AlertCircle size={32} strokeWidth={1.2} />
+                    
                   </div>
                 )}
 
