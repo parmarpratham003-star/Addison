@@ -73,7 +73,7 @@ export function IndiaMap({ regionData, title }: IndiaMapProps) {
   };
 
   return (
-    <div className="relative flex h-full w-full min-h-[420px] flex-col">
+    <div className="relative flex h-full w-full min-h-[400px] flex-col">
 
       {/* Title */}
       <h3 className="mb-3 text-sm font-medium text-[#2d3c59]/70">

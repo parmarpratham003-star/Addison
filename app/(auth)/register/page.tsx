@@ -41,49 +41,63 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    setError("");
+  e.preventDefault();
+  setError("");
 
-    if (password !== confirmPassword) {
-      setError("Passwords do not match");
-      return;
-    }
-
-    if (password.length < 8) {
-      setError("Password must be at least 8 characters");
-      return;
-    }
-
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name,
-          email,
-          password,
-          role,
-          state: state || undefined,
-        }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        setError(data.error ?? "Registration failed");
-        setLoading(false);
-        return;
-      }
-
-      router.push("/login");
-    } catch {
-      setError("Something went wrong");
-    }
-
-    setLoading(false);
+  if (password !== confirmPassword) {
+    setError("Passwords do not match");
+    return;
   }
+
+  if (password.length < 8) {
+    setError("Password must be at least 8 characters");
+    return;
+  }
+
+  setLoading(true);
+
+  try {
+    const res = await fetch("/api/register", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        email,
+        password,
+        role,
+        state: state || undefined,
+      }),
+    });
+
+    let data;
+
+    // ✅ SAFE JSON PARSE (prevents crash)
+    try {
+      data = await res.json();
+    } catch {
+      const text = await res.text();
+      console.error("SERVER ERROR:", text);
+
+      setError("Server error. Check console.");
+      setLoading(false);
+      return;
+    }
+
+    if (!res.ok) {
+      setError(data?.error ?? "Registration failed");
+      setLoading(false);
+      return;
+    }
+
+    router.push("/login");
+
+  } catch (err) {
+    console.error("FETCH ERROR:", err);
+    setError("Something went wrong");
+  }
+
+  setLoading(false);
+}
 
   return (
     <div

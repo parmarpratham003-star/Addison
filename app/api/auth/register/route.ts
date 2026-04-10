@@ -8,9 +8,21 @@ const VALID_STATES = new Set(INDIAN_STATES);
 
 export async function POST(request: Request) {
   try {
-    const body = await request.json();
+    let body;
+
+    // ✅ SAFE JSON PARSE
+    try {
+      body = await request.json();
+    } catch (e) {
+      return NextResponse.json(
+        { error: "Invalid JSON body" },
+        { status: 400 }
+      );
+    }
+
     const { name, email, password, role, state } = body;
 
+    // ✅ VALIDATION
     if (!email || !password) {
       return NextResponse.json(
         { error: "Email and password are required" },
@@ -36,11 +48,11 @@ export async function POST(request: Request) {
       : Role.PATIENT;
 
     const validState =
-  state &&
-  typeof state === "string" &&
-  VALID_STATES.has(state as (typeof INDIAN_STATES)[number])
-    ? (state as (typeof INDIAN_STATES)[number])
-    : null;
+      state &&
+      typeof state === "string" &&
+      VALID_STATES.has(state as any)
+        ? state
+        : null;
 
     const user = await prisma.user.create({
       data: {
@@ -48,13 +60,19 @@ export async function POST(request: Request) {
         email,
         password: hashedPassword,
         role: validRole,
+        state: validState, // ✅ (you forgot to save it earlier)
       },
     });
 
-    return NextResponse.json({ success: true, userId: user.id });
+    return NextResponse.json({
+      success: true,
+      userId: user.id,
+    });
 
   } catch (err) {
     console.error("Registration error:", err);
+
+    // ✅ ALWAYS RETURN JSON (VERY IMPORTANT)
     return NextResponse.json(
       { error: "Registration failed" },
       { status: 500 }

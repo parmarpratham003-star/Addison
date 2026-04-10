@@ -6,7 +6,7 @@ import { Cormorant_Garamond, Outfit } from "next/font/google";
 const cormorant = Cormorant_Garamond({
   subsets: ["latin"],
   weight: ["400", "500", "600"],
-  style: ["normal", "italic"],
+  style: ["normal"],
   variable: "--font-cormorant",
 });
 
@@ -66,22 +66,17 @@ export default function AddisonInChildrenPage() {
           </p>
           <div className="grid lg:grid-cols-[1fr_380px] gap-8 items-end mb-9">
             <h1
-              className="text-[clamp(3rem,7vw,6.2rem)] leading-[0.88] font-light text-[#2d3c59]"
+              className="text-[clamp(3rem,7vw,4.5rem)] leading-[0.88] font-light text-[#2d3c59]"
               style={{ fontFamily: "var(--font-cormorant)" }}
             >
-              Children <em>& Care</em>
-            </h1>
-            <p className="text-[0.95rem] leading-[1.78] text-[#2d3c59]/55 font-light italic border-l-2 border-[#94a378] pl-[18px]">
+              Children & Care
+                          </h1>
+            <p className="text-[0.95rem] leading-[1.78] text-[#2d3c59]/55 font-light  border-l-2 border-[#94a378] pl-[18px]">
               Addison&apos;s is rare in kids, but when it does appear, parents often
               feel overwhelmed. Here is the clinical overview for families.
             </p>
           </div>
-          {/* Hero image */}
-          <img
-            src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=75&fit=crop"
-            alt="Medical care for children"
-            className="w-full h-[180px] object-cover object-center border-b border-[#2d3c59]/10"
-          />
+         
         </div>
 
         {/* ── 01 FOUNDATION ────────────────────────────────────────── */}
@@ -106,7 +101,7 @@ export default function AddisonInChildrenPage() {
               className="text-[1.8rem] leading-[1.1] font-light text-[#2d3c59] mb-4"
               style={{ fontFamily: "var(--font-cormorant)" }}
             >
-              What is it &amp; <em>What causes it?</em>
+              What is it &amp; What causes it?
             </h2>
             <p className="text-[0.9rem] leading-[1.85] text-[#2d3c59]/65 font-light">
               Addison&apos;s disease (primary adrenal insufficiency) means the adrenal
@@ -141,7 +136,7 @@ export default function AddisonInChildrenPage() {
               className="text-[1.8rem] leading-[1.1] font-light text-white mb-4"
               style={{ fontFamily: "var(--font-cormorant)" }}
             >
-              Signs &amp; <em>Risk Factors</em>
+              Signs &amp; Risk Factors
             </h2>
             <p className="text-[0.9rem] leading-[1.85] text-white/70 font-light">
               Families should be aware if a child already has another autoimmune condition,
@@ -167,7 +162,7 @@ export default function AddisonInChildrenPage() {
                 </div>
               ))}
             </div>
-            <p className="mt-4 text-[0.8rem] text-[#2d3c59]/40 italic font-light">
+            <p className="mt-4 text-[0.8rem] text-[#2d3c59]/40 font-light">
               Many of these can point to other conditions too. If you notice a combination,
               especially skin darkening or salt craving, see a doctor.
             </p>
@@ -196,7 +191,7 @@ export default function AddisonInChildrenPage() {
               className="text-[1.8rem] leading-[1.1] font-light text-[#2d3c59] mb-4"
               style={{ fontFamily: "var(--font-cormorant)" }}
             >
-              Diagnosis &amp; <em>Therapy</em>
+              Diagnosis &amp; Therapy
             </h2>
             <span className="text-[10px] font-semibold tracking-[0.3em] uppercase text-[#94a378] block mb-3">
               Diagnostic Tests
@@ -235,7 +230,7 @@ export default function AddisonInChildrenPage() {
               normal, active life. Corticosteroids (such as hydrocortisone) are given by
               mouth daily.
             </p>
-            <p className="text-[0.86rem] leading-[1.82] text-white/45 italic font-light">
+            <p className="text-[0.86rem] leading-[1.82] text-white/45 font-light">
               Most children will need this for life. Some also need fludrocortisone to
               maintain salt and potassium balance. Your endocrinologist will tailor the
               doses to your child.
@@ -252,7 +247,7 @@ export default function AddisonInChildrenPage() {
             className="text-[2rem] font-light text-[#2d3c59] mb-6"
             style={{ fontFamily: "var(--font-cormorant)" }}
           >
-            Staying Safe &amp; <em>Avoiding Complications</em>
+            Staying Safe &amp; Avoiding Complications
           </h3>
           <div className="grid lg:grid-cols-[1fr_1fr_340px] gap-10 items-start">
             <p className="text-[0.9rem] leading-[1.85] text-[#2d3c59]/65 font-light">
@@ -260,7 +255,7 @@ export default function AddisonInChildrenPage() {
               and dehydration. The key is never missing medication and knowing when to
               increase doses—for example, during fever, stomach bugs, or major stress.
             </p>
-            <p className="border-l-2 border-[#94a378] pl-5 italic text-[0.93rem] leading-[1.82] text-[#2d3c59]/60 font-light">
+            <p className="border-l-2 border-[#94a378] pl-5  text-[0.93rem] leading-[1.82] text-[#2d3c59]/60 font-light">
               Call your child&apos;s doctor if you see possible symptoms. Seek care right
               away when they have vomiting, diarrhea, fever, or any infection.
             </p>
@@ -344,15 +339,6 @@ export default function AddisonInChildrenPage() {
           </Link>
         </div>
 
-        {/* ── FOOTER ───────────────────────────────────────────────── */}
-        <footer className="border-t border-[#2d3c59]/10 pt-9 flex flex-col items-center gap-4">
-          <div className="w-px h-11 bg-[#94a378] opacity-45" />
-          <p className="text-[0.6rem] tracking-[0.3em] uppercase text-[#2d3c59]/35 text-center leading-[1.9] max-w-[480px]">
-            Further reading: Cedars-Sinai Health Library. This information is not a
-            substitute for professional medical care. Always follow your healthcare
-            provider&apos;s advice.
-          </p>
-        </footer>
 
       </div>
     </section>
