@@ -1,28 +1,19 @@
 import { NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
 import { prisma } from "@/lib/prisma";
-import { Role } from "@prisma/client";
-import { INDIAN_STATES } from "@/lib/indian-states";
 
-const VALID_STATES = new Set(INDIAN_STATES);
+// ✅ GET (for testing in browser)
+export async function GET() {
+  return NextResponse.json({ message: "Register API Working ✅" });
+}
 
+// ✅ POST (actual register)
 export async function POST(request: Request) {
   try {
-    let body;
+    const body = await request.json();
+    const { name, email, password, role } = body;
 
-    // ✅ SAFE JSON PARSE
-    try {
-      body = await request.json();
-    } catch (e) {
-      return NextResponse.json(
-        { error: "Invalid JSON body" },
-        { status: 400 }
-      );
-    }
-
-    const { name, email, password, role, state } = body;
-
-    // ✅ VALIDATION
+    // ✅ validation
     if (!email || !password) {
       return NextResponse.json(
         { error: "Email and password are required" },
@@ -30,37 +21,28 @@ export async function POST(request: Request) {
       );
     }
 
-    const existing = await prisma.user.findUnique({
+    // ✅ check existing user
+    const existingUser = await prisma.user.findUnique({
       where: { email },
     });
 
-    if (existing) {
+    if (existingUser) {
       return NextResponse.json(
         { error: "User already exists" },
         { status: 400 }
       );
     }
 
-    const hashedPassword = await bcrypt.hash(password, 12);
+    // ✅ hash password
+    const hashedPassword = await bcrypt.hash(password, 10);
 
-    const validRole = ["PATIENT", "ENDOCRINOLOGIST", "PSYCHIATRIST"].includes(role)
-      ? (role as Role)
-      : Role.PATIENT;
-
-    const validState =
-      state &&
-      typeof state === "string" &&
-      VALID_STATES.has(state as any)
-        ? state
-        : null;
-
+    // ✅ create user
     const user = await prisma.user.create({
       data: {
         name: name || null,
         email,
         password: hashedPassword,
-        role: validRole,
-        state: validState, // ✅ (you forgot to save it earlier)
+        role: role || "PATIENT",
       },
     });
 
@@ -69,12 +51,11 @@ export async function POST(request: Request) {
       userId: user.id,
     });
 
-  } catch (err) {
-    console.error("Registration error:", err);
+  } catch (error) {
+    console.error("REGISTER ERROR:", error);
 
-    // ✅ ALWAYS RETURN JSON (VERY IMPORTANT)
     return NextResponse.json(
-      { error: "Registration failed" },
+      { error: "Something went wrong" },
       { status: 500 }
     );
   }

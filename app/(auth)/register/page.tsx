@@ -59,7 +59,9 @@ export default function RegisterPage() {
   try {
     const res = await fetch("/api/register", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
         name,
         email,
@@ -69,22 +71,22 @@ export default function RegisterPage() {
       }),
     });
 
+    // ✅ READ ONCE AS TEXT
+    const text = await res.text();
+
     let data;
 
-    // ✅ SAFE JSON PARSE (prevents crash)
     try {
-      data = await res.json();
+      data = JSON.parse(text); // try parse JSON
     } catch {
-      const text = await res.text();
-      console.error("SERVER ERROR:", text);
-
+      console.error("SERVER HTML ERROR:", text);
       setError("Server error. Check console.");
       setLoading(false);
       return;
     }
 
     if (!res.ok) {
-      setError(data?.error ?? "Registration failed");
+      setError(data?.error || "Registration failed");
       setLoading(false);
       return;
     }
@@ -98,7 +100,6 @@ export default function RegisterPage() {
 
   setLoading(false);
 }
-
   return (
     <div
       className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen flex items-center justify-center px-4 py-12 sm:py-18`}
