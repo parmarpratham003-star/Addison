@@ -2,7 +2,7 @@
 
 import { useState, Suspense } from "react";
 import Link from "next/link";
-import { signIn } from "next-auth/react";
+import { signIn, getSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Cormorant_Garamond, Outfit } from "next/font/google";
 
@@ -61,22 +61,38 @@ function LoginForm() {
     e.preventDefault();
     setError("");
     setLoading(true);
+
     try {
       const res = await signIn("credentials", {
-        email,
+        email: email.trim(), // FIX 1: trim whitespace to avoid edge-case login failures
         password,
         redirect: false,
       });
+
       if (res?.error) {
         setError("Invalid email or password");
         setLoading(false);
         return;
       }
-      router.push(callbackUrl);
+
+      // FIX 2: Role-based redirect (safe — handles undefined role)
+      const session = await getSession();
+      const role = session?.user?.role;
+
+      if (role === "PATIENT") {
+        router.push("/dashboard");
+      } else if (role === "ENDOCRINOLOGIST" || role === "PSYCHIATRIST") {
+        router.push("/dashboard");
+      } else {
+        router.push("/dashboard"); // fallback for unknown/undefined role
+      }
+
       router.refresh();
+
     } catch {
       setError("Something went wrong");
     }
+
     setLoading(false);
   }
 
@@ -193,8 +209,6 @@ function LoginForm() {
           </p>
 
         </div>
-
-        
 
       </div>
     </div>

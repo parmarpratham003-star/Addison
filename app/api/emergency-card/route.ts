@@ -1,11 +1,12 @@
-import { auth } from "@/lib/auth";
+import { authOptions } from "@/lib/auth";
+import { getServerSession } from "next-auth";
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 
 // ✅ GET Emergency Card
 export async function GET() {
   try {
-    const session = await auth();
+    const session = await getServerSession(authOptions);
 
     // 🔒 Check authentication
     if (!session || !session.user || !session.user.id) {
@@ -40,7 +41,7 @@ export async function GET() {
 // ✅ CREATE / UPDATE Emergency Card
 export async function POST(request: Request) {
   try {
-    const session = await auth();
+    const session = await getServerSession(authOptions);
 
     // 🔒 Check authentication
     if (!session || !session.user || !session.user.id) {

@@ -7,18 +7,17 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// ❌ enum removed → use String instead
-
 model User {
   id             String    @id @default(cuid())
   name           String?
   email          String?   @unique
   emailVerified  DateTime?
   image          String?
-  role           String    @default("PATIENT") // ✅ FIX
+  role           String    @default("PATIENT") // ✅ SQLite safe
   password       String?
   createdAt      DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
+
   accounts       Account[]
   sessions       Session[]
   profile        Profile?
@@ -32,12 +31,12 @@ model Account {
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? // ✅ FIX
-  access_token      String? // ✅ FIX
+  refresh_token     String?
+  access_token      String?
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? // ✅ FIX
+  id_token          String?
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -68,24 +67,24 @@ model Profile {
   user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   name      String?
   avatar    String?
-  bio       String?   // ✅ FIX
-  state     String?   // ✅ FIX
+  bio       String?
+  state     String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
 
 model EmergencyCard {
-  id                String   @id @default(cuid())
-  userId            String?
-  user              User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
-  name              String
-  emergencyContact  String   // ✅ FIX
-  medications       String   // ✅ FIX
-  doctorContact     String?  // ✅ FIX
-  allergies         String?  // ✅ FIX
-  additionalInfo    String?  // ✅ FIX
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
+  id               String   @id @default(cuid())
+  userId           String?
+  user             User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  name             String
+  emergencyContact String
+  medications      String
+  doctorContact    String?
+  allergies        String?
+  additionalInfo   String?
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
 }
 
 model Professional {
@@ -93,11 +92,11 @@ model Professional {
   userId      String   @unique
   user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   verified    Boolean  @default(false)
-  specialty   String?  // ✅ FIX
-  location    String?  // ✅ FIX
-  state       String?  // ✅ FIX
-  credentials String?  // ✅ FIX
-  languages   String?  // ✅ FIX
+  specialty   String?
+  location    String?
+  state       String?
+  credentials String?
+  languages   String?
   bio         String?
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -107,7 +106,7 @@ model Post {
   id        String   @id @default(cuid())
   title     String
   slug      String   @unique
-  excerpt   String?  // ✅ FIX
+  excerpt   String?
   content   String
   published Boolean  @default(false)
   createdAt DateTime @default(now())

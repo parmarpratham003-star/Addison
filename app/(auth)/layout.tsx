@@ -1,17 +1,26 @@
-import { createPageMetadata } from "@/lib/seo";
+"use client";
 
-export const metadata = createPageMetadata({
-  title: "Account | Addison's Disease Community",
-  description:
-    "Sign in or register to access your Addison's disease emergency card, dashboard, and community resources.",
-  path: "/login",
-  noIndex: true,
-});
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
-export default function AuthLayout({
+export default function ProtectedLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const { data: session, status } = useSession();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (status === "loading") return;
+
+    if (!session) {
+      router.push("/login");
+    }
+  }, [session, status, router]);
+
+  if (status === "loading") return <p>Loading...</p>;
+
   return <>{children}</>;
 }

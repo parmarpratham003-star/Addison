@@ -28,10 +28,20 @@ focus:border-[#2d3c59]/30 focus:bg-[#eaebd0]/90
 transition-all duration-200
 `;
 
+// FIX 1: Proper Role type
+type Role = "PATIENT" | "ENDOCRINOLOGIST" | "PSYCHIATRIST";
+
+const roleLabels: Record<Role, string> = {
+  PATIENT: "Patient",
+  ENDOCRINOLOGIST: "Endocrinologist",
+  PSYCHIATRIST: "Psychiatrist",
+};
+
 export default function RegisterPage() {
   const router = useRouter();
 
-  const [role, setRole] = useState<"PATIENT" | "ENDOCRINOLOGIST" | "PSYCHIATRIST">("PATIENT");
+  // FIX 1: Typed state
+  const [role, setRole] = useState<Role>("PATIENT");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -41,71 +51,75 @@ export default function RegisterPage() {
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
-  e.preventDefault();
-  setError("");
+    e.preventDefault();
+    setError("");
 
-  if (password !== confirmPassword) {
-    setError("Passwords do not match");
-    return;
-  }
+    // FIX 2: Name validation
+    if (!name.trim()) {
+      setError("Name is required");
+      return;
+    }
 
-  if (password.length < 8) {
-    setError("Password must be at least 8 characters");
-    return;
-  }
+    if (password !== confirmPassword) {
+      setError("Passwords do not match");
+      return;
+    }
 
-  setLoading(true);
+    if (password.length < 8) {
+      setError("Password must be at least 8 characters");
+      return;
+    }
 
-  try {
-    const res = await fetch("/api/register", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name,
-        email,
-        password,
-        role,
-        state: state || undefined,
-      }),
-    });
-
-    // ✅ READ ONCE AS TEXT
-    const text = await res.text();
-
-    let data;
+    setLoading(true);
 
     try {
-      data = JSON.parse(text); // try parse JSON
-    } catch {
-      console.error("SERVER HTML ERROR:", text);
-      setError("Server error. Check console.");
-      setLoading(false);
-      return;
+      const res = await fetch("/api/register", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name,
+          email,
+          password,
+          role, // FIX 5: role sent correctly
+          state: state || undefined,
+        }),
+      });
+
+      // FIX 3: Cleaner error handling
+      let data;
+
+      try {
+        data = await res.json();
+      } catch {
+        setError("Server error");
+        setLoading(false);
+        return;
+      }
+
+      if (!res.ok) {
+        setError(data?.error || "Registration failed");
+        setLoading(false);
+        return;
+      }
+
+      router.push("/login");
+
+    } catch (err) {
+      console.error("FETCH ERROR:", err);
+      setError("Something went wrong");
     }
 
-    if (!res.ok) {
-      setError(data?.error || "Registration failed");
-      setLoading(false);
-      return;
-    }
-
-    router.push("/login");
-
-  } catch (err) {
-    console.error("FETCH ERROR:", err);
-    setError("Something went wrong");
+    setLoading(false);
   }
 
-  setLoading(false);
-}
   return (
     <div
       className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen flex items-center justify-center px-4 py-12 sm:py-18`}
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
-      {/* 🔥 Smooth Animation */}
+      {/* Smooth Animation */}
       <style>{`
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(30px); }
@@ -150,18 +164,18 @@ export default function RegisterPage() {
               </label>
 
               <div className="flex flex-wrap gap-2 mt-2">
-                {["PATIENT", "ENDOCRINOLOGIST", "PSYCHIATRIST"].map((r) => (
+                {(["PATIENT", "ENDOCRINOLOGIST", "PSYCHIATRIST"] as Role[]).map((r) => (
                   <button
                     key={r}
                     type="button"
-                    onClick={() => setRole(r as any)}
+                    onClick={() => setRole(r)}
                     className={`flex-1 sm:flex-none text-center px-5 py-2 rounded-full text-xs border transition ${
                       role === r
                         ? "bg-[#2d3c59] text-white"
                         : "border-[#2d3c59]/20 text-[#2d3c59] hover:bg-[#2d3c59]/10"
                     }`}
                   >
-                    {r}
+                    {roleLabels[r]}
                   </button>
                 ))}
               </div>
@@ -228,12 +242,18 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* Button */}
+            {/* FIX 4: Button with proper disabled state */}
             <div className="fade-5 pt-2">
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-[#2d3c59] text-white py-3 rounded-full text-sm font-medium transition-all duration-200 hover:bg-[#3d5070] hover:-translate-y-[1px] active:scale-[0.97]"
+                className={`w-full py-3 rounded-full text-sm font-medium transition-all duration-200
+                  ${loading
+                    ? "bg-[#2d3c59]/50 cursor-not-allowed"
+                    : "bg-[#2d3c59] hover:bg-[#3d5070] hover:-translate-y-[1px] active:scale-[0.97]"
+                  }
+                  text-white
+                `}
               >
                 {loading ? "Creating..." : "Create account"}
               </button>
@@ -243,7 +263,7 @@ export default function RegisterPage() {
           {/* Footer */}
           <p className="mt-6 text-center text-xs text-[#2d3c59]/40 fade-5">
             Already have an account?{" "}
-            <Link href="/login" className="underline text-[#2d3c59]  hover:text-[#2d3c59]/70 transition-colors">
+            <Link href="/login" className="underline text-[#2d3c59] hover:text-[#2d3c59]/70 transition-colors">
               Sign in
             </Link>
           </p>

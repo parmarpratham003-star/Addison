@@ -268,27 +268,35 @@ export function Header() {
                 <>
                   <Link
                     href="/dashboard"
-                    className="rounded-lg px-4 py-1.5 text-[0.72rem] font-medium tracking-[0.05em] uppercase
-                      bg-[#2d3c59] text-[#eaebd0]
-                      shadow-[0_1px_4px_rgba(45,60,89,0.18)]
-                      hover:bg-[#3a4e72] hover:-translate-y-px hover:shadow-[0_3px_10px_rgba(45,60,89,0.28)]
-                      transition-all duration-150"
-                    style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
-                  >
+                    className="px-4 py-1.5 text-[0.72rem] font-medium tracking-[0.05em] uppercase
+                    bg-transparent text-[#2d3c59]
+                    border border-[rgba(45,60,89,0.35)]
+                    hover:bg-[rgba(45,60,89,0.07)] hover:border-[rgba(45,60,89,0.6)]
+                    transition-all duration-150"
+                  style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif", borderRadius: "3px" }}
+                >
                     Dashboard
                   </Link>
-                  <button
-                    type="button"
-                    onClick={() => signOut({ callbackUrl: "/" })}
-                    className="rounded-lg px-4 py-1.5 text-[0.72rem] font-medium tracking-[0.05em] uppercase
+                  <Link
+                    href="/"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      signOut({ callbackUrl: "/" });
+                    }}
+                    className="
+                      inline-flex items-center justify-center
+                      px-4 py-1.5 h-[32px]
+                      text-[0.72rem] font-medium tracking-[0.05em] uppercase
                       bg-transparent text-[#2d3c59]
                       border border-[rgba(45,60,89,0.35)]
-                      hover:bg-[rgba(45,60,89,0.07)] hover:border-[rgba(45,60,89,0.6)]
-                      transition-all duration-150 cursor-pointer"
-                    style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif" }}
+                      hover:bg-[rgba(45,60,89,0.07)]
+                      hover:border-[rgba(45,60,89,0.6)]
+                      transition-all duration-150
+                    "
+                    style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif", borderRadius: "3px" }}
                   >
                     Sign out
-                  </button>
+                  </Link>
                 </>
               ) : (
                 <Link
