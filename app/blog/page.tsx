@@ -78,7 +78,7 @@ export default async function BlogPage() {
           </p>
         ) : (
           <div>
-            {posts.map((post, index) => {
+            {posts.map((post: any, index: number) => {
               const isEven = index % 2 === 0;
               const isFirst = index === 0;
 
