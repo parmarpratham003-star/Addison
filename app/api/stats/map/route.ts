@@ -1,38 +1,58 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { INDIAN_STATES } from "@/lib/indian-states";
 
-const VALID_STATES = new Set(INDIAN_STATES);
-
-export async function GET() {
+export async function GET(req: Request) {
   try {
-    const [patientProfiles, professionalGroups, totalPatients, totalProfessionals] =
-      await Promise.all([
-        prisma.profile.findMany({
-          where: { user: { role: "PATIENT" }, state: { not: null } },
-          select: { state: true },
-        }),
-        prisma.professional.groupBy({
-          by: ["state"],
-          where: { state: { not: null } },
-          _count: { id: true },
-        }),
-        prisma.user.count({ where: { role: "PATIENT" } }),
-        prisma.professional.count(),
-      ]);
+    const { searchParams } = new URL(req.url);
+    const state = searchParams.get("state");
 
+    // ✅ 1. If state selected → return doctors
+    if (state) {
+      const doctors = await prisma.professional.findMany({
+        where: { location: state }, // 🔥 use location
+        orderBy: { createdAt: "desc" },
+      });
+
+      return NextResponse.json(doctors);
+    }
+
+    // ✅ 2. Patients (from User.state)
+    const patients = await prisma.user.findMany({
+      where: {
+        role: "PATIENT",
+        state: { not: null },
+      },
+      select: { state: true },
+    });
+
+    // ✅ 3. Professionals grouped by location
+    const professionalGroups = await prisma.professional.groupBy({
+      by: ["location"], // 🔥 FIX
+      where: { location: { not: null } },
+      _count: { id: true },
+    });
+
+    // ✅ 4. Totals
+    const totalPatients = await prisma.user.count({
+      where: { role: "PATIENT" },
+    });
+
+    const totalProfessionals = await prisma.professional.count();
+
+    // ✅ 5. Format data
     const patientsByState: Record<string, number> = {};
     const professionalsByState: Record<string, number> = {};
 
-    for (const p of patientProfiles) {
-      if (p.state && VALID_STATES.has(p.state as (typeof INDIAN_STATES)[number])) {
-        patientsByState[p.state] = (patientsByState[p.state] ?? 0) + 1;
+    for (const p of patients) {
+      if (p.state) {
+        patientsByState[p.state] =
+          (patientsByState[p.state] ?? 0) + 1;
       }
     }
 
     for (const g of professionalGroups) {
-      if (g.state && VALID_STATES.has(g.state as (typeof INDIAN_STATES)[number])) {
-        professionalsByState[g.state] = g._count.id;
+      if (g.location) {
+        professionalsByState[g.location] = g._count.id;
       }
     }
 
@@ -42,8 +62,10 @@ export async function GET() {
       totalPatients,
       totalProfessionals,
     });
+
   } catch (err) {
-    console.error("Map stats error:", err);
+    console.error("Map API Error:", err);
+
     return NextResponse.json(
       {
         patientsByState: {},

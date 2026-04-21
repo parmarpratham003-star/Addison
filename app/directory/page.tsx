@@ -48,7 +48,7 @@ export default function DirectoryPage() {
 
       {/* ── HERO ── */}
       <div
-        className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-14 pt-16 sm:pt-12pb-12"
+        className="max-w-[1200px] mx-auto px-5 sm:px-8 lg:px-14 pt-16 sm:pt-12 pb-12"
         style={{ borderBottom: "1px solid rgba(45,60,89,0.12)" }}
       >
         <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">

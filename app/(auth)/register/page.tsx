@@ -28,20 +28,23 @@ focus:border-[#2d3c59]/30 focus:bg-[#eaebd0]/90
 transition-all duration-200
 `;
 
-// FIX 1: Proper Role type
-type Role = "PATIENT" | "ENDOCRINOLOGIST" | "PSYCHIATRIST";
+type Role = "PATIENT" | "DOCTOR";
 
-const roleLabels: Record<Role, string> = {
-  PATIENT: "Patient",
-  ENDOCRINOLOGIST: "Endocrinologist",
-  PSYCHIATRIST: "Psychiatrist",
-};
+const SPECIALTIES = [
+  "Endocrinologist",
+  "Psychiatrist",
+  "Cardiologist",
+  "Neurologist",
+  "General Physician",
+  "Other",
+];
 
 export default function RegisterPage() {
   const router = useRouter();
 
-  // FIX 1: Typed state
   const [role, setRole] = useState<Role>("PATIENT");
+  const [specialty, setSpecialty] = useState("");
+  const [customSpecialty, setCustomSpecialty] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -54,9 +57,18 @@ export default function RegisterPage() {
     e.preventDefault();
     setError("");
 
-    // FIX 2: Name validation
     if (!name.trim()) {
       setError("Name is required");
+      return;
+    }
+
+    if (role === "DOCTOR" && !specialty) {
+      setError("Please select your specialization");
+      return;
+    }
+
+    if (role === "DOCTOR" && specialty === "Other" && !customSpecialty.trim()) {
+      setError("Please enter your specialization");
       return;
     }
 
@@ -75,21 +87,20 @@ export default function RegisterPage() {
     try {
       const res = await fetch("/api/register", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           name,
           email,
           password,
-          role, // FIX 5: role sent correctly
+          role,
+          specialty: role === "DOCTOR"
+            ? (specialty === "Other" ? customSpecialty.trim() : specialty)
+            : undefined,
           state: state || undefined,
         }),
       });
 
-      // FIX 3: Cleaner error handling
       let data;
-
       try {
         data = await res.json();
       } catch {
@@ -105,7 +116,6 @@ export default function RegisterPage() {
       }
 
       router.push("/login");
-
     } catch (err) {
       console.error("FETCH ERROR:", err);
       setError("Something went wrong");
@@ -119,13 +129,11 @@ export default function RegisterPage() {
       className={`${cormorant.variable} ${outfit.variable} bg-[#eaebd0] min-h-screen flex items-center justify-center px-4 py-12 sm:py-18`}
       style={{ fontFamily: "var(--font-outfit), sans-serif" }}
     >
-      {/* Smooth Animation */}
       <style>{`
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
         }
-
         .fade-1 { animation: fadeUp .5s ease forwards; }
         .fade-2 { animation: fadeUp .5s .1s ease forwards; opacity:0; }
         .fade-3 { animation: fadeUp .5s .2s ease forwards; opacity:0; }
@@ -162,24 +170,56 @@ export default function RegisterPage() {
               <label className="text-xs uppercase tracking-wider text-[#2d3c59]">
                 I am a
               </label>
-
-              <div className="flex flex-wrap gap-2 mt-2">
-                {(["PATIENT", "ENDOCRINOLOGIST", "PSYCHIATRIST"] as Role[]).map((r) => (
+              <div className="flex gap-3 mt-2">
+                {(["PATIENT", "DOCTOR"] as Role[]).map((r) => (
                   <button
                     key={r}
                     type="button"
-                    onClick={() => setRole(r)}
-                    className={`flex-1 sm:flex-none text-center px-5 py-2 rounded-full text-xs border transition ${
+                    onClick={() => {
+                      setRole(r);
+                      setSpecialty("");
+                      setCustomSpecialty("");
+                    }}
+                    className={`flex-1 text-center px-5 py-2 rounded-full text-xs border transition ${
                       role === r
                         ? "bg-[#2d3c59] text-white"
                         : "border-[#2d3c59]/20 text-[#2d3c59] hover:bg-[#2d3c59]/10"
                     }`}
                   >
-                    {roleLabels[r]}
+                    {r === "PATIENT" ? "Patient" : "Doctor"}
                   </button>
                 ))}
               </div>
             </div>
+
+            {/* Specialty — only for doctors */}
+            {role === "DOCTOR" && (
+              <div className="fade-3 space-y-2">
+                <select
+                  value={specialty}
+                  onChange={(e) => {
+                    setSpecialty(e.target.value);
+                    setCustomSpecialty("");
+                  }}
+                  className={inputCls}
+                >
+                  <option value="">Select specialization</option>
+                  {SPECIALTIES.map((s) => (
+                    <option key={s} value={s}>{s}</option>
+                  ))}
+                </select>
+
+                {specialty === "Other" && (
+                  <input
+                    type="text"
+                    placeholder="Enter your specialization"
+                    value={customSpecialty}
+                    onChange={(e) => setCustomSpecialty(e.target.value)}
+                    className={inputCls}
+                  />
+                )}
+              </div>
+            )}
 
             {/* State */}
             <div className="fade-3">
@@ -242,7 +282,7 @@ export default function RegisterPage() {
               />
             </div>
 
-            {/* FIX 4: Button with proper disabled state */}
+            {/* Submit */}
             <div className="fade-5 pt-2">
               <button
                 type="submit"
@@ -251,9 +291,7 @@ export default function RegisterPage() {
                   ${loading
                     ? "bg-[#2d3c59]/50 cursor-not-allowed"
                     : "bg-[#2d3c59] hover:bg-[#3d5070] hover:-translate-y-[1px] active:scale-[0.97]"
-                  }
-                  text-white
-                `}
+                  } text-white`}
               >
                 {loading ? "Creating..." : "Create account"}
               </button>

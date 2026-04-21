@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
@@ -93,6 +94,7 @@ Treatment involves lifelong replacement of the missing hormones—typically hydr
 ];
 
 async function main() {
+  // Seed blog posts
   for (const post of posts) {
     await prisma.post.upsert({
       where: { slug: post.slug },
@@ -104,6 +106,33 @@ async function main() {
     });
   }
   console.log("Seeded 5 blog posts.");
+
+  // Seed test users
+  const hashedPassword = await bcrypt.hash("password123", 10);
+  
+  const patientUser = await prisma.user.upsert({
+    where: { email: "patient@test.com" },
+    create: {
+      email: "patient@test.com",
+      name: "Test Patient",
+      password: hashedPassword,
+      role: "PATIENT",
+    },
+    update: {},
+  });
+  console.log("Seeded test patient user:", patientUser.email);
+
+  const doctorUser = await prisma.user.upsert({
+    where: { email: "doctor@test.com" },
+    create: {
+      email: "doctor@test.com",
+      name: "Test Doctor",
+      password: hashedPassword,
+      role: "DOCTOR",
+    },
+    update: {},
+  });
+  console.log("Seeded test doctor user:", doctorUser.email);
 }
 
 main()

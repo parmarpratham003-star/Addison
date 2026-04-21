@@ -164,12 +164,7 @@ function LoginForm() {
                 >
                   Password
                 </label>
-                <Link
-                  href="/forgot-password"
-                  className="text-[0.65rem] text-[#2d3c59] hover:text-[#2d3c59]/65 transition-colors"
-                >
-                  Forgot?
-                </Link>
+                
               </div>
               <input
                 id="password"

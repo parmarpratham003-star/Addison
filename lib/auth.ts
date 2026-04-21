@@ -1,4 +1,3 @@
-import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import { prisma } from "@/lib/prisma";
 import bcrypt from "bcryptjs";
@@ -37,11 +36,17 @@ export const authOptions = {
 
   session: {
     strategy: "jwt" as const,
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
+
+  jwt: {
+    maxAge: 30 * 24 * 60 * 60, // 30 days
   },
 
   callbacks: {
     async jwt({ token, user }: any) {
       if (user) {
+        token.id = user.id;
         token.role = user.role;
       }
       return token;
@@ -49,6 +54,7 @@ export const authOptions = {
 
     async session({ session, token }: any) {
       if (session.user) {
+        session.user.id = token.id;
         session.user.role = token.role;
       }
       return session;
@@ -57,5 +63,8 @@ export const authOptions = {
 
   pages: {
     signIn: "/login",
+    error: "/login",
   },
+
+  secret: process.env.NEXTAUTH_SECRET,
 };

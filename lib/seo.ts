@@ -29,6 +29,7 @@ export function createPageMetadata({
   const url = path ? `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}` : SITE_URL;
 
   const metadata: Metadata = {
+    metadataBase: new URL(SITE_URL),
     title,
     description,
     openGraph: {

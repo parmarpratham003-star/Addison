@@ -57,7 +57,6 @@ export function Header() {
 
   const closeMobileMenu = () => setMobileMenuOpen(false);
 
-  // Underline span — wraps ONLY the text so w-full = text width, not container width
   const U = ({ children }: { children: React.ReactNode }) => (
     <span
       className="relative
@@ -92,7 +91,7 @@ export function Header() {
           transform: isOpen ? "translateY(0) scale(1)" : "translateY(-8px) scale(0.97)",
           transition: "opacity 220ms cubic-bezier(0.16,1,0.3,1), transform 220ms cubic-bezier(0.16,1,0.3,1)",
         }}
-        className="absolute left-0 top-full z-50 min-w-[190px] rounded-xl pt-5 pb-2
+        className="absolute left-0 top-full z-50 w-max min-w-[160px] rounded-xl pt-4 pb-1.5
           bg-[#f5f6e9]/95 border border-[rgba(45,60,89,0.1)]
           shadow-[0_8px_30px_rgba(45,60,89,0.12)]"
       >
@@ -110,7 +109,7 @@ export function Header() {
               transition: "opacity 200ms ease, transform 200ms ease, background 150ms ease, padding-left 150ms ease",
               display: "block",
             }}
-            className="px-5 py-2.5 text-[#2d3c59] text-[0.8125rem] tracking-[0.02em]
+            className="px-5 py-2.5 text-[#2d3c59] text-[0.8125rem] tracking-[0.02em] whitespace-nowrap
               hover:bg-[rgba(45,60,89,0.07)] hover:pl-[22px]"
           >
             {link.label}
@@ -120,11 +119,23 @@ export function Header() {
     );
   }
 
+  // ✅ All nav items use same height, line-height, and vertical alignment
   const navItemBase = `
-    group inline-flex items-center gap-1
+    group inline-flex items-center justify-center gap-1
+    h-8
     text-[#2d3c59] text-[12px] tracking-[0.04em] uppercase
     opacity-80 hover:opacity-100 transition-opacity duration-200
-    outline-none focus:outline-none
+    outline-none focus:outline-none leading-none
+  `;
+
+  const authBtnBase = `
+    inline-flex items-center justify-center
+    h-8 px-4
+    text-[0.72rem] font-medium tracking-[0.05em] uppercase leading-none
+    bg-transparent text-[#2d3c59]
+    border border-[rgba(45,60,89,0.35)]
+    hover:bg-[rgba(45,60,89,0.07)] hover:border-[rgba(45,60,89,0.6)]
+    transition-all duration-150
   `;
 
   return (
@@ -163,8 +174,12 @@ export function Header() {
             </span>
           </Link>
 
-          {/* Desktop nav */}
-          <div ref={dropdownRef} className="hidden md:flex items-center gap-7">
+          {/* ✅ Desktop nav — single flex row, all items aligned to center */}
+          <div
+            ref={dropdownRef}
+            className="hidden md:flex items-center gap-7"
+            style={{ height: "40px" }} // fixed row height so all items align
+          >
 
             {/* Home */}
             <Link href="/" className={navItemBase}>
@@ -173,7 +188,7 @@ export function Header() {
 
             {/* About Addison's dropdown */}
             <div
-              className="relative"
+              className="relative flex items-center h-full"
               onMouseEnter={() => setOpenDropdown("about")}
               onMouseLeave={() => setOpenDropdown(null)}
             >
@@ -203,7 +218,7 @@ export function Header() {
 
             {/* Crisis dropdown */}
             <div
-              className="relative"
+              className="relative flex items-center h-full"
               onMouseEnter={() => setOpenDropdown("crisis")}
               onMouseLeave={() => setOpenDropdown(null)}
             >
@@ -233,7 +248,7 @@ export function Header() {
 
             {/* Community dropdown */}
             <div
-              className="relative"
+              className="relative flex items-center h-full"
               onMouseEnter={() => setOpenDropdown("community")}
               onMouseLeave={() => setOpenDropdown(null)}
             >
@@ -261,51 +276,32 @@ export function Header() {
               />
             </div>
 
-            {/* Auth buttons */}
-            <div className="ml-6 flex items-center gap-2.5">
+            {/* ✅ Auth buttons — same h-8 height, vertically centered with divider */}
+            <div className="flex items-center gap-2.5 ml-6">
               <div className="h-5 w-[0.5px] bg-[#2d3c59] opacity-20 mr-1" />
+
               {status === "authenticated" ? (
                 <>
                   <Link
                     href="/dashboard"
-                    className="px-4 py-1.5 text-[0.72rem] font-medium tracking-[0.05em] uppercase
-                    bg-transparent text-[#2d3c59]
-                    border border-[rgba(45,60,89,0.35)]
-                    hover:bg-[rgba(45,60,89,0.07)] hover:border-[rgba(45,60,89,0.6)]
-                    transition-all duration-150"
-                  style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif", borderRadius: "3px" }}
-                >
+                    className={authBtnBase}
+                    style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif", borderRadius: "3px" }}
+                  >
                     Dashboard
                   </Link>
-                  <Link
-                    href="/"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      signOut({ callbackUrl: "/" });
-                    }}
-                    className="
-                      inline-flex items-center justify-center
-                      px-4 py-1.5 h-[32px]
-                      text-[0.72rem] font-medium tracking-[0.05em] uppercase
-                      bg-transparent text-[#2d3c59]
-                      border border-[rgba(45,60,89,0.35)]
-                      hover:bg-[rgba(45,60,89,0.07)]
-                      hover:border-[rgba(45,60,89,0.6)]
-                      transition-all duration-150
-                    "
+                  <button
+                    type="button"
+                    onClick={() => signOut({ callbackUrl: "/" })}
+                    className={authBtnBase}
                     style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif", borderRadius: "3px" }}
                   >
                     Sign out
-                  </Link>
+                  </button>
                 </>
               ) : (
                 <Link
                   href="/login"
-                  className="px-4 py-1.5 text-[0.72rem] font-medium tracking-[0.05em] uppercase
-                    bg-transparent text-[#2d3c59]
-                    border border-[rgba(45,60,89,0.35)]
-                    hover:bg-[rgba(45,60,89,0.07)] hover:border-[rgba(45,60,89,0.6)]
-                    transition-all duration-150"
+                  className={authBtnBase}
                   style={{ fontFamily: "var(--font-outfit), Outfit, sans-serif", borderRadius: "3px" }}
                 >
                   Sign in
@@ -343,7 +339,6 @@ export function Header() {
         >
           <div className="flex flex-col overflow-y-auto px-5 py-4 gap-1">
 
-            {/* Home */}
             <Link
               href="/"
               onClick={closeMobileMenu}
@@ -355,10 +350,8 @@ export function Header() {
               Home
             </Link>
 
-            {/* Divider */}
             <div className="h-px bg-[rgba(45,60,89,0.08)] my-1" />
 
-            {/* About Addison's */}
             <div className="flex flex-col gap-0.5">
               <p className="px-4 pt-2 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-[#2d3c59] opacity-40">
                 About Addison&apos;s
@@ -376,10 +369,8 @@ export function Header() {
               ))}
             </div>
 
-            {/* Divider */}
             <div className="h-px bg-[rgba(45,60,89,0.08)] my-1" />
 
-            {/* Crisis */}
             <div className="flex flex-col gap-0.5">
               <p className="px-4 pt-2 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-[#2d3c59] opacity-40">
                 Crisis
@@ -397,10 +388,8 @@ export function Header() {
               ))}
             </div>
 
-            {/* Divider */}
             <div className="h-px bg-[rgba(45,60,89,0.08)] my-1" />
 
-            {/* Community */}
             <div className="flex flex-col gap-0.5">
               <p className="px-4 pt-2 pb-1 text-[0.62rem] font-semibold uppercase tracking-[0.14em] text-[#2d3c59] opacity-40">
                 Community
@@ -418,7 +407,6 @@ export function Header() {
               ))}
             </div>
 
-            {/* Auth section */}
             <div className="mt-3 pt-4 flex flex-col gap-2.5 border-t border-[rgba(45,60,89,0.10)]">
               {status === "authenticated" ? (
                 <>
